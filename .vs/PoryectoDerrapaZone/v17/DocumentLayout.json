@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{9C95C345-A0E5-450F-B809-1C3696541225}|PoryectoDerrapaZone.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\poryectoderrapazone\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{9C95C345-A0E5-450F-B809-1C3696541225}|PoryectoDerrapaZone.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C95C345-A0E5-450F-B809-1C3696541225}|PoryectoDerrapaZone.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\poryectoderrapazone\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C95C345-A0E5-450F-B809-1C3696541225}|PoryectoDerrapaZone.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -27,6 +31,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\PoryectoDerrapaZone\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\PoryectoDerrapaZone\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAgwBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T06:06:19.756Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

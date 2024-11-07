@@ -1,0 +1,10 @@
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.csproj.AssemblyReference.cache
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.Form1.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.Properties.Resources.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.csproj.GenerateResource.cache
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.csproj.CoreCompileInputs.cache
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\bin\Debug\PoryectoDerrapaZone.exe.config
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\bin\Debug\PoryectoDerrapaZone.exe
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\bin\Debug\PoryectoDerrapaZone.pdb
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.exe
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\PoryectoDerrapaZone\obj\Debug\PoryectoDerrapaZone.pdb
