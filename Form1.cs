@@ -16,5 +16,16 @@ namespace ProyectoBasesII
         {
             InitializeComponent();
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void lblCleanCampos_Click(object sender, EventArgs e)
+        {
+            txtUser.Clear();
+            txtPassword.Clear();
+        }
     }
 }
