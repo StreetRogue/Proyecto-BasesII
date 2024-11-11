@@ -10,23 +10,18 @@ using System.Windows.Forms;
 
 namespace ProyectoBasesII
 {
-    public partial class Form1 : Form
+    public partial class DashboardAdmin : Form
     {
-        public Form1()
+        public DashboardAdmin()
         {
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.None;
+
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnMenu_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
 
-        private void lblCleanCampos_Click(object sender, EventArgs e)
-        {
-            txtUser.Clear();
-            txtPassword.Clear();
         }
     }
 }
