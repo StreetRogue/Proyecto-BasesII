@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProyectoBasesII.UserControls;
+
 
 namespace ProyectoBasesII
 {
@@ -17,6 +19,7 @@ namespace ProyectoBasesII
         {
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.None;
+            InicializarReloj();
 
         }
 
@@ -30,9 +33,21 @@ namespace ProyectoBasesII
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-        
+
 
         // METODOS Y FUNCIONES
+
+        private void LoadUserControl(UserControl userControl)
+        {
+            // Limpiar el panel para evitar superposición de controles
+            panelDesktop.Controls.Clear();
+
+            // Configurar el UserControl para que se ajuste al tamaño del panel
+            userControl.Dock = DockStyle.Fill;
+
+            // Agregar el UserControl al panel
+            panelDesktop.Controls.Add(userControl);
+        }
 
         private void btnMenu_Click(object sender, EventArgs e)
         {
@@ -53,18 +68,6 @@ namespace ProyectoBasesII
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void btnMaximizar_Click(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Normal)
-            {
-                this.WindowState = FormWindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
         }
 
         private void CollapseMenu()
@@ -95,6 +98,48 @@ namespace ProyectoBasesII
                     menuButton.TextImageRelation = TextImageRelation.ImageBeforeText;
                 }
             }
+        }
+
+        private void btnRegEjemplar_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarEjemplarControl());
+        }
+
+        private void btnRegistrarCliente_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarClienteControl());
+        }
+
+        private void InicializarReloj()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 1000; // Actualiza cada segundo
+            timer.Tick += new EventHandler(ActualizarHora);
+            timer.Start();
+        }
+
+        private void ActualizarHora(object sender, EventArgs e)
+        {
+            // Muestra la hora actual en un Label o TextBox
+            lblHoraActual.Text = DateTime.Now.ToString("h:mm:ss");
+        }
+
+        private void Logo_Click(object sender, EventArgs e)
+        {
+           DashboardAdmin admin = new DashboardAdmin();
+            admin.Show();
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            this.Close(); // Cierra Formulario2
+            Form1 form1 = new Form1();
+            form1.Show();
+        }
+
+        private void btnProv_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ProovedoresControl());
         }
     }
 }
