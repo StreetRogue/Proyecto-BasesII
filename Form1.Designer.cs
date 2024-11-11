@@ -90,6 +90,7 @@
             this.btnIniciarSesion.Text = "Iniciar Sesion";
             this.btnIniciarSesion.TextColor = System.Drawing.Color.White;
             this.btnIniciarSesion.UseVisualStyleBackColor = false;
+            this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
             // 
             // lblCleanCampos
             // 
@@ -123,9 +124,9 @@
             this.txtPassword.Location = new System.Drawing.Point(67, 288);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(204, 30);
             this.txtPassword.TabIndex = 13;
-            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // btnExit
             // 
@@ -204,6 +205,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconUserLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconLoginCar)).EndInit();
