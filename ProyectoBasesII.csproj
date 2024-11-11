@@ -109,6 +109,18 @@
     <Compile Include="DashboardAdmin.Designer.cs">
       <DependentUpon>DashboardAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="DashboardTecnico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardTecnico.Designer.cs">
+      <DependentUpon>DashboardTecnico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardVendedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardVendedor.Designer.cs">
+      <DependentUpon>DashboardVendedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
