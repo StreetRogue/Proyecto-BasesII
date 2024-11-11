@@ -38,3 +38,6 @@ C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\bin\Debug\Sys
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\Proyecto.47CC26B5.Up2Date
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.exe
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.pdb
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarEjemplarControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarClienteControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ProovedoresControl.resources
