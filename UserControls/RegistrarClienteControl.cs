@@ -17,6 +17,6 @@ namespace ProyectoBasesII.UserControls
             InitializeComponent();
         }
 
-       
+        
     }
 }

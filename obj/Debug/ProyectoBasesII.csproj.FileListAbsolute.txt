@@ -41,3 +41,5 @@ C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\Pro
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarEjemplarControl.resources
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarClienteControl.resources
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ProovedoresControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarProovedorControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.InventarioEjemplarControl.resources
