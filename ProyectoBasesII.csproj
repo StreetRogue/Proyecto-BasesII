@@ -223,6 +223,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Scripts SQL\Proyecto_DerrapaZone.sql" />
+    <Content Include="Scripts SQL\Script de Inserts.sql" />
+    <Content Include="Scripts SQL\ScriptCreacionDerrapaZone.sql" />
     <None Include="Resources\ImgEmpleados.png" />
     <None Include="Resources\ImgProv.png" />
     <None Include="Resources\ImgCarros.png" />
