@@ -139,7 +139,25 @@ namespace ProyectoBasesII
 
         private void btnProv_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ProovedoresControl());
+            // Instanciar ProovedoresControl
+            ProovedoresControl ProovedoresControl = new ProovedoresControl();
+
+            // Suscribirse al evento
+            ProovedoresControl.SolicitarRegistrarProovedores += ProovedoresControl_SolicitarRegistrarProovedores;
+
+            // Cargar ProovedoresControl en el panel
+            LoadUserControl(ProovedoresControl);
+        }
+
+        private void ProovedoresControl_SolicitarRegistrarProovedores(object sender, EventArgs e)
+        {
+            // Cargar RegistrarProovedoresControl en el panel
+            LoadUserControl(new RegistrarProovedorControl());
+        }
+
+        private void btnGestionarEjem_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new InventarioEjemplarControl());
         }
     }
 }

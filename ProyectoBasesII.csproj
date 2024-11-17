@@ -130,6 +130,12 @@
     <Compile Include="Logica\assetLogin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\InventarioEjemplarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\InventarioEjemplarControl.Designer.cs">
+      <DependentUpon>InventarioEjemplarControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProovedoresControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -148,6 +154,12 @@
     <Compile Include="UserControls\RegistrarEjemplarControl.Designer.cs">
       <DependentUpon>RegistrarEjemplarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RegistrarProovedorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RegistrarProovedorControl.Designer.cs">
+      <DependentUpon>RegistrarProovedorControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DashboardAdmin.resx">
       <DependentUpon>DashboardAdmin.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +171,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\InventarioEjemplarControl.resx">
+      <DependentUpon>InventarioEjemplarControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProovedoresControl.resx">
       <DependentUpon>ProovedoresControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\RegistrarEjemplarControl.resx">
       <DependentUpon>RegistrarEjemplarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RegistrarProovedorControl.resx">
+      <DependentUpon>RegistrarProovedorControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
@@ -195,6 +213,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\ImgProv.png" />
+    <None Include="Resources\ImgCarros.png" />
+    <None Include="Resources\lending.png" />
     <None Include="Resources\DerrapaZone.png" />
     <None Include="Resources\addEjemplar.ico" />
     <Content Include="Resources\addEjemplar.png" />

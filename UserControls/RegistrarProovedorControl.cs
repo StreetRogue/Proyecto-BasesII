@@ -8,23 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace ProyectoBasesII.UserControls
 {
-    public partial class ProovedoresControl : UserControl
-    
+    public partial class RegistrarProovedorControl : UserControl
     {
-
-        public event EventHandler SolicitarRegistrarProovedores;
-
-        public ProovedoresControl()
+        public RegistrarProovedorControl()
         {
             InitializeComponent();
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            SolicitarRegistrarProovedores?.Invoke(this, EventArgs.Empty);
         }
     }
 }

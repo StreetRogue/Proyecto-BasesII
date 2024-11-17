@@ -14,7 +14,7 @@ namespace ProyectoBasesII.Logica
 
         public string ValidarCredenciales(string nombreUsuario, string password)
         {
-            string consulta = "SELECT r.nombreRol FROM tblUsuarios u " +
+            string consulta = "SELECT r.nombreRol FROM tblUsuario u " +
                               "JOIN tblRol r ON u.idRol = r.idRol " +
                               "WHERE u.nombreUsuario = '" + nombreUsuario + "' " +
                               "AND u.passwordUsuario = '" + password + "'";
