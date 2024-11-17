@@ -63,5 +63,37 @@ namespace ProyectoBasesII.AccesoDatos
 
             return miDS;
         }
+
+        public int ejecutarSP(string procedimientoAlmacenado, OracleParameter[] parametros)
+        {
+            int filasAfectadas = 0;
+
+            // Crear conexión
+            OracleConnection miConexion = new OracleConnection(cadenaConexion);
+
+            // Crear comando para ejecutar el procedimiento almacenado
+            OracleCommand miComando = new OracleCommand(procedimientoAlmacenado, miConexion);
+            miComando.CommandType = CommandType.StoredProcedure;
+
+            // Agregar parámetros al comando
+            if (parametros != null)
+            {
+                foreach (var param in parametros)
+                {
+                    miComando.Parameters.Add(param);
+                }
+            }
+
+            // Abrir conexión
+            miConexion.Open();
+
+            // Ejecutar el procedimiento almacenado
+            filasAfectadas = miComando.ExecuteNonQuery();
+
+            // Cerrar conexión
+            miConexion.Close();
+
+            return filasAfectadas;
+        }
     }
 }

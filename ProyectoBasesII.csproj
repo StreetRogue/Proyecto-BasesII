@@ -127,6 +127,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logica\assetEjemplar.cs" />
     <Compile Include="Logica\assetEmpleado.cs" />
     <Compile Include="Logica\assetLogin.cs" />
     <Compile Include="Program.cs" />
