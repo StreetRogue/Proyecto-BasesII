@@ -127,6 +127,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logica\assetEmpleado.cs" />
     <Compile Include="Logica\assetLogin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,6 +154,12 @@
     </Compile>
     <Compile Include="UserControls\RegistrarEjemplarControl.Designer.cs">
       <DependentUpon>RegistrarEjemplarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RegistrarEmpleadoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RegistrarEmpleadoControl.Designer.cs">
+      <DependentUpon>RegistrarEmpleadoControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\RegistrarProovedorControl.cs">
       <SubType>UserControl</SubType>
@@ -182,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\RegistrarEjemplarControl.resx">
       <DependentUpon>RegistrarEjemplarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RegistrarEmpleadoControl.resx">
+      <DependentUpon>RegistrarEmpleadoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\RegistrarProovedorControl.resx">
       <DependentUpon>RegistrarProovedorControl.cs</DependentUpon>
@@ -213,6 +223,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\ImgEmpleados.png" />
     <None Include="Resources\ImgProv.png" />
     <None Include="Resources\ImgCarros.png" />
     <None Include="Resources\lending.png" />

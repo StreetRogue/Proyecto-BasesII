@@ -123,6 +123,16 @@ namespace ProyectoBasesII.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ImgEmpleados {
+            get {
+                object obj = ResourceManager.GetObject("ImgEmpleados", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImgProv {
             get {
                 object obj = ResourceManager.GetObject("ImgProv", resourceCulture);
