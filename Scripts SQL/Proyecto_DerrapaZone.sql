@@ -34,8 +34,6 @@ END;
 
 
 /* Disparador para generar idEjemplar */
-
-
 CREATE OR REPLACE TRIGGER trg_validate_and_set_idEjemplar
 BEFORE INSERT ON tblEjemplar
 FOR EACH ROW
@@ -777,14 +775,18 @@ CREATE OR REPLACE PROCEDURE InsertarEjemplares(
     p_idVehiculo   IN NUMBER,
     p_idProveedor  IN NUMBER,
     p_estado       IN VARCHAR2,
-    p_cantidad     IN NUMBER
-) AS
+    p_cantidad     IN NUMBER,
+    p_filasInsertadas OUT NUMBER
+)
+AS
 BEGIN
+    p_filasInsertadas := 0; -- Inicializar el contador
     FOR i IN 1..p_cantidad LOOP
         INSERT INTO tblEjemplar (idVehiculo, idProveedor, estadoEjemplar)
         VALUES (p_idVehiculo, p_idProveedor, p_estado);
+        p_filasInsertadas := p_filasInsertadas + 1; -- Incrementar el contador
     END LOOP;
 END;
-/
+
 
 DROP PROCEDURE InsertarEjemplares;

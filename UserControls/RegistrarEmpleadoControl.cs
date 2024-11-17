@@ -19,7 +19,6 @@ namespace ProyectoBasesII.UserControls
             InitializeComponent();
         }
 
-
         int resultado;
         assetEmpleado empleado = new assetEmpleado();
 

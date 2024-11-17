@@ -97,7 +97,7 @@ VALUES (1, 1);
 INSERT INTO tblSe_RealizaServicioPostVenta (idServicio, idVenta)
 VALUES (2, 2);
 
-
+commit;
 /--------------------------------------------------------------/
 /* UPDATES:                                                        */
 /-------------------------------------------------------------/
