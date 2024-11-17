@@ -41,6 +41,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnCerrar = new FontAwesome.Sharp.IconButton();
+            this.btnRegEmpleado = new FontAwesome.Sharp.IconButton();
             this.btnLogOut = new FontAwesome.Sharp.IconButton();
             this.btnServicios = new FontAwesome.Sharp.IconButton();
             this.btnVentas = new FontAwesome.Sharp.IconButton();
@@ -62,6 +63,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.panelMenu.Controls.Add(this.btnRegEmpleado);
             this.panelMenu.Controls.Add(this.btnLogOut);
             this.panelMenu.Controls.Add(this.btnServicios);
             this.panelMenu.Controls.Add(this.btnVentas);
@@ -202,6 +204,24 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // btnRegEmpleado
+            // 
+            this.btnRegEmpleado.FlatAppearance.BorderSize = 0;
+            this.btnRegEmpleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegEmpleado.IconChar = FontAwesome.Sharp.IconChar.ClipboardUser;
+            this.btnRegEmpleado.IconColor = System.Drawing.Color.White;
+            this.btnRegEmpleado.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRegEmpleado.IconSize = 28;
+            this.btnRegEmpleado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegEmpleado.Location = new System.Drawing.Point(0, 118);
+            this.btnRegEmpleado.Name = "btnRegEmpleado";
+            this.btnRegEmpleado.Size = new System.Drawing.Size(200, 35);
+            this.btnRegEmpleado.TabIndex = 10;
+            this.btnRegEmpleado.Tag = "Registrar Empleado";
+            this.btnRegEmpleado.Text = "Registrar Empleado";
+            this.btnRegEmpleado.UseVisualStyleBackColor = true;
+            this.btnRegEmpleado.Click += new System.EventHandler(this.btnRegEmpleado_Click);
+            // 
             // btnLogOut
             // 
             this.btnLogOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -230,7 +250,7 @@
             this.btnServicios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnServicios.IconSize = 32;
             this.btnServicios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnServicios.Location = new System.Drawing.Point(0, 424);
+            this.btnServicios.Location = new System.Drawing.Point(0, 446);
             this.btnServicios.Name = "btnServicios";
             this.btnServicios.Size = new System.Drawing.Size(200, 35);
             this.btnServicios.TabIndex = 8;
@@ -247,7 +267,7 @@
             this.btnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnVentas.IconSize = 32;
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(0, 383);
+            this.btnVentas.Location = new System.Drawing.Point(0, 405);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(200, 35);
             this.btnVentas.TabIndex = 7;
@@ -264,7 +284,7 @@
             this.btnProv.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnProv.IconSize = 35;
             this.btnProv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProv.Location = new System.Drawing.Point(0, 342);
+            this.btnProv.Location = new System.Drawing.Point(0, 364);
             this.btnProv.Name = "btnProv";
             this.btnProv.Size = new System.Drawing.Size(200, 35);
             this.btnProv.TabIndex = 6;
@@ -282,7 +302,7 @@
             this.btnGestionarEjem.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnGestionarEjem.IconSize = 32;
             this.btnGestionarEjem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGestionarEjem.Location = new System.Drawing.Point(0, 301);
+            this.btnGestionarEjem.Location = new System.Drawing.Point(0, 323);
             this.btnGestionarEjem.Name = "btnGestionarEjem";
             this.btnGestionarEjem.Size = new System.Drawing.Size(200, 35);
             this.btnGestionarEjem.TabIndex = 5;
@@ -300,7 +320,7 @@
             this.btnRegistrarServicio.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRegistrarServicio.IconSize = 32;
             this.btnRegistrarServicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarServicio.Location = new System.Drawing.Point(0, 260);
+            this.btnRegistrarServicio.Location = new System.Drawing.Point(0, 282);
             this.btnRegistrarServicio.Name = "btnRegistrarServicio";
             this.btnRegistrarServicio.Size = new System.Drawing.Size(200, 35);
             this.btnRegistrarServicio.TabIndex = 4;
@@ -317,7 +337,7 @@
             this.btnRegistrarVenta.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRegistrarVenta.IconSize = 35;
             this.btnRegistrarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarVenta.Location = new System.Drawing.Point(0, 219);
+            this.btnRegistrarVenta.Location = new System.Drawing.Point(0, 241);
             this.btnRegistrarVenta.Name = "btnRegistrarVenta";
             this.btnRegistrarVenta.Size = new System.Drawing.Size(200, 35);
             this.btnRegistrarVenta.TabIndex = 2;
@@ -334,7 +354,7 @@
             this.btnRegistrarCliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnRegistrarCliente.IconSize = 35;
             this.btnRegistrarCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarCliente.Location = new System.Drawing.Point(0, 137);
+            this.btnRegistrarCliente.Location = new System.Drawing.Point(0, 159);
             this.btnRegistrarCliente.Name = "btnRegistrarCliente";
             this.btnRegistrarCliente.Size = new System.Drawing.Size(200, 35);
             this.btnRegistrarCliente.TabIndex = 1;
@@ -355,7 +375,7 @@
             this.btnRegEjemplar.ForeColor = System.Drawing.Color.White;
             this.btnRegEjemplar.Image = global::ProyectoBasesII.Properties.Resources.addEjemplar;
             this.btnRegEjemplar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegEjemplar.Location = new System.Drawing.Point(0, 178);
+            this.btnRegEjemplar.Location = new System.Drawing.Point(0, 200);
             this.btnRegEjemplar.Name = "btnRegEjemplar";
             this.btnRegEjemplar.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.btnRegEjemplar.Size = new System.Drawing.Size(200, 35);
@@ -442,5 +462,6 @@
         private System.Windows.Forms.Label lblHoraActual;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblTextHora;
+        private FontAwesome.Sharp.IconButton btnRegEmpleado;
     }
 }

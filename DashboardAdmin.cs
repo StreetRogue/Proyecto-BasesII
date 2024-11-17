@@ -159,5 +159,10 @@ namespace ProyectoBasesII
         {
             LoadUserControl(new InventarioEjemplarControl());
         }
+
+        private void btnRegEmpleado_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarEmpleadoControl());
+        }
     }
 }
