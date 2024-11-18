@@ -65,12 +65,28 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado
-            dt.ejecutarSP("InsertarEjemplares", parametros);
+            dt.ejecutarSP("INSERTAREJEMPLARES", parametros);
 
             // Obtener el valor del parámetro de salida
             filasInsertadas = int.Parse(parametros[4].Value.ToString());
 
             return filasInsertadas;
+        }
+
+        public DataSet inventarioEjemplares(int idEjemplar)
+        {
+            DataSet ds = new DataSet();
+            string consulta;
+            if (idEjemplar == -1)
+            {
+                consulta = "SELECT * from tblEjemplar inner join tblVehiculo on tblEjemplar.idVehiculo = tblVehiculo.idVehiculo inner join tblProveedor on tblVehiculo.idProveedor = tblProveedor.idProveedor";
+            }
+            else
+            {
+                consulta = "SELECT * from tblEjemplar inner join tblVehiculo on tblEjemplar.idVehiculo = tblVehiculo.idVehiculo inner join tblProveedor on tblVehiculo.idProveedor = tblProveedor.idProveedor WHERE idEjemplar =" + idEjemplar + "";
+            }
+            ds = dt.ejecutarSelect(consulta);
+            return ds;
         }
 
     }
