@@ -63,6 +63,26 @@ namespace ProyectoBasesII.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addCar {
+            get {
+                object obj = ResourceManager.GetObject("addCar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addCar1 {
+            get {
+                object obj = ResourceManager.GetObject("addCar1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap addEjemplar {
             get {
                 object obj = ResourceManager.GetObject("addEjemplar", resourceCulture);
@@ -136,6 +156,16 @@ namespace ProyectoBasesII.Properties {
         internal static System.Drawing.Bitmap ImgProv {
             get {
                 object obj = ResourceManager.GetObject("ImgProv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap imgVehiculo {
+            get {
+                object obj = ResourceManager.GetObject("imgVehiculo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

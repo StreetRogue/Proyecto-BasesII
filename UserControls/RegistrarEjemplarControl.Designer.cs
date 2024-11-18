@@ -80,7 +80,7 @@
             this.cbxProovedor.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxProovedor.ListTextColor = System.Drawing.Color.DimGray;
             this.cbxProovedor.Location = new System.Drawing.Point(409, 160);
-            this.cbxProovedor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxProovedor.Margin = new System.Windows.Forms.Padding(4);
             this.cbxProovedor.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxProovedor.Name = "cbxProovedor";
             this.cbxProovedor.Padding = new System.Windows.Forms.Padding(1);
@@ -88,6 +88,7 @@
             this.cbxProovedor.Size = new System.Drawing.Size(287, 43);
             this.cbxProovedor.TabIndex = 4;
             this.cbxProovedor.Texts = "";
+            
             // 
             // lblRegEjemplar
             // 
@@ -112,7 +113,7 @@
             this.btnRegistrarEjem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnRegistrarEjem.ForeColor = System.Drawing.Color.White;
             this.btnRegistrarEjem.Location = new System.Drawing.Point(475, 432);
-            this.btnRegistrarEjem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegistrarEjem.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegistrarEjem.Name = "btnRegistrarEjem";
             this.btnRegistrarEjem.Size = new System.Drawing.Size(200, 49);
             this.btnRegistrarEjem.TabIndex = 7;
@@ -138,7 +139,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Location = new System.Drawing.Point(537, 410);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(80, 1);
             this.panel1.TabIndex = 9;
@@ -153,7 +154,7 @@
             this.txtStockEjemplar.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.txtStockEjemplar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtStockEjemplar.Location = new System.Drawing.Point(537, 366);
-            this.txtStockEjemplar.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtStockEjemplar.Margin = new System.Windows.Forms.Padding(5);
             this.txtStockEjemplar.Multiline = false;
             this.txtStockEjemplar.Name = "txtStockEjemplar";
             this.txtStockEjemplar.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
@@ -169,7 +170,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Location = new System.Drawing.Point(375, 114);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1, 384);
             this.panel2.TabIndex = 11;
@@ -186,7 +187,7 @@
             this.cbxVehiculo.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxVehiculo.ListTextColor = System.Drawing.Color.DimGray;
             this.cbxVehiculo.Location = new System.Drawing.Point(409, 263);
-            this.cbxVehiculo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxVehiculo.Margin = new System.Windows.Forms.Padding(4);
             this.cbxVehiculo.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxVehiculo.Name = "cbxVehiculo";
             this.cbxVehiculo.Padding = new System.Windows.Forms.Padding(1);
@@ -199,7 +200,7 @@
             // 
             this.pbxImgCarros.Image = global::ProyectoBasesII.Properties.Resources.ImgCarros;
             this.pbxImgCarros.Location = new System.Drawing.Point(32, 114);
-            this.pbxImgCarros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbxImgCarros.Margin = new System.Windows.Forms.Padding(4);
             this.pbxImgCarros.Name = "pbxImgCarros";
             this.pbxImgCarros.Size = new System.Drawing.Size(335, 384);
             this.pbxImgCarros.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -221,7 +222,7 @@
             this.Controls.Add(this.cbxProovedor);
             this.Controls.Add(this.lblSelecVehiculo);
             this.Controls.Add(this.lblEjemplarProv);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RegistrarEjemplarControl";
             this.Size = new System.Drawing.Size(804, 558);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImgCarros)).EndInit();

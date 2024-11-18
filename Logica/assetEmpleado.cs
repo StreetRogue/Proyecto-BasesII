@@ -35,8 +35,7 @@ namespace ProyectoBasesII.Logica
             resultado = dt.ejecutarDML(consulta);
 
             return resultado;
-
-            
+     
         }
 
 
