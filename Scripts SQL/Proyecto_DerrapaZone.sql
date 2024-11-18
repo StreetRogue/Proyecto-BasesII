@@ -280,7 +280,7 @@ BEGIN
     INTO v_count
     FROM tblVehiculo
     WHERE modeloVehiculo = :NEW.modeloVehiculo
-    AND marcaVehiculo = :NEW.marcaVehiculo;
+    OR marcaVehiculo = :NEW.marcaVehiculo;
 
     IF v_count = 0 THEN
         IF :NEW.idVehiculo IS NULL THEN
@@ -654,16 +654,68 @@ EXCEPTION
 END Consultar_informacion_proveedor;
 /
 
--- BLOQUE ANONIMO
-SET SERVEROUTPUT ON;
-DECLARE
-    v_idProveedor INTEGER := 1;
+---------Procedimiento para c#
+
+CREATE OR REPLACE PROCEDURE Consultar_informacion_proveedor(
+    p_idProveedor IN INTEGER,
+    p_proveedor OUT SYS_REFCURSOR,
+    p_vehiculos OUT SYS_REFCURSOR
+)
+IS
 BEGIN
-    Consultar_informacion_proveedor(p_idProveedor => v_idProveedor);
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error en la prueba: ' || SQLERRM);
-END;
+    -- Retornar información del proveedor
+    OPEN p_proveedor FOR
+        SELECT nombreProveedor, telefonoProveedor, direccionProveedor
+        FROM tblProveedor
+        WHERE idProveedor = p_idProveedor;
+
+    -- Retornar información de los vehículos asociados
+    OPEN p_vehiculos FOR
+        SELECT idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo
+        FROM tblVehiculo
+        WHERE idProveedor = p_idProveedor;
+END Consultar_informacion_proveedor;
+
+
+----Procedimiento para c# *Proveedores
+
+CREATE OR REPLACE PROCEDURE Consultar_todos_los_proveedores (
+    p_proveedor OUT SYS_REFCURSOR,
+    p_vehiculo OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    -- Proveedores
+    OPEN p_proveedor FOR
+    SELECT 
+        idProveedor,
+        nombreProveedor,
+        telefonoProveedor,
+        direccionProveedor
+    FROM tblProveedor;
+    
+    -- Vehículos asociados
+    OPEN p_vehiculo FOR
+    SELECT 
+        idVehiculo,
+        modeloVehiculo,
+        marcaVehiculo,
+        añoVehiculo,
+        idProveedor
+    FROM tblVehiculo;
+END Consultar_todos_los_proveedores;
+
+
+-- BLOQUE ANONIMO
+    SET SERVEROUTPUT ON;
+    DECLARE
+        v_idProveedor INTEGER := 1;
+    BEGIN
+        Consultar_informacion_proveedor(p_idProveedor => v_idProveedor);
+    EXCEPTION
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error en la prueba: ' || SQLERRM);
+    END;
 
 DROP PROCEDURE Consultar_informacion_proveedor;
 

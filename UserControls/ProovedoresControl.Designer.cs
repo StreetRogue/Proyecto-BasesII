@@ -47,15 +47,15 @@
             this.txtBusqueda.BorderSize = 2;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F);
             this.txtBusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtBusqueda.Location = new System.Drawing.Point(42, 71);
-            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBusqueda.Location = new System.Drawing.Point(56, 87);
+            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(5);
             this.txtBusqueda.Multiline = false;
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txtBusqueda.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
             this.txtBusqueda.PasswordChar = false;
             this.txtBusqueda.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtBusqueda.PlaceholderText = "";
-            this.txtBusqueda.Size = new System.Drawing.Size(407, 31);
+            this.txtBusqueda.Size = new System.Drawing.Size(543, 39);
             this.txtBusqueda.TabIndex = 0;
             this.txtBusqueda.Texts = "";
             this.txtBusqueda.UnderlinedStyle = false;
@@ -65,9 +65,11 @@
             this.dtgProovedores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dtgProovedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgProovedores.Location = new System.Drawing.Point(42, 136);
+            this.dtgProovedores.Location = new System.Drawing.Point(56, 167);
+            this.dtgProovedores.Margin = new System.Windows.Forms.Padding(4);
             this.dtgProovedores.Name = "dtgProovedores";
-            this.dtgProovedores.Size = new System.Drawing.Size(486, 326);
+            this.dtgProovedores.RowHeadersWidth = 51;
+            this.dtgProovedores.Size = new System.Drawing.Size(648, 401);
             this.dtgProovedores.TabIndex = 2;
             // 
             // lblTextBusqueda
@@ -76,9 +78,10 @@
             this.lblTextBusqueda.BackColor = System.Drawing.SystemColors.Control;
             this.lblTextBusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblTextBusqueda.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTextBusqueda.Location = new System.Drawing.Point(38, 46);
+            this.lblTextBusqueda.Location = new System.Drawing.Point(51, 57);
+            this.lblTextBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTextBusqueda.Name = "lblTextBusqueda";
-            this.lblTextBusqueda.Size = new System.Drawing.Size(63, 21);
+            this.lblTextBusqueda.Size = new System.Drawing.Size(77, 28);
             this.lblTextBusqueda.TabIndex = 6;
             this.lblTextBusqueda.Text = "Buscar:";
             // 
@@ -91,9 +94,10 @@
             this.btnEliminar.IconColor = System.Drawing.Color.Black;
             this.btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnEliminar.IconSize = 25;
-            this.btnEliminar.Location = new System.Drawing.Point(548, 173);
+            this.btnEliminar.Location = new System.Drawing.Point(731, 213);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(40, 31);
+            this.btnEliminar.Size = new System.Drawing.Size(53, 38);
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.UseVisualStyleBackColor = false;
             // 
@@ -106,9 +110,10 @@
             this.btnAgregar.IconColor = System.Drawing.Color.Black;
             this.btnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAgregar.IconSize = 28;
-            this.btnAgregar.Location = new System.Drawing.Point(548, 136);
+            this.btnAgregar.Location = new System.Drawing.Point(731, 167);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(40, 31);
+            this.btnAgregar.Size = new System.Drawing.Size(53, 38);
             this.btnAgregar.TabIndex = 3;
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -122,25 +127,28 @@
             this.btnBuscar.IconColor = System.Drawing.Color.Black;
             this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscar.IconSize = 30;
-            this.btnBuscar.Location = new System.Drawing.Point(456, 71);
+            this.btnBuscar.Location = new System.Drawing.Point(608, 87);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(72, 31);
+            this.btnBuscar.Size = new System.Drawing.Size(96, 38);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // lblTituloProovedores
             // 
             this.lblTituloProovedores.AutoSize = true;
             this.lblTituloProovedores.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTituloProovedores.Location = new System.Drawing.Point(272, 13);
+            this.lblTituloProovedores.Location = new System.Drawing.Point(363, 16);
+            this.lblTituloProovedores.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTituloProovedores.Name = "lblTituloProovedores";
-            this.lblTituloProovedores.Size = new System.Drawing.Size(130, 25);
+            this.lblTituloProovedores.Size = new System.Drawing.Size(162, 32);
             this.lblTituloProovedores.TabIndex = 7;
             this.lblTituloProovedores.Text = "Proovedores";
             // 
             // ProovedoresControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTituloProovedores);
             this.Controls.Add(this.lblTextBusqueda);
@@ -149,8 +157,10 @@
             this.Controls.Add(this.dtgProovedores);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBusqueda);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProovedoresControl";
-            this.Size = new System.Drawing.Size(674, 494);
+            this.Size = new System.Drawing.Size(899, 608);
+            this.Load += new System.EventHandler(this.ProovedoresControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgProovedores)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

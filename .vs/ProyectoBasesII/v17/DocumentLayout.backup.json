@@ -1,82 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\",
+  "WorkspaceRootPath": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\logica\\assetempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\usercontrols\\registrarejemplarcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarejemplarcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\usercontrols\\registrarvehiculocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarvehiculocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\registrarproovedorcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarproovedorcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\usercontrols\\registrarvehiculocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarvehiculocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\usercontrols\\registrarproovedorcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarproovedorcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarempleadocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\kthn1\\onedrive\\escritorio\\proyecto-basesii\\dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,246 +30,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Datos.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeDocumentMoniker": "AccesoDatos\\Datos.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeToolTip": "AccesoDatos\\Datos.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAiwGMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T22:06:41.387Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "assetProveedor.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
-              "RelativeDocumentMoniker": "Logica\\assetProveedor.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
-              "RelativeToolTip": "Logica\\assetProveedor.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAIwDAAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "RegistrarEmpleadoControl.cs",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarEmpleadoControl.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
+              "RelativeToolTip": "UserControls\\RegistrarEmpleadoControl.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAgwEUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:47:41.325Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "assetVehiculo.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
-              "RelativeDocumentMoniker": "Logica\\assetVehiculo.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
-              "RelativeToolTip": "Logica\\assetVehiculo.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAADwv0sAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:17:23.92Z",
+              "WhenOpened": "2024-11-18T17:41:58.765Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "RegistrarEjemplarControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarEjemplarControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs [Dise\u00F1o]*",
-              "RelativeToolTip": "UserControls\\RegistrarEjemplarControl.cs [Dise\u00F1o]*",
+              "Title": "RegistrarEmpleadoControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarEmpleadoControl.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\RegistrarEmpleadoControl.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:16:04.602Z",
+              "WhenOpened": "2024-11-18T17:41:35.92Z",
               "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RegistrarEjemplarControl.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarEjemplarControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs*",
-              "RelativeToolTip": "UserControls\\RegistrarEjemplarControl.cs*",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAUwJwAAAANAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "ProovedoresControl.cs",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ProovedoresControl.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
+              "RelativeToolTip": "UserControls\\ProovedoresControl.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAmwJUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T22:18:03.907Z",
+              "WhenOpened": "2024-11-18T17:22:35.599Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProovedoresControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ProovedoresControl.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:22:34.493Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "assetEmpleado.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetEmpleado.cs",
-              "RelativeDocumentMoniker": "Logica\\assetEmpleado.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetEmpleado.cs",
-              "RelativeToolTip": "Logica\\assetEmpleado.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwBsAAAD0AAAAAAAAAA==",
+              "Title": "assetProveedor.cs",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
+              "RelativeDocumentMoniker": "Logica\\assetProveedor.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
+              "RelativeToolTip": "Logica\\assetProveedor.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAAFkAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:17:25.271Z",
+              "WhenOpened": "2024-11-18T17:22:31.972Z",
               "EditorCaption": ""
-            },
+            }
+          ]
+        },
+        {
+          "DockedWidth": 138,
+          "SelectedChildIndex": -1,
+          "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "assetEjemplar.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
-              "RelativeDocumentMoniker": "Logica\\assetEjemplar.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
-              "RelativeToolTip": "Logica\\assetEjemplar.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCIAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:09:11.17Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RegistrarEjemplarControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.Designer.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarEjemplarControl.Designer.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.Designer.cs",
-              "RelativeToolTip": "UserControls\\RegistrarEjemplarControl.Designer.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAASwFoAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T03:55:49.935Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "RegistrarVehiculoControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarVehiculoControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarVehiculoControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarVehiculoControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\RegistrarVehiculoControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T01:11:49.161Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "RegistrarProovedorControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarProovedorControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarProovedorControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarProovedorControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\RegistrarProovedorControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:16:38.431Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "RegistrarVehiculoControl.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarVehiculoControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarVehiculoControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarVehiculoControl.cs",
-              "RelativeToolTip": "UserControls\\RegistrarVehiculoControl.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAIwBMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:25:05.171Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DashboardAdmin.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\DashboardAdmin.cs",
-              "RelativeDocumentMoniker": "DashboardAdmin.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\DashboardAdmin.cs [Dise\u00F1o]",
-              "RelativeToolTip": "DashboardAdmin.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:17:22.494Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "RegistrarProovedorControl.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarProovedorControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarProovedorControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarProovedorControl.cs",
-              "RelativeToolTip": "UserControls\\RegistrarProovedorControl.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAqwDkAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:54:50.735Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "RegistrarEmpleadoControl.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarEmpleadoControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
-              "RelativeToolTip": "UserControls\\RegistrarEmpleadoControl.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAqwDwAAABvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T02:25:11.11Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RegistrarEmpleadoControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarEmpleadoControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarEmpleadoControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\RegistrarEmpleadoControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T03:06:36.682Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "InventarioEjemplarControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\InventarioEjemplarControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\InventarioEjemplarControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:21:50.621Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "RegistrarClienteControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarClienteControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\RegistrarClienteControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:21:48.465Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "DashboardAdmin.cs",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\DashboardAdmin.cs",
-              "RelativeDocumentMoniker": "DashboardAdmin.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\DashboardAdmin.cs",
-              "RelativeToolTip": "DashboardAdmin.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAqwKkAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T01:30:33.42Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ProovedoresControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\ProovedoresControl.cs",
-              "ToolTip": "C:\\Users\\kthn1\\OneDrive\\Escritorio\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T23:17:55.464Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             }
           ]
         }

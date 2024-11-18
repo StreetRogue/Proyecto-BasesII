@@ -12,7 +12,7 @@ namespace ProyectoBasesII.AccesoDatos
     {
         public Datos() { }
         /*paso 1 crear la cadena de conexion */
-        string cadenaConexion = "Data Source=localhost;User ID=USER_PROYECTOBASES;Password=oracle;";
+        string cadenaConexion = "Data Source=localhost;User ID=USER_BASES;Password=oracle;";
 
         // Paso 2 crear el metodo que ejecuta una operacion DML
         // insert, update, delete
@@ -95,5 +95,46 @@ namespace ProyectoBasesII.AccesoDatos
 
             return filasAfectadas;
         }
+
+        public DataSet ejecutarSPConCursores(string procedimientoAlmacenado, OracleParameter[] parametros)
+        {
+            DataSet ds = new DataSet();
+
+            using (OracleConnection miConexion = new OracleConnection(cadenaConexion))
+            {
+                OracleCommand miComando = new OracleCommand(procedimientoAlmacenado, miConexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                // Agregar parámetros al comando
+                if (parametros != null)
+                {
+                    foreach (var param in parametros)
+                    {
+                        miComando.Parameters.Add(param);
+                    }
+                }
+
+                try
+                {
+                    // Abrir conexión
+                    miConexion.Open();
+
+                    // Usar OracleDataAdapter para manejar los cursores
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(miComando))
+                    {
+                        adapter.Fill(ds); // Llenar el DataSet con los resultados de los cursores
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+            return ds;
+        }
+
     }
 }
