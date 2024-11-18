@@ -164,5 +164,10 @@ namespace ProyectoBasesII
         {
             LoadUserControl(new RegistrarEmpleadoControl());
         }
+
+        private void btnRegVehiculo_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarVehiculoControl());
+        }
     }
 }

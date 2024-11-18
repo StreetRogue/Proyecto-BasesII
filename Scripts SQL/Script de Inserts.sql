@@ -24,11 +24,11 @@ INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direc
 VALUES (2, 'Proveedor Dos', '987654321', 'Avenida B #456');
 
 --tblVehiculo
-INSERT INTO tblVehiculo (idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo)
-VALUES (1, 'Modelo X', 'Marca A', 2024, 25000.00);
+INSERT INTO tblVehiculo (modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo,idProveedor)
+VALUES ('Modelo X', 'Marca A', 2024, 25000.00,1);
 
-INSERT INTO tblVehiculo (idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo)
-VALUES (2, 'Modelo Y', 'Marca B', 2023, 20000.00);
+INSERT INTO tblVehiculo (modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo,idProveedor)
+VALUES ('Modelo Y', 'Marca B', 2022, 25000.00,1);
 
 --tblCliente
 INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)

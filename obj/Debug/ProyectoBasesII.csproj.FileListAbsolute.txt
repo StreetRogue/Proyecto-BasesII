@@ -90,3 +90,4 @@ C:\Users\kthn1\OneDrive\Escritorio\Proyecto-BasesII\obj\Debug\ProyectoBasesII.cs
 C:\Users\kthn1\OneDrive\Escritorio\Proyecto-BasesII\obj\Debug\Proyecto.47CC26B5.Up2Date
 C:\Users\kthn1\OneDrive\Escritorio\Proyecto-BasesII\obj\Debug\ProyectoBasesII.exe
 C:\Users\kthn1\OneDrive\Escritorio\Proyecto-BasesII\obj\Debug\ProyectoBasesII.pdb
+C:\Users\kthn1\OneDrive\Escritorio\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarVehiculoControl.resources

@@ -193,7 +193,6 @@ BEGIN
     VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
             (SELECT idRol FROM tblRol WHERE nombreRol = 'TECNICO'));
 
-    
 END;
 /
 
@@ -242,7 +241,6 @@ BEGIN
     VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
             (SELECT idRol FROM tblRol WHERE nombreRol = 'VENDEDOR'));
 
-    
 END;
 
 
@@ -271,6 +269,30 @@ BEGIN
     END IF;
 END;
 
+-- Disparador para verificar datos duplicado
+CREATE OR REPLACE TRIGGER trg_id_vehiculo_proveedor
+BEFORE INSERT ON tblVehiculo
+FOR EACH ROW
+DECLARE
+    v_count NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_count
+    FROM tblVehiculo
+    WHERE modeloVehiculo = :NEW.modeloVehiculo
+    AND marcaVehiculo = :NEW.marcaVehiculo;
+
+    IF v_count = 0 THEN
+        IF :NEW.idVehiculo IS NULL THEN
+            SELECT seq_vehiculos.NEXTVAL 
+            INTO :NEW.idVehiculo
+            FROM dual;
+        END IF;
+    ELSE
+        RAISE_APPLICATION_ERROR(-20001, 'Registro duplicado: ya existe un vehículo con este modelo y marca.');
+    END IF;
+END;
+
 /=========================================/
 /*               PARA ELIMINAR LOS DISPARADORES           */
 /=========================================/
@@ -288,6 +310,8 @@ DROP TRIGGER trg_validar_rol_vendedor;
 DROP TRIGGER trg_validar_rol_tecnico;
 
 DROP TRIGGER trg_validate_and_set_idEjemplar;
+
+DROP TRIGGER trg_id_vehiculo_proveedor;
 
  
 /=========================================/
@@ -581,27 +605,59 @@ CREATE OR REPLACE PROCEDURE Consultar_informacion_proveedor(
     p_idProveedor IN INTEGER
 )
 IS
+    -- Variables para almacenar los datos del proveedor
     v_nombreProveedor tblProveedor.nombreProveedor%TYPE;
     v_telefonoProveedor tblProveedor.telefonoProveedor%TYPE;
     v_direccionProveedor tblProveedor.direccionProveedor%TYPE;
+
+    -- Variables para manejar los datos del vehículo
+    CURSOR vehiculos_cursor IS
+        SELECT idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo
+        FROM tblVehiculo
+        WHERE idProveedor = p_idProveedor;
+
+    v_idVehiculo tblVehiculo.idVehiculo%TYPE;
+    v_modeloVehiculo tblVehiculo.modeloVehiculo%TYPE;
+    v_marcaVehiculo tblVehiculo.marcaVehiculo%TYPE;
+    v_añoVehiculo tblVehiculo.añoVehiculo%TYPE;
 BEGIN
+    -- Obtener información del proveedor
     SELECT nombreProveedor, telefonoProveedor, direccionProveedor
     INTO v_nombreProveedor, v_telefonoProveedor, v_direccionProveedor
     FROM tblProveedor
     WHERE idProveedor = p_idProveedor;
 
-    DBMS_OUTPUT.PUT_LINE('Nombre: ' || v_nombreProveedor || 
-                         ', Teléfono: ' || NVL(v_telefonoProveedor, 'No registrado') || 
-                         ', Dirección: ' || NVL(v_direccionProveedor, 'No registrada'));
+    -- Mostrar información del proveedor
+    DBMS_OUTPUT.PUT_LINE('Proveedor:');
+    DBMS_OUTPUT.PUT_LINE('Nombre: ' || v_nombreProveedor);
+    DBMS_OUTPUT.PUT_LINE('Teléfono: ' || NVL(v_telefonoProveedor, 'No registrado'));
+    DBMS_OUTPUT.PUT_LINE('Dirección: ' || NVL(v_direccionProveedor, 'No registrada'));
+
+    -- Mostrar información de los vehículos asociados
+    DBMS_OUTPUT.PUT_LINE('Vehículos asociados:');
+    OPEN vehiculos_cursor;
+    LOOP
+        FETCH vehiculos_cursor INTO v_idVehiculo, v_modeloVehiculo, v_marcaVehiculo, v_añoVehiculo;
+        EXIT WHEN vehiculos_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('- ID Vehículo: ' || v_idVehiculo || 
+                             ', Modelo: ' || v_modeloVehiculo || 
+                             ', Marca: ' || v_marcaVehiculo || 
+                             ', Año: ' || v_añoVehiculo);
+    END LOOP;
+    CLOSE vehiculos_cursor;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
         DBMS_OUTPUT.PUT_LINE('Proveedor no encontrado.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Ocurrió un error: ' || SQLERRM);
 END Consultar_informacion_proveedor;
-
+/
 
 -- BLOQUE ANONIMO
+SET SERVEROUTPUT ON;
 DECLARE
-    v_idProveedor INTEGER := 2;
+    v_idProveedor INTEGER := 1;
 BEGIN
     Consultar_informacion_proveedor(p_idProveedor => v_idProveedor);
 EXCEPTION

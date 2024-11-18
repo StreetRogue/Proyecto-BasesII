@@ -71,7 +71,9 @@ CREATE TABLE tblVehiculo (
     marcaVehiculo VARCHAR2(50) NOT NULL,
     añoVehiculo INTEGER NOT NULL,
     precioVehiculo DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT pk_tblVehiculo PRIMARY KEY (idVehiculo)
+    idProveedor INTEGER NOT NULL,
+    CONSTRAINT pk_tblVehiculo PRIMARY KEY (idVehiculo),
+    CONSTRAINT fk_tblVehiculo_Proveedor FOREIGN KEY (idProveedor) REFERENCES tblProveedor(idProveedor)
 );
 
 /=========================================/
@@ -211,6 +213,8 @@ CREATE TABLE tblSe_RealizaServicioPostVenta (
 
 CREATE SEQUENCE seq_ventas START WITH 1 INCREMENT BY 1;
 
+CREATE SEQUENCE seq_vehiculos START WITH 1  INCREMENT BY 1;
+
 CREATE SEQUENCE seq_ejemplar START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE seq_servicios_postventa START WITH 1 INCREMENT BY 1;
@@ -229,6 +233,8 @@ CREATE SEQUENCE seq_vendedores START WITH 1 INCREMENT BY 1;
 ALTER SEQUENCE seq_ventas RESTART;
 
 ALTER SEQUENCE seq_ejemplar RESTART;
+
+ALTER SEQUENCE seq_vehiculos RESTART;
 
 ALTER SEQUENCE seq_servicios_postventa RESTART;
 
@@ -249,6 +255,8 @@ DROP SEQUENCE seq_ventas;
 DROP SEQUENCE seq_ejemplar;
 
 DROP SEQUENCE seq_servicios_postventa;
+
+DROP SEQUENCE seq_vehiculos;
 
 DROP SEQUENCE seq_servicios_tecnicos;
 
