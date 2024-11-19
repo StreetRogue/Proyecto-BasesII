@@ -169,5 +169,15 @@ namespace ProyectoBasesII
         {
             LoadUserControl(new RegistrarVehiculoControl());
         }
+
+        private void btnRegistrarVenta_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarVentaControl());
+        }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new VentaInventarioControl());
+        }
     }
 }
