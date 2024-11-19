@@ -587,7 +587,8 @@ CREATE OR REPLACE PACKAGE pkg_clientes AS
         p_apellidoCliente   IN tblCliente.apellidoCliente%TYPE,
         p_telefonoCliente   IN tblCliente.telefonoCliente%TYPE,
         p_emailCliente      IN tblCliente.emailCliente%TYPE,
-        p_direccionCliente  IN tblCliente.direccionCliente%TYPE
+        p_direccionCliente  IN tblCliente.direccionCliente%TYPE,
+        p_filasInsertadas   OUT NUMBER
     );
 END pkg_clientes;
 
@@ -635,7 +636,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         p_apellidoCliente   IN tblCliente.apellidoCliente%TYPE,
         p_telefonoCliente   IN tblCliente.telefonoCliente%TYPE,
         p_emailCliente      IN tblCliente.emailCliente%TYPE,
-        p_direccionCliente  IN tblCliente.direccionCliente%TYPE
+        p_direccionCliente  IN tblCliente.direccionCliente%TYPE,
+        p_filasInsertadas   OUT NUMBER
     ) IS
         v_exists INTEGER;
         ex_cedula_duplicada EXCEPTION;
@@ -653,6 +655,8 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         -- Intentar insertar el cliente en la tabla
         INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
         VALUES (p_cedulaCliente, p_nombreCliente, p_apellidoCliente, p_telefonoCliente, p_emailCliente, p_direccionCliente);
+        
+        p_filasInsertadas:=1;
 
         DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
 
@@ -685,10 +689,7 @@ CREATE OR REPLACE PACKAGE pkg_ejemplares AS
         p_idEjemplar IN INTEGER,
         p_ejemplar OUT SYS_REFCURSOR
     );
-
-    PROCEDURE Consultar_informacion_ejemplar_general(
-        p_ejemplar OUT SYS_REFCURSOR
-    );
+  
 END pkg_ejemplares;
 
 
@@ -740,20 +741,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_ejemplares AS
             WHERE idEjemplar = p_idEjemplar;
     END Consultar_informacion_ejemplar;
 
-    -- Procedimiento para consultar todos los ejemplares
-    PROCEDURE Consultar_informacion_ejemplar_general(
-        p_ejemplar OUT SYS_REFCURSOR
-    ) IS
-    BEGIN
-        -- Retornar información de todos los ejemplares
-        OPEN p_ejemplar FOR
-            SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
-            FROM tblEjemplar 
-            INNER JOIN tblVehiculo
-            ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
-            INNER JOIN tblProveedor
-            ON tblVehiculo.idProveedor = tblProveedor.idProveedor;
-    END Consultar_informacion_ejemplar_general;
 END pkg_ejemplares;
 
 
@@ -777,9 +764,6 @@ CREATE OR REPLACE PACKAGE pkg_proveedores AS
         p_proveedor OUT SYS_REFCURSOR
     );
 
-    PROCEDURE Consultar_todos_los_proveedores(
-        p_proveedor OUT SYS_REFCURSOR
-    );
 END pkg_proveedores;
 
 
@@ -875,15 +859,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_proveedores AS
             WHERE idProveedor = p_idProveedor;
     END Consultar_informacion_proveedor_cursor;
 
-    -- Procedimiento para consultar todos los proveedores
-    PROCEDURE Consultar_todos_los_proveedores(
-        p_proveedor OUT SYS_REFCURSOR
-    ) IS
-    BEGIN
-        OPEN p_proveedor FOR
-        SELECT idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor
-        FROM tblProveedor;
-    END Consultar_todos_los_proveedores;
 END pkg_proveedores;
 
 
@@ -977,7 +952,7 @@ DROP VIEW vista_proveedores;
 /=========================================/
 
 CONNECT system/oracle;
-GRANT CREATE VIEW TO USER_PROYECTOBASES;
+GRANT CREATE VIEW TO USER_BASES;
 
 
 

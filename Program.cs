@@ -16,7 +16,7 @@ namespace ProyectoBasesII
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DashboardVendedor());
+            Application.Run(new DashboardAdmin());
         }
     }
 }
