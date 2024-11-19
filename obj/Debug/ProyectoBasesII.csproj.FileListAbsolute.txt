@@ -141,3 +141,4 @@ C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\P
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarVehiculoControl.resources
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarVentaControl.resources
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.VentaInventarioControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.DashboardVendedor.resources
