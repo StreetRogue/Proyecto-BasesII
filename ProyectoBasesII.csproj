@@ -177,6 +177,18 @@
     <Compile Include="UserControls\RegistrarVehiculoControl.Designer.cs">
       <DependentUpon>RegistrarVehiculoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RegistrarVentaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RegistrarVentaControl.Designer.cs">
+      <DependentUpon>RegistrarVentaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VentaInventarioControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\VentaInventarioControl.Designer.cs">
+      <DependentUpon>VentaInventarioControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DashboardAdmin.resx">
       <DependentUpon>DashboardAdmin.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +221,12 @@
     <EmbeddedResource Include="UserControls\RegistrarVehiculoControl.resx">
       <DependentUpon>RegistrarVehiculoControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RegistrarVentaControl.resx">
+      <DependentUpon>RegistrarVentaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\VentaInventarioControl.resx">
+      <DependentUpon>VentaInventarioControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -239,6 +257,7 @@
     <None Include="Resources\addCar.png" />
     <None Include="Resources\addCar1.png" />
     <None Include="Resources\imgVehiculo.png" />
+    <None Include="Resources\ventaEjemplar.png" />
     <Content Include="Scripts SQL\Proyecto_DerrapaZone.sql" />
     <Content Include="Scripts SQL\Script de Inserts.sql" />
     <Content Include="Scripts SQL\ScriptCreacionDerrapaZone.sql" />
