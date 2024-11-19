@@ -126,8 +126,9 @@ namespace ProyectoBasesII
 
         private void Logo_Click(object sender, EventArgs e)
         {
-           DashboardAdmin admin = new DashboardAdmin();
+            /*DashboardAdmin admin = new DashboardAdmin();
             admin.Show();
+            this.Hide();*/
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
