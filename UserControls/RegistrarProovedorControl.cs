@@ -48,6 +48,7 @@ namespace ProyectoBasesII.UserControls
             {
             
                resultado = objProveedor.registrarProveedor(varIdProveedor,varNombreProveedor,varTelefonoProveedor,varDireccionProveedor);
+               
                 if (resultado > 0)
                 {
                     MessageBox.Show("Proveedor Registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -75,7 +75,6 @@ VALUES (TO_TIMESTAMP('2024-07-01 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'mantenimi
 INSERT INTO tblServiciosPostVenta (fechaServicio, tipoServicio, costoServicio)
 VALUES (TO_TIMESTAMP('2024-07-10 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'reparacion', 750.00);
 
-
 --tblRealizaServicioTecnico
 INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico, fechaInicioServicio, fechaFinServicio)
 VALUES (1, 1, TO_TIMESTAMP('2024-07-01 08:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-01 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));

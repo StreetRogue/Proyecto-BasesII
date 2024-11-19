@@ -18,16 +18,25 @@ namespace ProyectoBasesII.Logica
 
         public int registrarProveedor(int idProveedor, string nombreProveedor, string telefonoProveedor, string direccionProveedor)
         {
-            int resultado = 0;
+            int filasInsertadas = 0;
 
-            string consulta;
+            // Crear los parámetros para el procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
+            {
+                new OracleParameter("p_idProveedor", OracleDbType.Int32) { Value = idProveedor },
+                new OracleParameter("p_nombreProveedor", OracleDbType.Varchar2) { Value = nombreProveedor},
+                new OracleParameter("p_telefonoProveedor", OracleDbType.Varchar2) { Value = telefonoProveedor },
+                new OracleParameter("p_direccionProveedor", OracleDbType.Varchar2) { Value = direccionProveedor },
+                new OracleParameter("p_filasInsertadas", OracleDbType.Int32, ParameterDirection.Output)
+            };
 
-            consulta = "INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor) values (" + idProveedor + ",'" + nombreProveedor + "','"+ telefonoProveedor+"','"+direccionProveedor+"')";
+            // Ejecutar el procedimiento almacenado
+            dt.ejecutarSP("RegistrarProveedor", parametros);
 
-            resultado = dt.ejecutarDML(consulta);
+            // Obtener el valor del parámetro de salida
+            filasInsertadas = int.Parse(parametros[4].Value.ToString());
 
-            return resultado;
-
+            return filasInsertadas;
         }
 
         public List<string> ObtenerNombresProveedores()
@@ -59,17 +68,15 @@ namespace ProyectoBasesII.Logica
             // Crear los parámetros para el procedimiento almacenado
             OracleParameter[] parametros = new OracleParameter[]
             {
-        new OracleParameter("p_idProveedor", OracleDbType.Int32) { Value = idProveedor },
-        new OracleParameter("p_proveedor", OracleDbType.RefCursor) { Direction = ParameterDirection.Output },
-        new OracleParameter("p_vehiculo", OracleDbType.RefCursor) { Direction = ParameterDirection.Output }
+                new OracleParameter("p_idProveedor", OracleDbType.Int32) { Value = idProveedor },
+                new OracleParameter("p_proveedor", OracleDbType.RefCursor) { Direction = ParameterDirection.Output },
             };
-
-
-
 
             // Ejecutar el procedimiento almacenado y obtener los datos
             return dt.ejecutarSPConCursores("Consultar_informacion_proveedor", parametros);
         }
+
+
 
         public DataSet buscarProveedorGeneral()
         {
@@ -78,13 +85,11 @@ namespace ProyectoBasesII.Logica
             // Configurar los parámetros del procedimiento almacenado
             OracleParameter[] parametros = new OracleParameter[]
             {
-            new OracleParameter("p_proveedor", OracleDbType.RefCursor, ParameterDirection.Output),
-            new OracleParameter("p_vehiculo", OracleDbType.RefCursor, ParameterDirection.Output)
+                new OracleParameter("p_proveedor", OracleDbType.RefCursor, ParameterDirection.Output),
             };
 
             // Ejecutar el procedimiento almacenado para obtener los datos
             ds = dt.ejecutarSPConCursores("Consultar_todos_los_proveedores", parametros);
-
 
             // Ejecutar el procedimiento almacenado y obtener los datos
             return ds;

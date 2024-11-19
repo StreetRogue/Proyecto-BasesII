@@ -73,19 +73,38 @@ namespace ProyectoBasesII.Logica
             return filasInsertadas;
         }
 
-        public DataSet inventarioEjemplares(int idEjemplar)
+
+        public DataSet buscarEjemplar(int idEjemplar)
         {
             DataSet ds = new DataSet();
-            string consulta;
-            if (idEjemplar == -1)
+
+            // Crear los parámetros para el procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
             {
-                consulta = "SELECT * from tblEjemplar inner join tblVehiculo on tblEjemplar.idVehiculo = tblVehiculo.idVehiculo inner join tblProveedor on tblVehiculo.idProveedor = tblProveedor.idProveedor";
-            }
-            else
+                new OracleParameter("p_idEjemplar", OracleDbType.Int32) { Value = idEjemplar },
+                new OracleParameter("p_ejemplar", OracleDbType.RefCursor) { Direction = ParameterDirection.Output }
+            };
+
+            // Ejecutar el procedimiento almacenado y obtener los datos
+            return dt.ejecutarSPConCursores("Consultar_informacion_ejemplar", parametros);
+        }
+
+
+        public DataSet buscarEjemplarGeneral()
+        {
+            DataSet ds = new DataSet();
+
+            // Configurar los parámetros del procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
             {
-                consulta = "SELECT * from tblEjemplar inner join tblVehiculo on tblEjemplar.idVehiculo = tblVehiculo.idVehiculo inner join tblProveedor on tblVehiculo.idProveedor = tblProveedor.idProveedor WHERE idEjemplar =" + idEjemplar + "";
-            }
-            ds = dt.ejecutarSelect(consulta);
+            new OracleParameter("p_ejemplar", OracleDbType.RefCursor, ParameterDirection.Output)
+            };
+
+            // Ejecutar el procedimiento almacenado para obtener los datos
+            ds = dt.ejecutarSPConCursores("Consultar_informacion_ejemplar_general", parametros);
+
+
+            // Ejecutar el procedimiento almacenado y obtener los datos
             return ds;
         }
 

@@ -62,12 +62,9 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-        private void txtNombreEmp_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
-                e.Handled = true; // Ignorar el carácter no permitido
-            }
-        }
+        
+
+        
+
     }
 }

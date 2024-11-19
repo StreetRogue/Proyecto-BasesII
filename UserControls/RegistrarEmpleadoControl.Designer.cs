@@ -64,7 +64,7 @@
             this.txtApellidoEmp.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.txtApellidoEmp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtApellidoEmp.Location = new System.Drawing.Point(464, 258);
-            this.txtApellidoEmp.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtApellidoEmp.Margin = new System.Windows.Forms.Padding(5);
             this.txtApellidoEmp.Multiline = false;
             this.txtApellidoEmp.Name = "txtApellidoEmp";
             this.txtApellidoEmp.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
@@ -96,19 +96,19 @@
             this.txtNombreEmp.BorderSize = 2;
             this.txtNombreEmp.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.txtNombreEmp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtNombreEmp.Location = new System.Drawing.Point(464, 166);
-            this.txtNombreEmp.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtNombreEmp.Location = new System.Drawing.Point(466, 166);
+            this.txtNombreEmp.Margin = new System.Windows.Forms.Padding(5);
             this.txtNombreEmp.Multiline = false;
             this.txtNombreEmp.Name = "txtNombreEmp";
             this.txtNombreEmp.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
             this.txtNombreEmp.PasswordChar = false;
             this.txtNombreEmp.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtNombreEmp.PlaceholderText = "Ingrese su nombre";
+            this.txtNombreEmp.PlaceholderText = "";
             this.txtNombreEmp.Size = new System.Drawing.Size(265, 44);
             this.txtNombreEmp.TabIndex = 9;
             this.txtNombreEmp.Texts = "";
             this.txtNombreEmp.UnderlinedStyle = false;
-            this.txtNombreEmp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreEmp_KeyPress);
+            //this.txtNombreEmp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreEmp_KeyPress);
             // 
             // lblNombreEmp
             // 
@@ -133,7 +133,7 @@
             this.btnRegistrarEmp.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnRegistrarEmp.ForeColor = System.Drawing.Color.White;
             this.btnRegistrarEmp.Location = new System.Drawing.Point(529, 430);
-            this.btnRegistrarEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegistrarEmp.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegistrarEmp.Name = "btnRegistrarEmp";
             this.btnRegistrarEmp.Size = new System.Drawing.Size(241, 49);
             this.btnRegistrarEmp.TabIndex = 12;
@@ -168,7 +168,7 @@
             this.cbxCargoEmp.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxCargoEmp.ListTextColor = System.Drawing.Color.DimGray;
             this.cbxCargoEmp.Location = new System.Drawing.Point(464, 372);
-            this.cbxCargoEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxCargoEmp.Margin = new System.Windows.Forms.Padding(4);
             this.cbxCargoEmp.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxCargoEmp.Name = "cbxCargoEmp";
             this.cbxCargoEmp.Padding = new System.Windows.Forms.Padding(1);
@@ -180,7 +180,7 @@
             // 
             this.pnlVertical.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pnlVertical.Location = new System.Drawing.Point(449, 140);
-            this.pnlVertical.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlVertical.Margin = new System.Windows.Forms.Padding(4);
             this.pnlVertical.Name = "pnlVertical";
             this.pnlVertical.Size = new System.Drawing.Size(1, 338);
             this.pnlVertical.TabIndex = 15;
@@ -189,7 +189,7 @@
             // 
             this.pictureBox1.Image = global::ProyectoBasesII.Properties.Resources.ImgEmpleados;
             this.pictureBox1.Location = new System.Drawing.Point(27, 140);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(415, 322);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -200,7 +200,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Location = new System.Drawing.Point(464, 212);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(267, 1);
             this.panel1.TabIndex = 17;
@@ -209,7 +209,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Location = new System.Drawing.Point(464, 300);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(267, 1);
             this.panel2.TabIndex = 18;
@@ -230,7 +230,7 @@
             this.Controls.Add(this.txtNombreEmp);
             this.Controls.Add(this.lblNombreEmp);
             this.Controls.Add(this.lblRegEmpleado);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RegistrarEmpleadoControl";
             this.Size = new System.Drawing.Size(899, 608);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

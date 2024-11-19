@@ -322,15 +322,15 @@ DROP TRIGGER trg_id_vehiculo_proveedor;
 /* PROCEDIMIENTO: RegistrarProveedor               */
 /* Creador: Sebastián García                                 */
 /-------------------------------------------------------------/
-CREATE OR REPLACE PROCEDURE RegistrarProveedor(
+CREATE OR REPLACE PROCEDURE RegistrarProveedor( 
     p_idProveedor IN tblProveedor.idProveedor%TYPE,
     p_nombreProveedor IN tblProveedor.nombreProveedor%TYPE,
     p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
-    p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE
+    p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
+    p_filasInsertadas OUT NUMBER
 ) AS
     v_count INTEGER;
 BEGIN
-    -- Verificar si el idProveedor ya existe
     SELECT COUNT(*)
     INTO v_count
     FROM tblProveedor
@@ -339,15 +339,19 @@ BEGIN
     IF v_count > 0 THEN
         RAISE_APPLICATION_ERROR(-20001, 'Error: El ID de proveedor ' || p_idProveedor || ' ya existe.');
     END IF;
+
     INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
     VALUES (p_idProveedor, p_nombreProveedor, p_telefonoProveedor, p_direccionProveedor);
+
+    p_filasInsertadas := 1;
 
     DBMS_OUTPUT.PUT_LINE('Proveedor "' || p_nombreProveedor || '" registrado con ID ' || p_idProveedor);
 
 EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Se ha producido un error al registrar el proveedor: ' || SQLERRM);
-END;
+END RegistrarProveedor;
+
 
 ------BLOQUE ANONIMO
 
@@ -658,53 +662,77 @@ END Consultar_informacion_proveedor;
 
 CREATE OR REPLACE PROCEDURE Consultar_informacion_proveedor(
     p_idProveedor IN INTEGER,
-    p_proveedor OUT SYS_REFCURSOR,
-    p_vehiculos OUT SYS_REFCURSOR
+    p_proveedor OUT SYS_REFCURSOR
 )
 IS
 BEGIN
     -- Retornar información del proveedor
     OPEN p_proveedor FOR
-        SELECT nombreProveedor, telefonoProveedor, direccionProveedor
+        SELECT idProveedor,nombreProveedor, telefonoProveedor, direccionProveedor
         FROM tblProveedor
         WHERE idProveedor = p_idProveedor;
-
-    -- Retornar información de los vehículos asociados
-    OPEN p_vehiculos FOR
-        SELECT idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo
-        FROM tblVehiculo
-        WHERE idProveedor = p_idProveedor;
+    
 END Consultar_informacion_proveedor;
+
 
 
 ----Procedimiento para c# *Proveedores
 
 CREATE OR REPLACE PROCEDURE Consultar_todos_los_proveedores (
-    p_proveedor OUT SYS_REFCURSOR,
-    p_vehiculo OUT SYS_REFCURSOR
+    p_proveedor OUT SYS_REFCURSOR
 )
 IS
 BEGIN
     -- Proveedores
     OPEN p_proveedor FOR
     SELECT 
-        idProveedor,
+        tblProveedor.idProveedor,
         nombreProveedor,
         telefonoProveedor,
         direccionProveedor
     FROM tblProveedor;
     
-    -- Vehículos asociados
-    OPEN p_vehiculo FOR
-    SELECT 
-        idVehiculo,
-        modeloVehiculo,
-        marcaVehiculo,
-        añoVehiculo,
-        idProveedor
-    FROM tblVehiculo;
 END Consultar_todos_los_proveedores;
 
+
+
+---------Procedimiento para c# inventario
+
+CREATE OR REPLACE PROCEDURE Consultar_informacion_ejemplar(
+    p_idEjemplar IN INTEGER,
+    p_ejemplar OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    -- Retornar información del ejemplar
+    OPEN p_ejemplar FOR
+        SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
+        FROM tblEjemplar 
+        INNER JOIN tblVehiculo
+        ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
+        INNER JOIN tblProveedor
+        ON tblVehiculo.idProveedor = tblProveedor.idProveedor
+        WHERE idEjemplar = p_idEjemplar;
+
+END Consultar_informacion_ejemplar;
+
+---------Procedimiento para c# inventarioGeneral
+
+CREATE OR REPLACE PROCEDURE Consultar_informacion_ejemplar_general(
+    p_ejemplar OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    -- Retornar información del ejemplar
+    OPEN p_ejemplar FOR
+        SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
+        FROM tblEjemplar 
+        INNER JOIN tblVehiculo
+        ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
+        INNER JOIN tblProveedor
+        ON tblVehiculo.idProveedor = tblProveedor.idProveedor;
+
+END Consultar_informacion_ejemplar_general;
 
 -- BLOQUE ANONIMO
     SET SERVEROUTPUT ON;

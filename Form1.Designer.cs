@@ -49,27 +49,29 @@
             this.lblIniciarSesion.AutoSize = true;
             this.lblIniciarSesion.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIniciarSesion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.lblIniciarSesion.Location = new System.Drawing.Point(90, 171);
+            this.lblIniciarSesion.Location = new System.Drawing.Point(112, 214);
             this.lblIniciarSesion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIniciarSesion.Name = "lblIniciarSesion";
-            this.lblIniciarSesion.Size = new System.Drawing.Size(130, 25);
+            this.lblIniciarSesion.Size = new System.Drawing.Size(157, 31);
             this.lblIniciarSesion.TabIndex = 1;
             this.lblIniciarSesion.Text = "Iniciar Sesión";
             // 
             // pnLoginUser
             // 
             this.pnLoginUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.pnLoginUser.Location = new System.Drawing.Point(35, 252);
+            this.pnLoginUser.Location = new System.Drawing.Point(44, 315);
+            this.pnLoginUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnLoginUser.Name = "pnLoginUser";
-            this.pnLoginUser.Size = new System.Drawing.Size(236, 1);
+            this.pnLoginUser.Size = new System.Drawing.Size(295, 1);
             this.pnLoginUser.TabIndex = 3;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.panel1.Location = new System.Drawing.Point(35, 319);
+            this.panel1.Location = new System.Drawing.Point(44, 399);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(236, 1);
+            this.panel1.Size = new System.Drawing.Size(295, 1);
             this.panel1.TabIndex = 5;
             // 
             // btnIniciarSesion
@@ -83,9 +85,10 @@
             this.btnIniciarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIniciarSesion.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciarSesion.ForeColor = System.Drawing.Color.White;
-            this.btnIniciarSesion.Location = new System.Drawing.Point(70, 363);
+            this.btnIniciarSesion.Location = new System.Drawing.Point(88, 454);
+            this.btnIniciarSesion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnIniciarSesion.Name = "btnIniciarSesion";
-            this.btnIniciarSesion.Size = new System.Drawing.Size(150, 40);
+            this.btnIniciarSesion.Size = new System.Drawing.Size(188, 50);
             this.btnIniciarSesion.TabIndex = 6;
             this.btnIniciarSesion.Text = "Iniciar Sesion";
             this.btnIniciarSesion.TextColor = System.Drawing.Color.White;
@@ -98,9 +101,10 @@
             this.lblCleanCampos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCleanCampos.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCleanCampos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.lblCleanCampos.Location = new System.Drawing.Point(181, 336);
+            this.lblCleanCampos.Location = new System.Drawing.Point(226, 420);
+            this.lblCleanCampos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCleanCampos.Name = "lblCleanCampos";
-            this.lblCleanCampos.Size = new System.Drawing.Size(90, 13);
+            this.lblCleanCampos.Size = new System.Drawing.Size(110, 19);
             this.lblCleanCampos.TabIndex = 11;
             this.lblCleanCampos.Text = "Limpiar Campos";
             this.lblCleanCampos.Click += new System.EventHandler(this.lblCleanCampos_Click);
@@ -110,10 +114,11 @@
             this.txtUser.BackColor = System.Drawing.Color.Gainsboro;
             this.txtUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUser.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(67, 220);
+            this.txtUser.Location = new System.Drawing.Point(84, 275);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtUser.Multiline = true;
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(204, 30);
+            this.txtUser.Size = new System.Drawing.Size(255, 38);
             this.txtUser.TabIndex = 12;
             // 
             // txtPassword
@@ -121,11 +126,12 @@
             this.txtPassword.BackColor = System.Drawing.Color.Gainsboro;
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(67, 288);
+            this.txtPassword.Location = new System.Drawing.Point(84, 360);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(204, 30);
+            this.txtPassword.Size = new System.Drawing.Size(255, 38);
             this.txtPassword.TabIndex = 13;
             // 
             // btnExit
@@ -137,9 +143,10 @@
             this.btnExit.IconColor = System.Drawing.Color.Black;
             this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnExit.IconSize = 21;
-            this.btnExit.Location = new System.Drawing.Point(261, 0);
+            this.btnExit.Location = new System.Drawing.Point(326, 0);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(31, 23);
+            this.btnExit.Size = new System.Drawing.Size(39, 29);
             this.btnExit.TabIndex = 7;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -151,10 +158,11 @@
             this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.iconPictureBox1.IconColor = System.Drawing.SystemColors.ControlText;
             this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox1.IconSize = 25;
-            this.iconPictureBox1.Location = new System.Drawing.Point(35, 288);
+            this.iconPictureBox1.IconSize = 31;
+            this.iconPictureBox1.Location = new System.Drawing.Point(44, 360);
+            this.iconPictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(25, 25);
+            this.iconPictureBox1.Size = new System.Drawing.Size(31, 31);
             this.iconPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.iconPictureBox1.TabIndex = 4;
             this.iconPictureBox1.TabStop = false;
@@ -166,10 +174,11 @@
             this.iconUserLogin.IconChar = FontAwesome.Sharp.IconChar.User;
             this.iconUserLogin.IconColor = System.Drawing.SystemColors.ControlText;
             this.iconUserLogin.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconUserLogin.IconSize = 25;
-            this.iconUserLogin.Location = new System.Drawing.Point(35, 221);
+            this.iconUserLogin.IconSize = 31;
+            this.iconUserLogin.Location = new System.Drawing.Point(44, 276);
+            this.iconUserLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.iconUserLogin.Name = "iconUserLogin";
-            this.iconUserLogin.Size = new System.Drawing.Size(25, 25);
+            this.iconUserLogin.Size = new System.Drawing.Size(31, 31);
             this.iconUserLogin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.iconUserLogin.TabIndex = 2;
             this.iconUserLogin.TabStop = false;
@@ -177,19 +186,20 @@
             // iconLoginCar
             // 
             this.iconLoginCar.Image = global::ProyectoBasesII.Properties.Resources.iconLoginCar;
-            this.iconLoginCar.Location = new System.Drawing.Point(107, 64);
+            this.iconLoginCar.Location = new System.Drawing.Point(134, 80);
+            this.iconLoginCar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.iconLoginCar.Name = "iconLoginCar";
-            this.iconLoginCar.Size = new System.Drawing.Size(87, 71);
+            this.iconLoginCar.Size = new System.Drawing.Size(109, 89);
             this.iconLoginCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.iconLoginCar.TabIndex = 0;
             this.iconLoginCar.TabStop = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(292, 447);
+            this.ClientSize = new System.Drawing.Size(365, 559);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.lblCleanCampos);
@@ -202,6 +212,7 @@
             this.Controls.Add(this.lblIniciarSesion);
             this.Controls.Add(this.iconLoginCar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

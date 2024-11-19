@@ -12,10 +12,7 @@ namespace ProyectoBasesII.AccesoDatos
     {
         public Datos() { }
         /*paso 1 crear la cadena de conexion */
-        string cadenaConexion = "Data Source=localhost;User ID=USER_BASES;Password=oracle;";
-
-        // Paso 2 crear el metodo que ejecuta una operacion DML
-        // insert, update, delete
+        string cadenaConexion = "Data Source=localhost;User ID=USER_PROYECTOBASES;Password=oracle;";
 
         public int ejecutarDML(string consulta)
         {
