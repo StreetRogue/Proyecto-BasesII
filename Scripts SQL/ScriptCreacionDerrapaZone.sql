@@ -265,3 +265,81 @@ DROP SEQUENCE seq_usuarios;
 DROP SEQUENCE seq_tecnicos;
 
 DROP SEQUENCE seq_vendedores;
+
+
+/=========================================/
+/*               PARA ELIMINAR LAS SECUENCIAS           */
+/=========================================/
+
+--------------Creación de roles
+CONNECT system/oracle;
+
+alter session set "_ORACLE_SCRIPT"=true;
+
+CREATE ROLE C##ADMIN_ROL;
+CREATE ROLE C##VENDEDOR_ROL;
+CREATE ROLE C##TECNICO_ROL;
+
+-- Asignación de privilegios a los roles
+
+-- Privilegios Admin_Rol
+CONNECT system/oracle;
+GRANT ALL PRIVILEGES TO C##ADMIN_ROL;
+
+-- Privilegios de Vendedor_Rol
+GRANT SELECT, INSERT, UPDATE ON tblVenta TO C##VENDEDOR_ROL;
+GRANT SELECT, INSERT, UPDATE ON tblCliente TO C##VENDEDOR_ROL;
+GRANT SELECT ON tblEjemplar TO C##VENDEDOR_ROL;
+
+-- Privilegios de Tecnico_Rol
+GRANT SELECT, INSERT, UPDATE ON tblServiciosPostVenta TO C##TECNICO_ROL;
+GRANT SELECT, INSERT, UPDATE ON tblRealizaServicioTecnico TO C##TECNICO_ROL;
+GRANT SELECT ON tblVehiculo TO C##TECNICO_ROL;
+
+-- Creacion de usuarios
+CONNECT system/oracle;
+alter session set "_ORACLE_SCRIPT"=true;
+
+CREATE USER vendedor_usuario IDENTIFIED BY vendedor123;
+CREATE USER tecnico_usuario IDENTIFIED BY Tecnico123;
+CREATE USER admin_usuario IDENTIFIED BY Administrador123;
+
+-- Asignación de roles
+CONNECT system/oracle;
+alter session set "_ORACLE_SCRIPT"=true;
+
+GRANT C##ADMIN_ROL TO admin_usuario;
+GRANT C##VENDEDOR_ROL TO vendedor_usuario;
+GRANT C##TECNICO_ROL TO tecnico_usuario;
+
+CONNECT system/oracle;
+
+GRANT CONNECT TO admin_usuario;
+GRANT CONNECT TO vendedor_usuario;
+GRANT CONNECT TO tecnico_usuario;
+
+
+/=========================================/
+/*               PRUEBAS           */
+/=========================================/
+
+
+CONNECT vendedor_usuario/vendedor123;
+
+INSERT INTO USER_PROYECTOBASES.tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
+VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000.00, 1800, 1, 1, 3);
+
+commit;
+
+CONNECT tecnico_usuario/Tecnico123;
+
+INSERT INTO USER_PROYECTOBASES.tblRealizaServicioTecnico (idServicio, idTecnico, fechaInicioServicio, fechaFinServicio)
+VALUES (2, 1, TO_TIMESTAMP('2024-07-01 08:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-01 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+
+commit;
+
+
+
+
+
+

@@ -2,6 +2,28 @@
 /*                                 CRUD                                       */
 /=========================================/
 
+
+/=========================================/
+/*               PARA BORRAR INSERCIONES          */
+/=========================================/
+-- Eliminar registros de las tablas dependientes primero
+DELETE FROM tblSe_RealizaServicioPostVenta;
+DELETE FROM tblInvolucraVentaEjemplar;
+DELETE FROM tblRealizaServicioTecnico;
+DELETE FROM tblServiciosPostVenta;
+DELETE FROM tblVenta;
+DELETE FROM tblEjemplar;
+DELETE FROM tblTecnico;
+DELETE FROM tblVendedor;
+DELETE FROM tblCliente;
+DELETE FROM tblVehiculo;
+DELETE FROM tblProveedor;
+DELETE FROM tblUsuario;
+DELETE FROM tblRol;
+
+-- Confirmación
+COMMIT;
+
 /--------------------------------------------------------------/
 /* INSERTS DERRAPA ZONE:                                                          */
 /-------------------------------------------------------------/
@@ -14,7 +36,6 @@ INSERT INTO tblRol (idRol, nombreRol) VALUES (3, 'TECNICO');
 --tblUsuarios
 INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol) 
 VALUES (1, 'admin', '123456', 1);
-
 
 --tblProveedor 
 INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
