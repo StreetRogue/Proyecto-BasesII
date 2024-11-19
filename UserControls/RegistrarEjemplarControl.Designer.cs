@@ -73,7 +73,7 @@
             this.cbxProovedor.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cbxProovedor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxProovedor.BorderSize = 1;
-            this.cbxProovedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxProovedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.cbxProovedor.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.cbxProovedor.ForeColor = System.Drawing.Color.DimGray;
             this.cbxProovedor.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
@@ -84,11 +84,10 @@
             this.cbxProovedor.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxProovedor.Name = "cbxProovedor";
             this.cbxProovedor.Padding = new System.Windows.Forms.Padding(1);
-            this.cbxProovedor.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbxProovedor.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbxProovedor.Size = new System.Drawing.Size(287, 43);
             this.cbxProovedor.TabIndex = 4;
             this.cbxProovedor.Texts = "";
-            
             // 
             // lblRegEjemplar
             // 
@@ -180,7 +179,7 @@
             this.cbxVehiculo.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cbxVehiculo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxVehiculo.BorderSize = 1;
-            this.cbxVehiculo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxVehiculo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.cbxVehiculo.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.cbxVehiculo.ForeColor = System.Drawing.Color.DimGray;
             this.cbxVehiculo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
@@ -191,7 +190,7 @@
             this.cbxVehiculo.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxVehiculo.Name = "cbxVehiculo";
             this.cbxVehiculo.Padding = new System.Windows.Forms.Padding(1);
-            this.cbxVehiculo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbxVehiculo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbxVehiculo.Size = new System.Drawing.Size(287, 43);
             this.cbxVehiculo.TabIndex = 13;
             this.cbxVehiculo.Texts = "";

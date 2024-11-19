@@ -26,46 +26,33 @@ namespace ProyectoBasesII.UserControls
 
         assetProveedor objProveedor = new assetProveedor();
 
-
         public void MostrarDatosEnGrilla(int idProveedor)
         {
             // Obtener los datos del procedimiento almacenado
             DataSet ds = objProveedor.buscarProveedor(idProveedor);
 
-            if (ds.Tables.Count > 1 && ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                // Crear una nueva tabla para combinar datos del proveedor y vehículos
-                DataTable proveedorYVehiculos = new DataTable();
-                proveedorYVehiculos.Columns.Add("Nombre Proveedor", typeof(string));
-                proveedorYVehiculos.Columns.Add("Teléfono", typeof(string));
-                proveedorYVehiculos.Columns.Add("Dirección", typeof(string));
-                proveedorYVehiculos.Columns.Add("ID Vehículo", typeof(string));
-                proveedorYVehiculos.Columns.Add("Modelo Vehículo", typeof(string));
-                proveedorYVehiculos.Columns.Add("Marca Vehículo", typeof(string));
-                proveedorYVehiculos.Columns.Add("Año Vehículo", typeof(string));
+                // Crear una tabla para mostrar información del proveedor
+                DataTable proveedor = new DataTable();
+                proveedor.Columns.Add("ID Proveedor", typeof(string));
+                proveedor.Columns.Add("Nombre Proveedor", typeof(string));
+                proveedor.Columns.Add("Teléfono", typeof(string));
+                proveedor.Columns.Add("Dirección", typeof(string));
 
-                // Obtener datos del proveedor
-                DataRow proveedorRow = ds.Tables[0].Rows[0];
-                string nombreProveedor = proveedorRow["nombreProveedor"].ToString();
-                string telefonoProveedor = proveedorRow["telefonoProveedor"].ToString();
-                string direccionProveedor = proveedorRow["direccionProveedor"].ToString();
-
-                // Agregar información de cada vehículo
-                foreach (DataRow vehiculoRow in ds.Tables[1].Rows)
+                // Iterar sobre las filas de la tabla para llenar los datos
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    DataRow newRow = proveedorYVehiculos.NewRow();
-                    newRow["Nombre Proveedor"] = nombreProveedor;
-                    newRow["Teléfono"] = telefonoProveedor;
-                    newRow["Dirección"] = direccionProveedor;
-                    newRow["ID Vehículo"] = vehiculoRow["idVehiculo"];
-                    newRow["Modelo Vehículo"] = vehiculoRow["modeloVehiculo"];
-                    newRow["Marca Vehículo"] = vehiculoRow["marcaVehiculo"];
-                    newRow["Año Vehículo"] = vehiculoRow["añoVehiculo"];
-                    proveedorYVehiculos.Rows.Add(newRow);
+                    DataRow newRow = proveedor.NewRow();
+                    newRow["ID Proveedor"] = row["idProveedor"].ToString();
+                    newRow["Nombre Proveedor"] = row["nombreProveedor"].ToString();
+                    newRow["Teléfono"] = row["telefonoProveedor"].ToString();
+                    newRow["Dirección"] = row["direccionProveedor"].ToString();
+                    proveedor.Rows.Add(newRow);
                 }
 
                 // Vincular los datos a la grilla
-                dtgProovedores.DataSource = proveedorYVehiculos;
+                dtgProovedores.DataSource = proveedor;
             }
             else
             {
@@ -78,46 +65,30 @@ namespace ProyectoBasesII.UserControls
         public void CargarTodosLosProveedores()
         {
             // Obtener los datos del procedimiento almacenado
-            DataSet ds = new DataSet();
+            DataSet ds = objProveedor.buscarProveedorGeneral();
 
-            ds = objProveedor.buscarProveedorGeneral();
-
-            if (ds.Tables.Count > 1)
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                // Crear una tabla combinada para mostrar datos de proveedores y vehículos
-                DataTable proveedoresYVehiculos = new DataTable();
-                proveedoresYVehiculos.Columns.Add("Nombre Proveedor", typeof(string));
-                proveedoresYVehiculos.Columns.Add("Teléfono", typeof(string));
-                proveedoresYVehiculos.Columns.Add("Dirección", typeof(string));
-                proveedoresYVehiculos.Columns.Add("ID Vehículo", typeof(string));
-                proveedoresYVehiculos.Columns.Add("Modelo Vehículo", typeof(string));
-                proveedoresYVehiculos.Columns.Add("Marca Vehículo", typeof(string));
-                proveedoresYVehiculos.Columns.Add("Año Vehículo", typeof(string));
+                // Crear una tabla para mostrar datos de proveedores
+                DataTable proveedores = new DataTable();
+                proveedores.Columns.Add("ID Proveedor", typeof(string));
+                proveedores.Columns.Add("Nombre Proveedor", typeof(string));
+                proveedores.Columns.Add("Teléfono", typeof(string));
+                proveedores.Columns.Add("Dirección", typeof(string));
 
-                // Agregar datos a la tabla combinada
-                foreach (DataRow proveedorRow in ds.Tables[0].Rows)
+                // Agregar datos a la tabla
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    string nombreProveedor = proveedorRow["nombreProveedor"].ToString();
-                    string telefonoProveedor = proveedorRow["telefonoProveedor"].ToString();
-                    string direccionProveedor = proveedorRow["direccionProveedor"].ToString();
-
-                    // Buscar vehículos asociados
-                    foreach (DataRow vehiculoRow in ds.Tables[1].Select($"idProveedor = {proveedorRow["idProveedor"]}"))
-                    {
-                        DataRow newRow = proveedoresYVehiculos.NewRow();
-                        newRow["Nombre Proveedor"] = nombreProveedor;
-                        newRow["Teléfono"] = telefonoProveedor;
-                        newRow["Dirección"] = direccionProveedor;
-                        newRow["ID Vehículo"] = vehiculoRow["idVehiculo"];
-                        newRow["Modelo Vehículo"] = vehiculoRow["modeloVehiculo"];
-                        newRow["Marca Vehículo"] = vehiculoRow["marcaVehiculo"];
-                        newRow["Año Vehículo"] = vehiculoRow["añoVehiculo"];
-                        proveedoresYVehiculos.Rows.Add(newRow);
-                    }
+                    DataRow newRow = proveedores.NewRow();
+                    newRow["ID Proveedor"] = row["idProveedor"];
+                    newRow["Nombre Proveedor"] = row["nombreProveedor"];
+                    newRow["Teléfono"] = row["telefonoProveedor"];
+                    newRow["Dirección"] = row["direccionProveedor"];
+                    proveedores.Rows.Add(newRow);
                 }
 
-                // Asignar la tabla combinada a la grilla
-                dtgProovedores.DataSource = proveedoresYVehiculos;
+                // Asignar la tabla a la grilla
+                dtgProovedores.DataSource = proveedores;
             }
             else
             {
@@ -126,7 +97,6 @@ namespace ProyectoBasesII.UserControls
                 dtgProovedores.DataSource = null;
             }
         }
-
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {

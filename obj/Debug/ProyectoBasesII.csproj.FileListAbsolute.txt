@@ -138,3 +138,4 @@ C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\P
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\Proyecto.47CC26B5.Up2Date
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.exe
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.pdb
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarVehiculoControl.resources

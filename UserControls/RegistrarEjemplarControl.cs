@@ -24,7 +24,7 @@ namespace ProyectoBasesII.UserControls
        assetEjemplar objEjemplar = new assetEjemplar();
        assetProveedor objProveedores = new assetProveedor();
        assetVehiculo objVehiculo = new assetVehiculo();
-
+        private bool cargandoProveedores = true;
 
 
         private void RegistrarEjemplarControl_Load(object sender, EventArgs e)
@@ -36,6 +36,7 @@ namespace ProyectoBasesII.UserControls
         {
             try
             {
+                cargandoProveedores = true;
                 List<string> nombresProveedores = objProveedores.ObtenerNombresProveedores(); // Llamar al método
 
                 if (nombresProveedores.Count > 0)
@@ -50,6 +51,10 @@ namespace ProyectoBasesII.UserControls
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar proveedores: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cargandoProveedores = false; // Finaliza el estado de carga
             }
         }
 
@@ -71,8 +76,12 @@ namespace ProyectoBasesII.UserControls
                     }
                     else
                     {
-                        MessageBox.Show("No se encontraron vehículos para el proveedor seleccionado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       
                         cbxVehiculo.DataSource = null; // Limpiar ComboBox si no hay datos
+                        if (!cargandoProveedores)
+                        {
+                            MessageBox.Show("No se encontraron vehículos para el proveedor seleccionado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
                 else
