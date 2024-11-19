@@ -23,7 +23,6 @@ BEGIN
     END IF;
 END;
 
-
 /* Disparador para actualizar estado de ejemplar */
 CREATE OR REPLACE TRIGGER trg_actualizar_estado_ejemplar
 AFTER INSERT ON tblVenta
@@ -31,7 +30,6 @@ FOR EACH ROW
 BEGIN
     UPDATE tblEjemplar SET estadoEjemplar = 'vendido' WHERE idEjemplar = :NEW.idEjemplar;
 END;
-
 
 /* Disparador para generar idEjemplar */
 CREATE OR REPLACE TRIGGER trg_validate_and_set_idEjemplar
@@ -69,7 +67,6 @@ END;
 /
 
 /* Disparador para verificar que no esté duplicado para un servicio postventa*/
-
 CREATE OR REPLACE TRIGGER trg_servicios_postventa_id
 BEFORE INSERT ON tblServiciosPostVenta
 FOR EACH ROW
@@ -93,7 +90,6 @@ BEGIN
 END;
 
 /* Disparador para registro duplicado para un servicio tecnico*/
-
 CREATE OR REPLACE TRIGGER trg_servicios_tecnicos_id
 BEFORE INSERT ON tblRealizaServicioTecnico
 FOR EACH ROW
@@ -149,7 +145,6 @@ BEGIN
 END;
 
 ------Disparador para usertecnico
-
 CREATE OR REPLACE TRIGGER trg_auto_user_tecnico
 BEFORE INSERT ON tblTecnico
 FOR EACH ROW
@@ -197,7 +192,6 @@ END;
 /
 
 ---Disparador para userVendedor
-
 CREATE OR REPLACE TRIGGER trg_auto_user_vendedor
 BEFORE INSERT ON tblVendedor
 FOR EACH ROW
@@ -240,12 +234,9 @@ BEGIN
     INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol)
     VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
             (SELECT idRol FROM tblRol WHERE nombreRol = 'VENDEDOR'));
-
 END;
 
-
 -----Disparador para idtecnico
-
 CREATE OR REPLACE TRIGGER trg_auto_id_tecnico
 BEFORE INSERT ON tblTecnico
 FOR EACH ROW
@@ -256,9 +247,7 @@ BEGIN
     END IF;
 END;
 
-
 --Disparador para idVendedor
-
 CREATE OR REPLACE TRIGGER trg_auto_id_vendedor
 BEFORE INSERT ON tblVendedor
 FOR EACH ROW
@@ -293,6 +282,43 @@ BEGIN
     END IF;
 END;
 
+/*Disparador compuesto para calcular comision de vendedor*/
+CREATE OR REPLACE TRIGGER trg_calcular_comision_vendedor
+FOR INSERT OR UPDATE ON tblVenta
+COMPOUND TRIGGER
+    v_total_comision NUMBER := 0;
+    v_idVendedor NUMBER;
+
+    -- Sección: Antes de cada fila modificada
+    BEFORE EACH ROW IS
+    BEGIN
+        -- Calcular la comisión de la venta actual y asignarla a :NEW.comisionVenta
+        :NEW.comisionVenta := :NEW.totalVenta * 0.05;
+
+        -- Guardar el ID del vendedor afectado
+        v_idVendedor := :NEW.idVendedor;
+    END BEFORE EACH ROW;
+
+    -- Sección: Después de la sentencia
+    AFTER STATEMENT IS
+    BEGIN
+        -- Calcular la comisión acumulada para el vendedor afectado
+        SELECT NVL(SUM(comisionVenta), 0)
+        INTO v_total_comision
+        FROM tblVenta
+        WHERE idVendedor = v_idVendedor;
+
+        -- Mostrar la comisión total en la salida
+        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ': ' || v_total_comision);
+    END AFTER STATEMENT;
+
+END trg_calcular_comision_vendedor;
+/
+
+INSERT INTO tblVenta (fechaVenta, totalVenta, idVendedor, cedulaCliente, idEjemplar)
+VALUES (SYSDATE, 200000, 2, 1, 3);
+
+
 /=========================================/
 /*               PARA ELIMINAR LOS DISPARADORES           */
 /=========================================/
@@ -313,211 +339,13 @@ DROP TRIGGER trg_validate_and_set_idEjemplar;
 
 DROP TRIGGER trg_id_vehiculo_proveedor;
 
+DROP TRIGGER trg_calcular_comision_vendedor;
  
 /=========================================/
 /*                  Procedimientos y Funciones                      */
 /=========================================/
 
-/--------------------------------------------------------------/
-/* PROCEDIMIENTO: RegistrarProveedor               */
-/* Creador: Sebastián García                                 */
-/-------------------------------------------------------------/
-CREATE OR REPLACE PROCEDURE RegistrarProveedor( 
-    p_idProveedor IN tblProveedor.idProveedor%TYPE,
-    p_nombreProveedor IN tblProveedor.nombreProveedor%TYPE,
-    p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
-    p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
-    p_filasInsertadas OUT NUMBER
-) AS
-    v_count INTEGER;
-BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM tblProveedor
-    WHERE idProveedor = p_idProveedor;
-
-    IF v_count > 0 THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Error: El ID de proveedor ' || p_idProveedor || ' ya existe.');
-    END IF;
-
-    INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
-    VALUES (p_idProveedor, p_nombreProveedor, p_telefonoProveedor, p_direccionProveedor);
-
-    p_filasInsertadas := 1;
-
-    DBMS_OUTPUT.PUT_LINE('Proveedor "' || p_nombreProveedor || '" registrado con ID ' || p_idProveedor);
-
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Se ha producido un error al registrar el proveedor: ' || SQLERRM);
-END RegistrarProveedor;
-
-
-------BLOQUE ANONIMO
-
-SET SERVEROUTPUT ON
-
-DECLARE
-    v_idProveedor tblProveedor.idProveedor%TYPE := 3;
-    v_nombreProveedor tblProveedor.nombreProveedor%TYPE := 'Proveedor Prueba';
-    v_telefonoProveedor tblProveedor.telefonoProveedor%TYPE := '123456789';
-    v_direccionProveedor tblProveedor.direccionProveedor%TYPE := 'Dirección Prueba';
-BEGIN
-    RegistrarProveedor(v_idProveedor,v_nombreProveedor,v_telefonoProveedor,v_direccionProveedor);
-
-END;
-
-DROP PROCEDURE RegistrarProveedor;
-
-
-/--------------------------------------------------------------/
-/* FUNCIÓN: consultarEjemplaresDisponibles        */
-/* Creador: Sebastián García                               */
-/--------------------------------------------------------------/
-CREATE OR REPLACE FUNCTION consultarEjemplaresDisponibles
-RETURN SYS_REFCURSOR
-IS
-    ejemplares_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN ejemplares_cursor FOR
-        SELECT e.idEjemplar, v.modeloVehiculo, v.marcaVehiculo, v.añoVehiculo, v.precioVehiculo, p.nombreProveedor
-        FROM tblEjemplar e
-        JOIN tblVehiculo v ON e.idVehiculo = v.idVehiculo
-        JOIN tblProveedor p ON e.idProveedor = p.idProveedor
-        WHERE e.estadoEjemplar = 'disponible';
-    RETURN ejemplares_cursor;
-END consultarEjemplaresDisponibles;
-
----------BLOQUE ANONIMO
-SET SERVEROUTPUT ON
-
-DECLARE
-    ejemplares_cursor SYS_REFCURSOR;
-    idEjemplar_tbl tblEjemplar.idEjemplar%TYPE;
-    modeloVehiculo_tbl tblVehiculo.modeloVehiculo%TYPE;
-    marcaVehiculo_tbl tblVehiculo.marcaVehiculo%TYPE;
-    añoVehiculo_tbl tblVehiculo.añoVehiculo%TYPE;
-    precioVehiculo_tbl tblVehiculo.precioVehiculo%TYPE;
-    nombreProveedor_tbl tblProveedor.nombreProveedor%TYPE;
-BEGIN
-    ejemplares_cursor := consultarEjemplaresDisponibles;
-    LOOP        
-        FETCH ejemplares_cursor INTO idEjemplar_tbl, modeloVehiculo_tbl, marcaVehiculo_tbl, añoVehiculo_tbl, precioVehiculo_tbl, nombreProveedor_tbl;
-        EXIT WHEN ejemplares_cursor%NOTFOUND;        
-        
-        DBMS_OUTPUT.PUT_LINE('ID Ejemplar: ' || idEjemplar_tbl || ', Modelo: ' || modeloVehiculo_tbl || ', Marca: ' || marcaVehiculo_tbl || ', Año: ' || añoVehiculo_tbl || ', Precio: ' || precioVehiculo_tbl || ', Proveedor: ' || nombreProveedor_tbl);
-    END LOOP;
-
-    CLOSE ejemplares_cursor;
-END;
-
-DROP FUNCTION consultarEjemplaresDisponibles;
-/*----------------------------------------------------------------/
-/* PROCEDIMIENTO: generar_reporte_ventas         */
-/* Creador: Juan Chávez                                       */
-/---------------------------------------------------------------/
-CREATE OR REPLACE PROCEDURE generar_reporte_ventas (
-    p_fecha_inicio IN TIMESTAMP,
-    p_id_vendedor IN INTEGER,
-    p_id_cliente IN INTEGER
-) AS
-    TYPE venta_record IS RECORD (
-        idVenta tblVenta.idVenta%TYPE,
-        fechaVenta tblVenta.fechaVenta%TYPE,
-        totalVenta tblVenta.totalVenta%TYPE,
-        comisionVenta tblVenta.comisionVenta%TYPE,
-        idVendedor tblVenta.idVendedor%TYPE,
-        cedulaCliente tblVenta.cedulaCliente%TYPE
-    );
-    CURSOR c_ventas IS
-        SELECT idVenta, fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente
-        FROM tblVenta
-        WHERE (p_fecha_inicio IS NULL OR fechaVenta >= p_fecha_inicio)
-          AND (p_id_vendedor IS NULL OR idVendedor = p_id_vendedor)
-          AND (p_id_cliente IS NULL OR cedulaCliente = p_id_cliente);
-    v_venta_row venta_record;
-BEGIN
-    IF p_fecha_inicio IS NULL AND p_id_vendedor IS NULL AND p_id_cliente IS NULL THEN
-        DBMS_OUTPUT.PUT_LINE('Por favor, ingrese al menos un filtro de búsqueda.');
-        RETURN;
-    END IF;
-    OPEN c_ventas;
-    FETCH c_ventas INTO v_venta_row;
-    IF c_ventas%NOTFOUND THEN
-        DBMS_OUTPUT.PUT_LINE('No se encontraron ventas para los criterios especificados.');
-        CLOSE c_ventas;
-        RETURN;
-    END IF;
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('ID Venta: ' || v_venta_row.idVenta || 
-                             ', Fecha: ' || TO_CHAR(v_venta_row.fechaVenta, 'YYYY-MM-DD') ||
-                             ', Total: ' || v_venta_row.totalVenta);
-        FETCH c_ventas INTO v_venta_row;
-        EXIT WHEN c_ventas%NOTFOUND;
-    END LOOP;
-    CLOSE c_ventas;
-END generar_reporte_ventas;
-
------BLOQUE ANONIMO
-SET SERVEROUTPUT ON
-DECLARE
-    -- Variables para pasar los parámetros al procedimiento
-    v_fecha timestamp := TO_TIMESTAMP('2024-06-01', 'YYYY-MM-DD');
-    v_id_vendedor INTEGER := 2;  -- Cambiar al ID de vendedor que deseas probar
-    v_id_cliente INTEGER := NULL;  -- Puedes poner NULL si no deseas filtrar por cliente
-BEGIN
-    -- Llamar al procedimiento
-    generar_reporte_ventas(v_fecha,null,null);
-    --generar_reporte_ventas(null,null,null);
-END;
-
-DROP PROCEDURE generar_reporte_ventas;
-/---------------------------------------------------------------/
-/* FUNCIÓN: calcular_comision_venta                   */
-/* Creador: Juan Chávez                                      */
-/--------------------------------------------------------------/
-CREATE OR REPLACE FUNCTION calcular_comision_venta(p_idVenta IN INTEGER)
-RETURN NUMBER
-IS
-    v_totalVenta NUMBER;
-    v_comisionVenta NUMBER;
-    v_porcentaje_comision CONSTANT NUMBER := 0.05;
-BEGIN
-    SELECT totalVenta INTO v_totalVenta
-    FROM tblVenta
-    WHERE idVenta = p_idVenta;
-    v_comisionVenta := v_totalVenta * v_porcentaje_comision;
-    RETURN v_comisionVenta;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        RETURN NULL;
-    WHEN OTHERS THEN
-        RETURN NULL;
-END calcular_comision_venta;
-
--- BLOQUE ANONIMO 
-DECLARE
-    v_idVenta INTEGER := 2; 
-    v_comision NUMBER;
-BEGIN
-    v_comision := calcular_comision_venta(v_idVenta);
-
-    -- Mostramos el resultado
-    IF v_comision IS NOT NULL THEN
-        DBMS_OUTPUT.PUT_LINE('La comisión para la venta con ID ' || v_idVenta || ' es: ' || TO_CHAR(v_comision));
-    ELSE
-        DBMS_OUTPUT.PUT_LINE('No se encontró la venta con ID ' || v_idVenta || ' o hubo un error en el cálculo.');
-    END IF;
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Ocurrió un error: ' || SQLERRM);
-END;
-
-DROP FUNCTION calcular_comision_venta;
-/--------------------------------------------------------------/
-/* PROCEDIMIENTO: actualizar_y_eliminar_usuarios_inactivos   */
-/* Creador: Katherin Chamorro                              */
-/---------------------------------------------------------------/
+-- Procedimiento para eliminar usuarios inactivos 
 CREATE OR REPLACE PROCEDURE actualizar_y_eliminar_usuarios_inactivos AS
 BEGIN
     -- Establecer idUsuario en NULL para vendedores inactivos
@@ -559,198 +387,7 @@ BEGIN
 END;
 /
 
-DROP PROCEDURE actualizar_y_eliminar_usuarios_inactivos;
-
-/--------------------------------------------------------------/
-/* FUNCIÓN: Consultar_informacion_cliente          */
-/* Creador: Katherin Chamorro                            */
-/--------------------------------------------------------------/
-CREATE OR REPLACE FUNCTION Consultar_informacion_cliente(p_idCliente IN INTEGER)
-RETURN VARCHAR2
-IS
-    v_nombreCliente tblCliente.nombreCliente%TYPE;
-    v_apellidoCliente tblCliente.apellidoCliente%TYPE;
-    v_telefonoCliente tblCliente.telefonoCliente%TYPE;
-    v_emailCliente tblCliente.emailCliente%TYPE;
-    v_informacion_cliente VARCHAR2(200);
-BEGIN
-    SELECT nombreCliente, apellidoCliente, telefonoCliente, emailCliente
-    INTO v_nombreCliente, v_apellidoCliente, v_telefonoCliente, v_emailCliente
-    FROM tblCliente
-    WHERE cedulaCliente = p_idCliente;
-    v_informacion_cliente := 'Nombre: ' || v_nombreCliente || ', Email: ' || NVL(v_emailCliente, 'N/D');
-    RETURN v_informacion_cliente;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        RETURN 'Cliente no encontrado.';
-    WHEN OTHERS THEN
-        RETURN 'Error en consulta.';
-END Consultar_informacion_cliente;
-
--- BLOQUE ANONIMO
-DECLARE
-    v_idCliente INTEGER := 2; 
-    v_infoCliente VARCHAR2(200);
-BEGIN
-    v_infoCliente := Consultar_informacion_cliente(v_idCliente);
-
-    DBMS_OUTPUT.PUT_LINE('Información del cliente: ' || v_infoCliente);
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error en la prueba: ' || SQLERRM);
-END;
-
-DROP FUNCTION Consultar_informacion_cliente;
-/*----------------------------------------------------------------------------------/
-/* PROCEDIMIENTO: Consultar_informacion_proveedor                */
-/* Creador: Juan Pérez                                                               */
-/---------------------------------------------------------------------------------/
-CREATE OR REPLACE PROCEDURE Consultar_informacion_proveedor(
-    p_idProveedor IN INTEGER
-)
-IS
-    -- Variables para almacenar los datos del proveedor
-    v_nombreProveedor tblProveedor.nombreProveedor%TYPE;
-    v_telefonoProveedor tblProveedor.telefonoProveedor%TYPE;
-    v_direccionProveedor tblProveedor.direccionProveedor%TYPE;
-
-    -- Variables para manejar los datos del vehículo
-    CURSOR vehiculos_cursor IS
-        SELECT idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo
-        FROM tblVehiculo
-        WHERE idProveedor = p_idProveedor;
-
-    v_idVehiculo tblVehiculo.idVehiculo%TYPE;
-    v_modeloVehiculo tblVehiculo.modeloVehiculo%TYPE;
-    v_marcaVehiculo tblVehiculo.marcaVehiculo%TYPE;
-    v_añoVehiculo tblVehiculo.añoVehiculo%TYPE;
-BEGIN
-    -- Obtener información del proveedor
-    SELECT nombreProveedor, telefonoProveedor, direccionProveedor
-    INTO v_nombreProveedor, v_telefonoProveedor, v_direccionProveedor
-    FROM tblProveedor
-    WHERE idProveedor = p_idProveedor;
-
-    -- Mostrar información del proveedor
-    DBMS_OUTPUT.PUT_LINE('Proveedor:');
-    DBMS_OUTPUT.PUT_LINE('Nombre: ' || v_nombreProveedor);
-    DBMS_OUTPUT.PUT_LINE('Teléfono: ' || NVL(v_telefonoProveedor, 'No registrado'));
-    DBMS_OUTPUT.PUT_LINE('Dirección: ' || NVL(v_direccionProveedor, 'No registrada'));
-
-    -- Mostrar información de los vehículos asociados
-    DBMS_OUTPUT.PUT_LINE('Vehículos asociados:');
-    OPEN vehiculos_cursor;
-    LOOP
-        FETCH vehiculos_cursor INTO v_idVehiculo, v_modeloVehiculo, v_marcaVehiculo, v_añoVehiculo;
-        EXIT WHEN vehiculos_cursor%NOTFOUND;
-
-        DBMS_OUTPUT.PUT_LINE('- ID Vehículo: ' || v_idVehiculo || 
-                             ', Modelo: ' || v_modeloVehiculo || 
-                             ', Marca: ' || v_marcaVehiculo || 
-                             ', Año: ' || v_añoVehiculo);
-    END LOOP;
-    CLOSE vehiculos_cursor;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('Proveedor no encontrado.');
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Ocurrió un error: ' || SQLERRM);
-END Consultar_informacion_proveedor;
-/
-
----------Procedimiento para c#
-
-CREATE OR REPLACE PROCEDURE Consultar_informacion_proveedor(
-    p_idProveedor IN INTEGER,
-    p_proveedor OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    -- Retornar información del proveedor
-    OPEN p_proveedor FOR
-        SELECT idProveedor,nombreProveedor, telefonoProveedor, direccionProveedor
-        FROM tblProveedor
-        WHERE idProveedor = p_idProveedor;
-    
-END Consultar_informacion_proveedor;
-
-
-
-----Procedimiento para c# *Proveedores
-
-CREATE OR REPLACE PROCEDURE Consultar_todos_los_proveedores (
-    p_proveedor OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    -- Proveedores
-    OPEN p_proveedor FOR
-    SELECT 
-        tblProveedor.idProveedor,
-        nombreProveedor,
-        telefonoProveedor,
-        direccionProveedor
-    FROM tblProveedor;
-    
-END Consultar_todos_los_proveedores;
-
-
-
----------Procedimiento para c# inventario
-
-CREATE OR REPLACE PROCEDURE Consultar_informacion_ejemplar(
-    p_idEjemplar IN INTEGER,
-    p_ejemplar OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    -- Retornar información del ejemplar
-    OPEN p_ejemplar FOR
-        SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
-        FROM tblEjemplar 
-        INNER JOIN tblVehiculo
-        ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
-        INNER JOIN tblProveedor
-        ON tblVehiculo.idProveedor = tblProveedor.idProveedor
-        WHERE idEjemplar = p_idEjemplar;
-
-END Consultar_informacion_ejemplar;
-
----------Procedimiento para c# inventarioGeneral
-
-CREATE OR REPLACE PROCEDURE Consultar_informacion_ejemplar_general(
-    p_ejemplar OUT SYS_REFCURSOR
-)
-IS
-BEGIN
-    -- Retornar información del ejemplar
-    OPEN p_ejemplar FOR
-        SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
-        FROM tblEjemplar 
-        INNER JOIN tblVehiculo
-        ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
-        INNER JOIN tblProveedor
-        ON tblVehiculo.idProveedor = tblProveedor.idProveedor;
-
-END Consultar_informacion_ejemplar_general;
-
--- BLOQUE ANONIMO
-    SET SERVEROUTPUT ON;
-    DECLARE
-        v_idProveedor INTEGER := 1;
-    BEGIN
-        Consultar_informacion_proveedor(p_idProveedor => v_idProveedor);
-    EXCEPTION
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error en la prueba: ' || SQLERRM);
-    END;
-
-DROP PROCEDURE Consultar_informacion_proveedor;
-
-/--------------------------------------------------------------/
-/* FUNCIÓN: consultar_servicios_realizados         */
-/* Creador: Juan Pérez                                       */
-/-------------------------------------------------------------/
+-- Funcion para consultar servicios realizados 
 CREATE OR REPLACE FUNCTION consultar_servicios_realizados(p_idCliente INTEGER)
 RETURN SYS_REFCURSOR
 IS
@@ -765,164 +402,584 @@ BEGIN
     RETURN cursor_servicios;
 END consultar_servicios_realizados;
 
-----BLOQUE ANONIMO
-SET SERVEROUTPUT ON
 
-DECLARE
-    cursor_servicios SYS_REFCURSOR;
-    idServicio_tbl tblServiciosPostVenta.idServicio%TYPE;
-    fechaServicio_tbl tblServiciosPostVenta.fechaServicio%TYPE;
-    tipoServicio_tbl tblServiciosPostVenta.tipoServicio%TYPE;
-    costoServicio_tbl tblServiciosPostVenta.costoServicio%TYPE;
-    v_idCliente INTEGER := 2;  -- Cambia este valor según sea necesario
-    filas_recuperadas NUMBER := 0;
-BEGIN
-    BEGIN
-        -- Llamar a la función para obtener el cursor
-        cursor_servicios := consultar_servicios_realizados(p_idCliente => v_idCliente);
+/=========================================/
+/*               PARA ELIMINAR FUNCIONES           */
+/=========================================/
 
-        -- Iterar sobre el cursor y mostrar los resultados
-        LOOP
-            FETCH cursor_servicios INTO idServicio_tbl, fechaServicio_tbl, tipoServicio_tbl, costoServicio_tbl;
-            EXIT WHEN cursor_servicios%NOTFOUND;
-            
-            filas_recuperadas := filas_recuperadas + 1;
-            DBMS_OUTPUT.PUT_LINE('ID Servicio: ' || idServicio_tbl || ', Fecha: ' || fechaServicio_tbl || 
-                                 ', Tipo: ' || tipoServicio_tbl || ', Costo: ' || costoServicio_tbl);
-        END LOOP;
-
-        -- Si no se recuperaron filas, mostramos un mensaje
-        IF filas_recuperadas = 0 THEN
-            DBMS_OUTPUT.PUT_LINE('No se encontraron servicios realizados para el cliente con ID ' || v_idCliente);
-        END IF;
-
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            DBMS_OUTPUT.PUT_LINE('No se encontraron servicios realizados para el cliente con ID ' || v_idCliente);
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error inesperado al consultar los servicios realizados: ' || SQLERRM);
-    END;
-
-END;
+DROP PROCEDURE actualizar_y_eliminar_usuarios_inactivos;
 
 DROP FUNCTION consultar_servicios_realizados;
 
-/----------------------------------------------------------------------------------/
-/* PROCEDIMIENTO: Registrar_Cliente_Nuevo                */
-/* Creador: Juan Camilo Benavides  Salazar                                                           */
-/---------------------------------------------------------------------------------/
-CREATE OR REPLACE PROCEDURE Registrar_Cliente_Nuevo(
-    p_cedulaCliente     tblCliente.cedulaCliente%TYPE,
-    p_nombreCliente     tblCliente.nombreCliente%TYPE,
-    p_apellidoCliente   tblCliente.apellidoCliente%TYPE,
-    p_telefonoCliente   tblCliente.telefonoCliente%TYPE,
-    p_emailCliente      tblCliente.emailCliente%TYPE,
-    p_direccionCliente  tblCliente.direccionCliente%TYPE
-) IS
-    v_exists INTEGER;
 
-    -- Declarar una excepción personalizada para la cédula duplicada
-    ex_cedula_duplicada EXCEPTION;
+/=========================================/
+/*               PAQUETES           */
+/=========================================/
 
-BEGIN
-    -- Verificar si ya existe un cliente con la misma cédula
-    SELECT COUNT(*) INTO v_exists
-    FROM tblCliente
-    WHERE cedulaCliente = p_cedulaCliente;
+-- Paquete para ventas
+CREATE OR REPLACE PACKAGE pkg_ventas AS
+    -- Procedimientos 
+    PROCEDURE registrar_venta(
+        p_fecha       IN DATE,
+        p_id_vendedor IN NUMBER,
+        p_cedula_cliente IN NUMBER,
+        p_id_ejemplar IN NUMBER
+    );
+    PROCEDURE generar_reporte_ventas(
+        p_fecha_inicio IN TIMESTAMP,
+        p_id_vendedor  IN INTEGER,
+        p_id_cliente   IN INTEGER
+    );
+
+    -- Funciones 
+    FUNCTION calcular_comision_venta(p_idVenta IN INTEGER) RETURN NUMBER;
+    FUNCTION calcular_total_venta(p_idEjemplar IN INTEGER) RETURN NUMBER;
+END pkg_ventas;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
+    -- Función para calcular la comisión de una venta
+    FUNCTION calcular_comision_venta(p_idVenta IN INTEGER) RETURN NUMBER IS
+        v_totalVenta NUMBER;
+        v_comisionVenta NUMBER;
+        v_porcentaje_comision CONSTANT NUMBER := 0.05;
+    BEGIN
+        SELECT totalVenta INTO v_totalVenta
+        FROM tblVenta
+        WHERE idVenta = p_idVenta;
+
+        v_comisionVenta := v_totalVenta * v_porcentaje_comision;
+        RETURN v_comisionVenta;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN NULL;
+        WHEN OTHERS THEN
+            RETURN NULL;
+    END calcular_comision_venta;
     
-    IF v_exists > 0 THEN
-        RAISE ex_cedula_duplicada; -- Lanzar la excepción si la cédula está duplicada
-    END IF;
+    -- Función para calcular el total de una venta basada en el precio del vehículo
+    FUNCTION calcular_total_venta(p_idEjemplar IN INTEGER) RETURN NUMBER IS
+        v_precioVehiculo NUMBER;
+    BEGIN
+        SELECT precioVehiculo
+        INTO v_precioVehiculo
+        FROM tblVehiculo V
+        JOIN tblEjemplar E ON V.idVehiculo = E.idVehiculo
+        WHERE E.idEjemplar = p_idEjemplar;
 
-    -- Intentar insertar el cliente en la tabla
-    INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
-    VALUES (p_cedulaCliente, p_nombreCliente, p_apellidoCliente, p_telefonoCliente, p_emailCliente, p_direccionCliente);
+        RETURN v_precioVehiculo;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20001, 'El ejemplar especificado no existe.');
+        WHEN OTHERS THEN
+            RAISE;
+    END calcular_total_venta;
 
-    DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
 
-EXCEPTION
-    WHEN ex_cedula_duplicada THEN
-        DBMS_OUTPUT.PUT_LINE('Error: La cédula del cliente ya está registrada en el sistema.');
-    WHEN DUP_VAL_ON_INDEX THEN
-        DBMS_OUTPUT.PUT_LINE('Error: El email ya está registrado en el sistema.');
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
-END Registrar_Cliente_Nuevo;
+    -- Procedimiento para registrar una venta
+    PROCEDURE registrar_venta(
+        p_fecha         IN DATE,
+        p_id_vendedor   IN NUMBER,
+        p_cedula_cliente IN NUMBER,
+        p_id_ejemplar   IN NUMBER
+    ) IS
+        v_totalVenta NUMBER;
+        v_comisionVenta NUMBER;
+        v_idVenta INTEGER;
+    BEGIN
+        -- Calcular el total de la venta
+        v_totalVenta := calcular_total_venta(p_id_ejemplar);
 
--- BLOQUE ANONIMO
-DECLARE
-    v_cedulaCliente    tblCliente.cedulaCliente%TYPE := 3; -- Ejemplo de cédula para el cliente
-    v_nombreCliente    tblCliente.nombreCliente%TYPE := 'Juan';
-    v_apellidoCliente  tblCliente.apellidoCliente%TYPE := 'Pérez';
-    v_telefonoCliente  tblCliente.telefonoCliente%TYPE := '123-456-7890';
-    v_emailCliente     tblCliente.emailCliente%TYPE := 'juan.perez@example.com';
-    v_direccionCliente tblCliente.direccionCliente%TYPE := 'Calle Falsa 123';
+        -- Insertar la venta y recuperar su ID
+        INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
+        VALUES (p_fecha, v_totalVenta, NULL, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
+        RETURNING idVenta INTO v_idVenta;
+
+        -- Calcular la comisión de la venta recién insertada
+        v_comisionVenta := calcular_comision_venta(v_idVenta);
+
+        -- Actualizar la venta con la comisión calculada
+        UPDATE tblVenta
+        SET comisionVenta = v_comisionVenta
+        WHERE idVenta = v_idVenta;
+
+        DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
+
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+    END registrar_venta;
+    
+    -- Procedimiento para reporte de ventas 
+    PROCEDURE generar_reporte_ventas(
+        p_fecha_inicio IN TIMESTAMP,
+        p_id_vendedor  IN INTEGER,
+        p_id_cliente   IN INTEGER
+    ) AS
+        TYPE venta_record IS RECORD (
+            idVenta tblVenta.idVenta%TYPE,
+            fechaVenta tblVenta.fechaVenta%TYPE,
+            totalVenta tblVenta.totalVenta%TYPE,
+            comisionVenta tblVenta.comisionVenta%TYPE,
+            idVendedor tblVenta.idVendedor%TYPE,
+            cedulaCliente tblVenta.cedulaCliente%TYPE
+        );
+        CURSOR c_ventas IS
+            SELECT idVenta, fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente
+            FROM tblVenta
+            WHERE (p_fecha_inicio IS NULL OR fechaVenta >= p_fecha_inicio)
+              AND (p_id_vendedor IS NULL OR idVendedor = p_id_vendedor)
+              AND (p_id_cliente IS NULL OR cedulaCliente = p_id_cliente);
+        v_venta_row venta_record;
+    BEGIN
+        -- Validar si hay al menos un filtro
+        IF p_fecha_inicio IS NULL AND p_id_vendedor IS NULL AND p_id_cliente IS NULL THEN
+            DBMS_OUTPUT.PUT_LINE('Por favor, ingrese al menos un filtro de búsqueda.');
+            RETURN;
+        END IF;
+
+        -- Abrir el cursor y verificar si hay resultados
+        OPEN c_ventas;
+        FETCH c_ventas INTO v_venta_row;
+        IF c_ventas%NOTFOUND THEN
+            DBMS_OUTPUT.PUT_LINE('No se encontraron ventas para los criterios especificados.');
+            CLOSE c_ventas;
+            RETURN;
+        END IF;
+
+        -- Procesar los resultados
+        LOOP
+            DBMS_OUTPUT.PUT_LINE('ID Venta: ' || v_venta_row.idVenta || 
+                                 ', Fecha: ' || TO_CHAR(v_venta_row.fechaVenta, 'YYYY-MM-DD') ||
+                                 ', Total: ' || v_venta_row.totalVenta);
+            FETCH c_ventas INTO v_venta_row;
+            EXIT WHEN c_ventas%NOTFOUND;
+        END LOOP;
+
+        -- Cerrar el cursor
+        CLOSE c_ventas;
+    END generar_reporte_ventas;
+END pkg_ventas;
+
 BEGIN
-    -- Llamada al procedimiento para registrar un nuevo cliente
-    Registrar_Cliente_Nuevo(v_cedulaCliente, v_nombreCliente,  v_apellidoCliente, v_telefonoCliente,  v_emailCliente,  v_direccionCliente );
+    -- Registrar una venta sin especificar el total (se calculará automáticamente)
+    pkg_ventas.registrar_venta(
+        p_fecha         => SYSDATE,
+        p_id_vendedor   => 1,
+        p_cedula_cliente => 1,
+        p_id_ejemplar   => 3
+    );
 END;
 
-DROP PROCEDURE Registrar_Cliente_Nuevo;
 
-/----------------------------------------------------------------------------------/
-/* FUNCION: fn_Numero_De_Clientes     */
-/* Creador: Juan Camilo Benavides  Salazar                                                           */
-/---------------------------------------------------------------------------------/
-CREATE OR REPLACE FUNCTION fn_Numero_De_Clientes RETURN NUMBER IS
-    v_totalClientes NUMBER;
+-- Paquete para clientes 
+CREATE OR REPLACE PACKAGE pkg_clientes AS
+    -- Funciones
+    FUNCTION Consultar_informacion_cliente(p_idCliente IN INTEGER) RETURN VARCHAR2;
+    FUNCTION fn_Numero_De_Clientes RETURN NUMBER;
+
+    -- Procedimientos
+    PROCEDURE Registrar_Cliente_Nuevo(
+        p_cedulaCliente     IN tblCliente.cedulaCliente%TYPE,
+        p_nombreCliente     IN tblCliente.nombreCliente%TYPE,
+        p_apellidoCliente   IN tblCliente.apellidoCliente%TYPE,
+        p_telefonoCliente   IN tblCliente.telefonoCliente%TYPE,
+        p_emailCliente      IN tblCliente.emailCliente%TYPE,
+        p_direccionCliente  IN tblCliente.direccionCliente%TYPE
+    );
+END pkg_clientes;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
+    -- Función para consultar información de un cliente
+    FUNCTION Consultar_informacion_cliente(p_idCliente IN INTEGER) RETURN VARCHAR2 IS
+        v_nombreCliente tblCliente.nombreCliente%TYPE;
+        v_apellidoCliente tblCliente.apellidoCliente%TYPE;
+        v_telefonoCliente tblCliente.telefonoCliente%TYPE;
+        v_emailCliente tblCliente.emailCliente%TYPE;
+        v_informacion_cliente VARCHAR2(200);
+    BEGIN
+        SELECT nombreCliente, apellidoCliente, telefonoCliente, emailCliente
+        INTO v_nombreCliente, v_apellidoCliente, v_telefonoCliente, v_emailCliente
+        FROM tblCliente
+        WHERE cedulaCliente = p_idCliente;
+        
+        v_informacion_cliente := 'Nombre: ' || v_nombreCliente || ', Email: ' || NVL(v_emailCliente, 'N/D');
+        RETURN v_informacion_cliente;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 'Cliente no encontrado.';
+        WHEN OTHERS THEN
+            RETURN 'Error en consulta.';
+    END Consultar_informacion_cliente;
+
+    -- Función para contar el número total de clientes
+    FUNCTION fn_Numero_De_Clientes RETURN NUMBER IS
+        v_totalClientes NUMBER;
+    BEGIN
+        SELECT COUNT(*) INTO v_totalClientes FROM tblCliente;
+        RETURN v_totalClientes;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+        WHEN OTHERS THEN
+            RETURN -1;
+    END fn_Numero_De_Clientes;
+
+    -- Procedimiento para registrar un nuevo cliente
+    PROCEDURE Registrar_Cliente_Nuevo(
+        p_cedulaCliente     IN tblCliente.cedulaCliente%TYPE,
+        p_nombreCliente     IN tblCliente.nombreCliente%TYPE,
+        p_apellidoCliente   IN tblCliente.apellidoCliente%TYPE,
+        p_telefonoCliente   IN tblCliente.telefonoCliente%TYPE,
+        p_emailCliente      IN tblCliente.emailCliente%TYPE,
+        p_direccionCliente  IN tblCliente.direccionCliente%TYPE
+    ) IS
+        v_exists INTEGER;
+        ex_cedula_duplicada EXCEPTION;
+
+    BEGIN
+        -- Verificar si ya existe un cliente con la misma cédula
+        SELECT COUNT(*) INTO v_exists
+        FROM tblCliente
+        WHERE cedulaCliente = p_cedulaCliente;
+        
+        IF v_exists > 0 THEN
+            RAISE ex_cedula_duplicada; 
+        END IF;
+
+        -- Intentar insertar el cliente en la tabla
+        INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
+        VALUES (p_cedulaCliente, p_nombreCliente, p_apellidoCliente, p_telefonoCliente, p_emailCliente, p_direccionCliente);
+
+        DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
+
+    EXCEPTION
+        WHEN ex_cedula_duplicada THEN
+            DBMS_OUTPUT.PUT_LINE('Error: La cédula del cliente ya está registrada en el sistema.');
+        WHEN DUP_VAL_ON_INDEX THEN
+            DBMS_OUTPUT.PUT_LINE('Error: El email ya está registrado en el sistema.');
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+    END Registrar_Cliente_Nuevo;
+END pkg_clientes;
+
+
+-- Paquete para ejemplares
+CREATE OR REPLACE PACKAGE pkg_ejemplares AS
+    -- Funciones
+    FUNCTION consultarEjemplaresDisponibles RETURN SYS_REFCURSOR;
+
+    -- Procedimientos
+    PROCEDURE InsertarEjemplares(
+        p_idVehiculo       IN NUMBER,
+        p_idProveedor      IN NUMBER,
+        p_estado           IN VARCHAR2,
+        p_cantidad         IN NUMBER,
+        p_filasInsertadas  OUT NUMBER
+    );
+
+    PROCEDURE Consultar_informacion_ejemplar(
+        p_idEjemplar IN INTEGER,
+        p_ejemplar OUT SYS_REFCURSOR
+    );
+
+    PROCEDURE Consultar_informacion_ejemplar_general(
+        p_ejemplar OUT SYS_REFCURSOR
+    );
+END pkg_ejemplares;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_ejemplares AS
+    -- Función para consultar ejemplares disponibles
+    FUNCTION consultarEjemplaresDisponibles RETURN SYS_REFCURSOR IS
+        ejemplares_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN ejemplares_cursor FOR
+            SELECT e.idEjemplar, v.modeloVehiculo, v.marcaVehiculo, v.añoVehiculo, v.precioVehiculo, p.nombreProveedor
+            FROM tblEjemplar e
+            JOIN tblVehiculo v ON e.idVehiculo = v.idVehiculo
+            JOIN tblProveedor p ON e.idProveedor = p.idProveedor
+            WHERE e.estadoEjemplar = 'disponible';
+        RETURN ejemplares_cursor;
+    END consultarEjemplaresDisponibles;
+
+    -- Procedimiento para insertar ejemplares en lote
+    PROCEDURE InsertarEjemplares(
+        p_idVehiculo       IN NUMBER,
+        p_idProveedor      IN NUMBER,
+        p_estado           IN VARCHAR2,
+        p_cantidad         IN NUMBER,
+        p_filasInsertadas  OUT NUMBER
+    ) IS
+    BEGIN
+        p_filasInsertadas := 0; -- Inicializar el contador
+        FOR i IN 1..p_cantidad LOOP
+            INSERT INTO tblEjemplar (idVehiculo, idProveedor, estadoEjemplar)
+            VALUES (p_idVehiculo, p_idProveedor, p_estado);
+            p_filasInsertadas := p_filasInsertadas + 1; -- Incrementar el contador
+        END LOOP;
+    END InsertarEjemplares;
+
+    -- Procedimiento para consultar información de un ejemplar específico
+    PROCEDURE Consultar_informacion_ejemplar(
+        p_idEjemplar IN INTEGER,
+        p_ejemplar OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        -- Retornar información del ejemplar
+        OPEN p_ejemplar FOR
+            SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
+            FROM tblEjemplar 
+            INNER JOIN tblVehiculo
+            ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
+            INNER JOIN tblProveedor
+            ON tblVehiculo.idProveedor = tblProveedor.idProveedor
+            WHERE idEjemplar = p_idEjemplar;
+    END Consultar_informacion_ejemplar;
+
+    -- Procedimiento para consultar todos los ejemplares
+    PROCEDURE Consultar_informacion_ejemplar_general(
+        p_ejemplar OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        -- Retornar información de todos los ejemplares
+        OPEN p_ejemplar FOR
+            SELECT idEjemplar, modeloVehiculo, estadoEjemplar, nombreProveedor
+            FROM tblEjemplar 
+            INNER JOIN tblVehiculo
+            ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo
+            INNER JOIN tblProveedor
+            ON tblVehiculo.idProveedor = tblProveedor.idProveedor;
+    END Consultar_informacion_ejemplar_general;
+END pkg_ejemplares;
+
+
+-- Paquete para proveedores
+CREATE OR REPLACE PACKAGE pkg_proveedores AS
+    -- Procedimientos
+    PROCEDURE RegistrarProveedor(
+        p_idProveedor       IN tblProveedor.idProveedor%TYPE,
+        p_nombreProveedor   IN tblProveedor.nombreProveedor%TYPE,
+        p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
+        p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
+        p_filasInsertadas   OUT NUMBER
+    );
+
+    PROCEDURE Consultar_informacion_proveedor(
+        p_idProveedor IN INTEGER
+    );
+
+    PROCEDURE Consultar_informacion_proveedor_cursor(
+        p_idProveedor IN INTEGER,
+        p_proveedor OUT SYS_REFCURSOR
+    );
+
+    PROCEDURE Consultar_todos_los_proveedores(
+        p_proveedor OUT SYS_REFCURSOR
+    );
+END pkg_proveedores;
+
+
+CREATE OR REPLACE PACKAGE BODY pkg_proveedores AS
+    -- Procedimiento para registrar un proveedor
+    PROCEDURE RegistrarProveedor(
+        p_idProveedor       IN tblProveedor.idProveedor%TYPE,
+        p_nombreProveedor   IN tblProveedor.nombreProveedor%TYPE,
+        p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
+        p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
+        p_filasInsertadas   OUT NUMBER
+    ) IS
+        v_count INTEGER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_count
+        FROM tblProveedor
+        WHERE idProveedor = p_idProveedor;
+
+        IF v_count > 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Error: El ID de proveedor ' || p_idProveedor || ' ya existe.');
+        END IF;
+
+        INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
+        VALUES (p_idProveedor, p_nombreProveedor, p_telefonoProveedor, p_direccionProveedor);
+
+        p_filasInsertadas := 1;
+
+        DBMS_OUTPUT.PUT_LINE('Proveedor "' || p_nombreProveedor || '" registrado con ID ' || p_idProveedor);
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Se ha producido un error al registrar el proveedor: ' || SQLERRM);
+    END RegistrarProveedor;
+
+    -- Procedimiento para consultar información de un proveedor y sus vehículos
+    PROCEDURE Consultar_informacion_proveedor(
+        p_idProveedor IN INTEGER
+    ) IS
+        v_nombreProveedor tblProveedor.nombreProveedor%TYPE;
+        v_telefonoProveedor tblProveedor.telefonoProveedor%TYPE;
+        v_direccionProveedor tblProveedor.direccionProveedor%TYPE;
+
+        CURSOR vehiculos_cursor IS
+            SELECT idVehiculo, modeloVehiculo, marcaVehiculo, añoVehiculo
+            FROM tblVehiculo
+            WHERE idProveedor = p_idProveedor;
+
+        v_idVehiculo tblVehiculo.idVehiculo%TYPE;
+        v_modeloVehiculo tblVehiculo.modeloVehiculo%TYPE;
+        v_marcaVehiculo tblVehiculo.marcaVehiculo%TYPE;
+        v_añoVehiculo tblVehiculo.añoVehiculo%TYPE;
+    BEGIN
+        SELECT nombreProveedor, telefonoProveedor, direccionProveedor
+        INTO v_nombreProveedor, v_telefonoProveedor, v_direccionProveedor
+        FROM tblProveedor
+        WHERE idProveedor = p_idProveedor;
+
+        DBMS_OUTPUT.PUT_LINE('Proveedor:');
+        DBMS_OUTPUT.PUT_LINE('Nombre: ' || v_nombreProveedor);
+        DBMS_OUTPUT.PUT_LINE('Teléfono: ' || NVL(v_telefonoProveedor, 'No registrado'));
+        DBMS_OUTPUT.PUT_LINE('Dirección: ' || NVL(v_direccionProveedor, 'No registrada'));
+
+        DBMS_OUTPUT.PUT_LINE('Vehículos asociados:');
+        OPEN vehiculos_cursor;
+        LOOP
+            FETCH vehiculos_cursor INTO v_idVehiculo, v_modeloVehiculo, v_marcaVehiculo, v_añoVehiculo;
+            EXIT WHEN vehiculos_cursor%NOTFOUND;
+
+            DBMS_OUTPUT.PUT_LINE('- ID Vehículo: ' || v_idVehiculo || 
+                                 ', Modelo: ' || v_modeloVehiculo || 
+                                 ', Marca: ' || v_marcaVehiculo || 
+                                 ', Año: ' || v_añoVehiculo);
+        END LOOP;
+        CLOSE vehiculos_cursor;
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Proveedor no encontrado.');
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Ocurrió un error: ' || SQLERRM);
+    END Consultar_informacion_proveedor;
+
+    -- Procedimiento para consultar información de un proveedor con un cursor
+    PROCEDURE Consultar_informacion_proveedor_cursor(
+        p_idProveedor IN INTEGER,
+        p_proveedor OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN p_proveedor FOR
+            SELECT idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor
+            FROM tblProveedor
+            WHERE idProveedor = p_idProveedor;
+    END Consultar_informacion_proveedor_cursor;
+
+    -- Procedimiento para consultar todos los proveedores
+    PROCEDURE Consultar_todos_los_proveedores(
+        p_proveedor OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN p_proveedor FOR
+        SELECT idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor
+        FROM tblProveedor;
+    END Consultar_todos_los_proveedores;
+END pkg_proveedores;
+
+
+/=========================================/
+/*               PARA BORRAR PAQUETES           */
+/=========================================/
+
+DROP PACKAGE pkg_ventas;
+
+DROP PACKAGE pkg_clientes;
+
+DROP PACKAGE pkg_ejemplares;
+
+DROP PACKAGE pkg_proveedores;
+
+
+/=========================================/
+/*               VISTAS           */
+/=========================================/
+
+-- Vista para inventario ejemplares INTEAD OF
+CREATE OR REPLACE VIEW vista_inventario_ejemplares AS
+SELECT 
+    e.idEjemplar AS "ID Ejemplar",
+    v.modeloVehiculo AS "Modelo Vehículo",
+    e.estadoEjemplar AS "Estado Ejemplar",
+    p.nombreProveedor AS "Nombre Proveedor"
+FROM 
+    tblEjemplar e
+JOIN 
+    tblVehiculo v ON e.idVehiculo = v.idVehiculo
+JOIN 
+    tblProveedor p ON v.idProveedor = p.idProveedor;
+
+-- Trigger para vista invetario ejemplares
+CREATE OR REPLACE TRIGGER trg_inventario_ejemplares
+INSTEAD OF INSERT OR UPDATE OR DELETE ON vista_inventario_ejemplares
+FOR EACH ROW
 BEGIN
-    -- Intentar contar el número de clientes registrados en la tabla
-    SELECT COUNT(*) INTO v_totalClientes FROM tblCliente;
-    
-    -- Retornar el número total de clientes
-    RETURN v_totalClientes;
-
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('Error: No se encontraron datos en la tabla tblCliente.');
-        RETURN 0;
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
-        RETURN -1;
-END fn_Numero_De_Clientes;
-
---BLOQUE ANONIMO
-DECLARE
-    v_numeroClientes NUMBER;
-BEGIN
-    -- Llamar a la función y almacenar el resultado en una variable
-    v_numeroClientes := fn_Numero_De_Clientes;
-
-    -- Condicional para verificar el resultado de la función
-    IF v_numeroClientes = -1 THEN
-        DBMS_OUTPUT.PUT_LINE('Error al contar los clientes. Verifique el sistema.');
-    ELSIF v_numeroClientes = 0 THEN
-        DBMS_OUTPUT.PUT_LINE('No hay clientes registrados en el sistema.');
-    ELSE
-        DBMS_OUTPUT.PUT_LINE('Número de clientes registrados en el sistema: ' || v_numeroClientes);
-    END IF;
-END;
-
-DROP FUNCTION fn_Numero_De_Clientes;
-
-----Procedimiento para las inserciones en bucle
-
-CREATE OR REPLACE PROCEDURE InsertarEjemplares(
-    p_idVehiculo   IN NUMBER,
-    p_idProveedor  IN NUMBER,
-    p_estado       IN VARCHAR2,
-    p_cantidad     IN NUMBER,
-    p_filasInsertadas OUT NUMBER
-)
-AS
-BEGIN
-    p_filasInsertadas := 0; -- Inicializar el contador
-    FOR i IN 1..p_cantidad LOOP
+    -- Operación INSERT
+    IF INSERTING THEN
         INSERT INTO tblEjemplar (idVehiculo, idProveedor, estadoEjemplar)
-        VALUES (p_idVehiculo, p_idProveedor, p_estado);
-        p_filasInsertadas := p_filasInsertadas + 1; -- Incrementar el contador
-    END LOOP;
+        VALUES (
+            (SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo = :NEW."Modelo Vehículo"),
+            (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = :NEW."Nombre Proveedor"),
+            :NEW."Estado Ejemplar"
+        );
+    END IF;
+
+    -- Operación UPDATE
+    IF UPDATING THEN
+        UPDATE tblEjemplar
+        SET estadoEjemplar = :NEW."Estado Ejemplar"
+        WHERE idEjemplar = :OLD."ID Ejemplar";
+    END IF;
+
+    -- Operación DELETE
+    IF DELETING THEN
+        DELETE FROM tblEjemplar
+        WHERE idEjemplar = :OLD."ID Ejemplar";
+    END IF;
 END;
+/
+
+-- Vista para proveedores
+CREATE OR REPLACE VIEW vista_proveedores AS
+SELECT 
+    p.idProveedor AS "ID Proveedor",
+    p.nombreProveedor AS "Nombre Proveedor",
+    p.telefonoProveedor AS "Teléfono Proveedor",
+    p.direccionProveedor AS "Dirección Proveedor",
+    COUNT(v.idVehiculo) AS "Cantidad de Vehículos Asociados"
+FROM 
+    tblProveedor p
+LEFT JOIN 
+    tblVehiculo v ON p.idProveedor = v.idProveedor
+GROUP BY 
+    p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
 
 
-DROP PROCEDURE InsertarEjemplares;
+/=========================================/
+/*               PARA BORRAR VISTAS       */
+/=========================================/
+
+DROP VIEW vista_inventario_ejemplares;
+
+DROP VIEW vista_proveedores;
+
+/=========================================/
+/*               POR SI ACASO          */
+/=========================================/
+
+CONNECT system/oracle;
+GRANT CREATE VIEW TO USER_PROYECTOBASES;
+
+
+
+
+
