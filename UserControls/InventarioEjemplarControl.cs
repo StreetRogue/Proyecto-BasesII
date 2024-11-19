@@ -61,7 +61,7 @@ namespace ProyectoBasesII.UserControls
 
         public void CargarTodosLosEjemplares()
         {
-            // Obtener los datos del procedimiento almacenado
+            // Obtener los datos de la vista a través del método buscarEjemplarGeneral
             DataSet ds = objEjemplar.buscarEjemplarGeneral();
 
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -77,10 +77,10 @@ namespace ProyectoBasesII.UserControls
                 foreach (DataRow ejemplarRow in ds.Tables[0].Rows)
                 {
                     DataRow newRow = ejemplaresYVehiculos.NewRow();
-                    newRow["ID Ejemplar"] = ejemplarRow["idEjemplar"];
-                    newRow["Modelo Vehículo"] = ejemplarRow["modeloVehiculo"];
-                    newRow["Estado Ejemplar"] = ejemplarRow["estadoEjemplar"];
-                    newRow["Nombre Proveedor"] = ejemplarRow["nombreProveedor"];
+                    newRow["ID Ejemplar"] = ejemplarRow["ID Ejemplar"]; // Asegúrate de que coincidan con los nombres de la vista
+                    newRow["Modelo Vehículo"] = ejemplarRow["Modelo Vehículo"];
+                    newRow["Estado Ejemplar"] = ejemplarRow["Estado Ejemplar"];
+                    newRow["Nombre Proveedor"] = ejemplarRow["Nombre Proveedor"];
                     ejemplaresYVehiculos.Rows.Add(newRow);
                 }
 
@@ -94,6 +94,7 @@ namespace ProyectoBasesII.UserControls
                 dtgEjemplares.DataSource = null;
             }
         }
+
 
 
 

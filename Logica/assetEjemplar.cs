@@ -65,7 +65,7 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado
-            dt.ejecutarSP("INSERTAREJEMPLARES", parametros);
+            dt.ejecutarSP("pkg_ejemplares.InsertarEjemplares", parametros);
 
             // Obtener el valor del parámetro de salida
             filasInsertadas = int.Parse(parametros[4].Value.ToString());
@@ -86,25 +86,19 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado y obtener los datos
-            return dt.ejecutarSPConCursores("Consultar_informacion_ejemplar", parametros);
+            return dt.ejecutarSPConCursores("pkg_ejemplares.Consultar_informacion_ejemplar", parametros);
         }
 
 
         public DataSet buscarEjemplarGeneral()
         {
             DataSet ds = new DataSet();
+            string consulta;
 
-            // Configurar los parámetros del procedimiento almacenado
-            OracleParameter[] parametros = new OracleParameter[]
-            {
-            new OracleParameter("p_ejemplar", OracleDbType.RefCursor, ParameterDirection.Output)
-            };
+            consulta = "SELECT * FROM vista_inventario_ejemplares";
 
-            // Ejecutar el procedimiento almacenado para obtener los datos
-            ds = dt.ejecutarSPConCursores("Consultar_informacion_ejemplar_general", parametros);
+            ds = dt.ejecutarSelect(consulta);
 
-
-            // Ejecutar el procedimiento almacenado y obtener los datos
             return ds;
         }
 

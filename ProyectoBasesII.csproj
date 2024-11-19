@@ -133,6 +133,7 @@
     <Compile Include="Logica\assetLogin.cs" />
     <Compile Include="Logica\assetProveedor.cs" />
     <Compile Include="Logica\assetVehiculo.cs" />
+    <Compile Include="Logica\assetVenta.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\InventarioEjemplarControl.cs">

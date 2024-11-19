@@ -64,7 +64,7 @@ namespace ProyectoBasesII.UserControls
 
         public void CargarTodosLosProveedores()
         {
-            // Obtener los datos del procedimiento almacenado
+            // Obtener los datos de la vista a través del método buscarProveedorGeneral2
             DataSet ds = objProveedor.buscarProveedorGeneral();
 
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -75,15 +75,17 @@ namespace ProyectoBasesII.UserControls
                 proveedores.Columns.Add("Nombre Proveedor", typeof(string));
                 proveedores.Columns.Add("Teléfono", typeof(string));
                 proveedores.Columns.Add("Dirección", typeof(string));
+                proveedores.Columns.Add("Cantidad de Vehículos Asociados", typeof(string)); // Nueva columna
 
                 // Agregar datos a la tabla
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     DataRow newRow = proveedores.NewRow();
-                    newRow["ID Proveedor"] = row["idProveedor"];
-                    newRow["Nombre Proveedor"] = row["nombreProveedor"];
-                    newRow["Teléfono"] = row["telefonoProveedor"];
-                    newRow["Dirección"] = row["direccionProveedor"];
+                    newRow["ID Proveedor"] = row["ID Proveedor"]; // Nombre de columna sensible a mayúsculas/minúsculas
+                    newRow["Nombre Proveedor"] = row["Nombre Proveedor"];
+                    newRow["Teléfono"] = row["Teléfono Proveedor"];
+                    newRow["Dirección"] = row["Dirección Proveedor"];
+                    newRow["Cantidad de Vehículos Asociados"] = row["Cantidad de Vehículos Asociados"];
                     proveedores.Rows.Add(newRow);
                 }
 
@@ -98,10 +100,12 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             SolicitarRegistrarProovedores?.Invoke(this, EventArgs.Empty);
         }
+
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {

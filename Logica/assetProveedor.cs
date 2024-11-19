@@ -31,7 +31,7 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado
-            dt.ejecutarSP("RegistrarProveedor", parametros);
+            dt.ejecutarSP("pkg_proveedores.RegistrarProveedor", parametros);
 
             // Obtener el valor del parámetro de salida
             filasInsertadas = int.Parse(parametros[4].Value.ToString());
@@ -73,25 +73,19 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado y obtener los datos
-            return dt.ejecutarSPConCursores("Consultar_informacion_proveedor", parametros);
+            return dt.ejecutarSPConCursores("pkg_proveedores.Consultar_informacion_proveedor_cursor", parametros);
         }
-
 
 
         public DataSet buscarProveedorGeneral()
         {
             DataSet ds = new DataSet();
+            string consulta;
 
-            // Configurar los parámetros del procedimiento almacenado
-            OracleParameter[] parametros = new OracleParameter[]
-            {
-                new OracleParameter("p_proveedor", OracleDbType.RefCursor, ParameterDirection.Output),
-            };
+            consulta = "SELECT * FROM vista_proveedores";
 
-            // Ejecutar el procedimiento almacenado para obtener los datos
-            ds = dt.ejecutarSPConCursores("Consultar_todos_los_proveedores", parametros);
+            ds = dt.ejecutarSelect(consulta);
 
-            // Ejecutar el procedimiento almacenado y obtener los datos
             return ds;
         }
 
