@@ -1,6 +1,6 @@
-/======================================/
+--/======================================/
 /*                   Proyecto: Derrapa Zone                     */
-/======================================/
+--/======================================/
 --HECHO POR:
 --JUAN ESTEBAN CHAVEZ COLLAZOS
 --KATHERIN CHAMORRO LUCERO
@@ -8,7 +8,7 @@
 --JHOAN SEBASTIAN GARCIA CAMACHO
 --JUAN DIEGO PEREZ MARTINEZ
 
-
+--
 ----SCRIPT DE CREACION
 
 /=====================================/

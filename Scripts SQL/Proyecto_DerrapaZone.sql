@@ -438,7 +438,8 @@ END pkg_ventas;
 
 
 CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
-    -- Función para calcular la comisión de una venta
+ 
+     -- Función para calcular la comisión de una venta
     FUNCTION calcular_comision_venta(p_idVenta IN INTEGER) RETURN NUMBER IS
         v_totalVenta NUMBER;
         v_comisionVenta NUMBER;
@@ -456,6 +457,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
         WHEN OTHERS THEN
             RETURN NULL;
     END calcular_comision_venta;
+    
     
     -- Función para calcular el total de una venta basada en el precio del vehículo
     FUNCTION calcular_total_venta(p_idEjemplar IN INTEGER) RETURN NUMBER IS
@@ -477,40 +479,48 @@ CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
 
 
     -- Procedimiento para registrar una venta
-    PROCEDURE registrar_venta(
-        p_fecha         IN DATE,
-        p_id_vendedor   IN NUMBER,
-        p_cedula_cliente IN NUMBER,
-        p_id_ejemplar   IN NUMBER
-    ) IS
-        v_totalVenta NUMBER;
-        v_comisionVenta NUMBER;
-        v_idVenta INTEGER;
-    BEGIN
-        -- Calcular el total de la venta
-        v_totalVenta := calcular_total_venta(p_id_ejemplar);
+PROCEDURE registrar_venta(
+    p_fecha         IN DATE,
+    p_id_vendedor   IN NUMBER,
+    p_cedula_cliente IN NUMBER,
+    p_id_ejemplar   IN NUMBER
+) IS
+    v_totalVenta NUMBER;
+    v_comisionVenta NUMBER;
+    v_idVenta INTEGER;
+BEGIN
+    -- Iniciar la transacción explícita
+    SAVEPOINT inicio_transaccion;
 
-        -- Insertar la venta y recuperar su ID
-        INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-        VALUES (p_fecha, v_totalVenta, NULL, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
-        RETURNING idVenta INTO v_idVenta;
+    -- Calcular el total de la venta
+    v_totalVenta := calcular_total_venta(p_id_ejemplar);
 
-        -- Calcular la comisión de la venta recién insertada
-        v_comisionVenta := calcular_comision_venta(v_idVenta);
+    -- Insertar la venta y recuperar su ID
+    INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
+    VALUES (p_fecha, v_totalVenta, NULL, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
+    RETURNING idVenta INTO v_idVenta;
 
-        -- Actualizar la venta con la comisión calculada
-        UPDATE tblVenta
-        SET comisionVenta = v_comisionVenta
-        WHERE idVenta = v_idVenta;
+    -- Calcular la comisión de la venta recién insertada
+    v_comisionVenta := calcular_comision_venta(v_idVenta);
 
-        DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
+    -- Actualizar la venta con la comisión calculada
+    UPDATE tblVenta
+    SET comisionVenta = v_comisionVenta
+    WHERE idVenta = v_idVenta;
 
-        COMMIT;
-    EXCEPTION
-        WHEN OTHERS THEN
-            ROLLBACK;
-            RAISE;
-    END registrar_venta;
+    -- Confirmar la transacción
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Revertir los cambios en caso de error
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error al registrar la venta: ' || SQLERRM);
+        RAISE;
+END registrar_venta;
+
     
     -- Procedimiento para reporte de ventas 
     PROCEDURE generar_reporte_ventas(
@@ -557,22 +567,22 @@ CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
             FETCH c_ventas INTO v_venta_row;
             EXIT WHEN c_ventas%NOTFOUND;
         END LOOP;
-
         -- Cerrar el cursor
         CLOSE c_ventas;
     END generar_reporte_ventas;
+    
 END pkg_ventas;
 
+SET SERVEROUTPUT ON
 BEGIN
     -- Registrar una venta sin especificar el total (se calculará automáticamente)
     pkg_ventas.registrar_venta(
         p_fecha         => SYSDATE,
-        p_id_vendedor   => 1,
+        p_id_vendedor   => 3,
         p_cedula_cliente => 1,
-        p_id_ejemplar   => 3
+        p_id_ejemplar   => 22
     );
 END;
-
 
 -- Paquete para clientes 
 CREATE OR REPLACE PACKAGE pkg_clientes AS
@@ -879,6 +889,13 @@ DROP PACKAGE pkg_proveedores;
 /*               VISTAS           */
 /=========================================/
 
+/=========================================/
+/*               POR SI ACASO          */
+/=========================================/
+
+CONNECT system/oracle;
+GRANT CREATE VIEW TO USER_BASES;
+
 -- Vista para inventario ejemplares INTEAD OF
 CREATE OR REPLACE VIEW vista_inventario_ejemplares AS
 SELECT 
@@ -893,7 +910,7 @@ JOIN
 JOIN 
     tblProveedor p ON v.idProveedor = p.idProveedor;
 
--- Trigger para vista invetario ejemplares
+-- Trigger para vista inventario ejemplares
 CREATE OR REPLACE TRIGGER trg_inventario_ejemplares
 INSTEAD OF INSERT OR UPDATE OR DELETE ON vista_inventario_ejemplares
 FOR EACH ROW
@@ -947,13 +964,156 @@ DROP VIEW vista_inventario_ejemplares;
 
 DROP VIEW vista_proveedores;
 
+
 /=========================================/
-/*               POR SI ACASO          */
+/*               INDICES         */
 /=========================================/
 
-CONNECT system/oracle;
-GRANT CREATE VIEW TO USER_BASES;
+    
+-- Índice básico en la columna modeloVehiculo
+CREATE INDEX idx_tblVehiculo_modeloVehiculo
+ON tblVehiculo (modeloVehiculo);
 
+SELECT index_name, table_name, column_name
+FROM user_ind_columns
+WHERE table_name = 'TBLVEHICULO';
+
+ALTER INDEX idx_tblVehiculo_modeloVehiculo MONITORING USAGE
+
+----Debe ejecutarse desde system o un usuario q tenga privilegios 
+--Monitoreo
+SELECT *
+FROM DBA_OBJECT_USAGE
+WHERE TABLE_NAME='TBLVEHICULO'
+
+---Esta consulta y un insert de la tblVehiculo pone el indice en USED Yes
+SELECT idVehiculo, modeloVehiculo
+FROM TBLVEHICULO
+WHERE modeloVehiculo LIKE 'M%' ORDER BY
+modeloVehiculo DESC
+
+
+--consultes los servicios realizados en los últimos X días. 
+----Funcion determinista
+CREATE OR REPLACE FUNCTION fn_dias_servicio(p_fechaServicio DATE) 
+RETURN NUMBER
+DETERMINISTIC
+IS
+BEGIN
+    RETURN (SYSDATE - p_fechaServicio);
+END fn_dias_servicio;
+
+---Indice basado en una funcion para la tblServiciosPostventa
+CREATE INDEX idx_tblServiciosPostVenta_dias_servicio
+ON tblServiciosPostVenta (fn_dias_servicio(fechaServicio));
+
+ALTER INDEX idx_tblServiciosPostVenta_dias_servicio MONITORING USAGE;
+
+
+----Debe ejecutarse desde system o un usuario q tenga privilegios 
+--Monitoreo
+SELECT *
+FROM DBA_OBJECT_USAGE
+WHERE TABLE_NAME='TBLSERVICIOSPOSTVENTA'
+
+---Esta consulta pone el indice en USED Yes
+SELECT *
+FROM tblServiciosPostVenta
+WHERE fn_dias_servicio(fechaServicio) <= 30;
+
+
+/=========================================/
+/*               DICCIONARIO DE DATOS         */
+/=========================================/
+
+--1. Mostrar información de los objetos de la BD
+
+SELECT object_name, object_type, created, status
+FROM user_objects
+ORDER BY object_type;
+
+--2. Mostrar el nombre de todas las tablas que posee.
+
+SELECT table_name
+FROM user_tables;
+
+--3. Mostrar información de las restricciones definidas sobre sus tablas
+
+SELECT column_name, data_type, data_length,
+data_precision, data_scale, nullable
+FROM user_tab_columns;
+
+--4. Mostrar información de las secuencias
+
+SELECT sequence_name, min_value, max_value,
+increment_by, last_number
+FROM user_sequences;
+
+--5. Mostrar los nombres de las columnas de una de las tablas de su esquema.
+
+SELECT column_name, data_type, data_length,
+data_precision, data_scale, nullable
+FROM user_tab_columns
+WHERE table_name = 'TBLVEHICULO';
+
+--6. Mostrar la consulta de una de las vistas.
+
+CREATE OR REPLACE VIEW vista_proveedores AS
+SELECT 
+    p.idProveedor AS "ID Proveedor",
+    p.nombreProveedor AS "Nombre Proveedor",
+    p.telefonoProveedor AS "Teléfono Proveedor",
+    p.direccionProveedor AS "Dirección Proveedor",
+    COUNT(v.idVehiculo) AS "Cantidad de Vehículos Asociados"
+FROM 
+    tblProveedor p
+LEFT JOIN 
+    tblVehiculo v ON p.idProveedor = v.idProveedor
+GROUP BY 
+    p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
+    
+    
+--7. Consulte las restricciones de una de las tablas de su esquema.
+
+SELECT constraint_name, constraint_type,
+search_condition, r_constraint_name,
+delete_rule, status
+FROM user_constraints
+WHERE table_name = 'TBLVEHICULO';
+
+--8. Mostrar el nombre de todos los procedimientos que posee.
+
+SELECT OBJECT_NAME AS NOMBRE_PROCEDIMIENTO
+FROM USER_OBJECTS
+WHERE OBJECT_TYPE = 'PROCEDURE';
+
+---Consulta para cuando los procedimientos estan encapsulados en packages
+
+SELECT OBJECT_NAME AS PAQUETE,
+       PROCEDURE_NAME AS NOMBRE_PROCEDIMIENTO
+FROM USER_PROCEDURES
+WHERE OBJECT_TYPE = 'PACKAGE'
+   OR OBJECT_TYPE = 'PACKAGE BODY';
+
+
+--9. Ver usuarios con roles y privilegios asignados
+
+
+----Debe hacerce desde System
+SELECT GRANTEE AS USUARIO, GRANTED_ROLE AS ROL, ADMIN_OPTION
+FROM DBA_ROLE_PRIVS
+WHERE GRANTEE NOT LIKE 'SYS%';
+
+SELECT GRANTEE AS USUARIO, PRIVILEGE, ADMIN_OPTION
+FROM DBA_SYS_PRIVS
+WHERE GRANTEE NOT LIKE 'SYS%';
+
+----Permite ver el rol y privilegios del usuario actual
+SELECT GRANTED_ROLE AS ROL, ADMIN_OPTION
+FROM USER_ROLE_PRIVS;
+
+SELECT PRIVILEGE, ADMIN_OPTION
+FROM USER_SYS_PRIVS;
 
 
 

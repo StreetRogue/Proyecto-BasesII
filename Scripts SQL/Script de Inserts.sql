@@ -82,6 +82,7 @@ VALUES (2, 2, 'disponible');
 INSERT INTO tblEjemplar (idVehiculo, idProveedor, estadoEjemplar)
 VALUES (1, 1, 'disponible');
 
+
 --tblVenta
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
 VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000.00, 1800, 1, 1, 1);
