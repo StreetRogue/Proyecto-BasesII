@@ -59,8 +59,6 @@ namespace ProyectoBasesII.Logica
             return nombresProveedores;
         }
 
-
-
         public DataSet buscarProveedor(int idProveedor)
         {
             DataSet ds = new DataSet();

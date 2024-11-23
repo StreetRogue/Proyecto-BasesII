@@ -83,9 +83,9 @@
             this.lblApellidoEmp.Location = new System.Drawing.Point(459, 228);
             this.lblApellidoEmp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApellidoEmp.Name = "lblApellidoEmp";
-            this.lblApellidoEmp.Size = new System.Drawing.Size(299, 28);
+            this.lblApellidoEmp.Size = new System.Drawing.Size(326, 28);
             this.lblApellidoEmp.TabIndex = 10;
-            this.lblApellidoEmp.Text = "Ingrese el  apellido del Cliente";
+            this.lblApellidoEmp.Text = "Ingrese el  apellido del empleado";
             // 
             // txtNombreEmp
             // 
@@ -108,7 +108,6 @@
             this.txtNombreEmp.TabIndex = 9;
             this.txtNombreEmp.Texts = "";
             this.txtNombreEmp.UnderlinedStyle = false;
-            //this.txtNombreEmp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreEmp_KeyPress);
             // 
             // lblNombreEmp
             // 
@@ -117,9 +116,9 @@
             this.lblNombreEmp.Location = new System.Drawing.Point(459, 140);
             this.lblNombreEmp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombreEmp.Name = "lblNombreEmp";
-            this.lblNombreEmp.Size = new System.Drawing.Size(290, 28);
+            this.lblNombreEmp.Size = new System.Drawing.Size(317, 28);
             this.lblNombreEmp.TabIndex = 8;
-            this.lblNombreEmp.Text = "Ingrese el nombre del Cliente";
+            this.lblNombreEmp.Text = "Ingrese el nombre del empleado";
             // 
             // btnRegistrarEmp
             // 
@@ -163,8 +162,8 @@
             this.cbxCargoEmp.ForeColor = System.Drawing.Color.DimGray;
             this.cbxCargoEmp.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxCargoEmp.Items.AddRange(new object[] {
-            "Técnico",
-            "Vendedor"});
+            "TECNICO",
+            "VENDEDOR"});
             this.cbxCargoEmp.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxCargoEmp.ListTextColor = System.Drawing.Color.DimGray;
             this.cbxCargoEmp.Location = new System.Drawing.Point(464, 372);

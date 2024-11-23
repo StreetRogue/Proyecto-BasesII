@@ -50,6 +50,7 @@ namespace ProyectoBasesII.UserControls
                     txtNombreEmp.Texts = "";
                     txtApellidoEmp.Texts = "";
                     cbxCargoEmp.SelectedItem = -1;
+                    cbxCargoEmp.SelectedIndex = -1;
                 }
                 else
                 {

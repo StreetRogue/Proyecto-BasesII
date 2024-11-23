@@ -70,11 +70,15 @@ CREATE TABLE tblVehiculo (
     modeloVehiculo VARCHAR2(50) NOT NULL,
     marcaVehiculo VARCHAR2(50) NOT NULL,
     añoVehiculo INTEGER NOT NULL,
-    precioVehiculo DECIMAL(10, 2) NOT NULL,
+    precioVehiculo NUMBER NOT NULL,
     idProveedor INTEGER NOT NULL,
     CONSTRAINT pk_tblVehiculo PRIMARY KEY (idVehiculo),
     CONSTRAINT fk_tblVehiculo_Proveedor FOREIGN KEY (idProveedor) REFERENCES tblProveedor(idProveedor)
 );
+
+
+ALTER TABLE tblVehiculo
+MODIFY precioVehiculo NUMBER;
 
 /=========================================/
 /* Table: tblCliente                                                          */
@@ -161,11 +165,9 @@ CREATE TABLE tblVenta (
 /=========================================/
 CREATE TABLE tblServiciosPostVenta (
     idServicio INTEGER NOT NULL,
-    fechaServicio TIMESTAMP NOT NULL,
     tipoServicio VARCHAR2(50) NOT NULL,
     costoServicio DECIMAL(10, 2) NOT NULL,
     CONSTRAINT pk_tblServiciosPostVenta PRIMARY KEY (idServicio),
-    CONSTRAINT uq_servicioPostVenta UNIQUE(fechaServicio),
     CONSTRAINT ckc_tipoServicio CHECK (tipoServicio IN ('mantenimiento', 'reparacion')),
     CONSTRAINT ckc_costoServicio CHECK (costoServicio >= 0)
 );

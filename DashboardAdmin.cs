@@ -180,5 +180,15 @@ namespace ProyectoBasesII
         {
             LoadUserControl(new VentaInventarioControl());
         }
+
+        private void btnRegistrarServicio_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new RegistrarServicioControl());
+        }
+
+        private void btnServicios_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ServiciosControl());
+        }
     }
 }

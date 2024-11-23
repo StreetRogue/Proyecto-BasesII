@@ -75,8 +75,7 @@ DECLARE
 BEGIN
     SELECT COUNT(*)
     INTO v_count
-    FROM tblServiciosPostVenta
-    WHERE fechaServicio = :NEW.fechaServicio;
+    FROM tblServiciosPostVenta;
 
     IF v_count = 0 THEN
         IF :NEW.idServicio IS NULL THEN
@@ -302,24 +301,43 @@ COMPOUND TRIGGER
     -- Sección: Después de la sentencia
     AFTER STATEMENT IS
     BEGIN
-        -- Calcular la comisión acumulada para el vendedor afectado
+        -- Calcular la comisión acumulada para el vendedor afectado en los últimos 30 días
         SELECT NVL(SUM(comisionVenta), 0)
         INTO v_total_comision
         FROM tblVenta
-        WHERE idVendedor = v_idVendedor;
+        WHERE idVendedor = v_idVendedor
+          AND fechaVenta >= TRUNC(SYSDATE) - 30;
 
-        -- Mostrar la comisión total en la salida
-        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ': ' || v_total_comision);
+        -- Mostrar la comisión acumulada en los últimos 30 días en la salida
+        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ' en los últimos 30 días: ' || v_total_comision);
     END AFTER STATEMENT;
 
 END trg_calcular_comision_vendedor;
 /
 
-INSERT INTO tblVenta (fechaVenta, totalVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (SYSDATE, 200000, 2, 1, 3);
+CREATE OR REPLACE TRIGGER trg_bloquear_tecnicos_inactivos
+BEFORE INSERT OR UPDATE ON tblTecnico
+FOR EACH ROW
+BEGIN
+    IF :NEW.estadoTecnico = 'inactivo' THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Error: No se puede insertar o actualizar técnicos con estado "inactivo".');
+    END IF;
+END trg_bloquear_tecnicos_inactivos;
+/
 
 
-/=========================================/
+CREATE OR REPLACE TRIGGER trg_bloquear_vendedores_inactivos
+BEFORE INSERT OR UPDATE ON tblVendedor
+FOR EACH ROW
+BEGIN
+    IF :NEW.estadoVendedor = 'inactivo' THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Error: No se puede insertar o actualizar vendedores con estado "inactivo".');
+    END IF;
+END trg_bloquear_vendedores_inactivos;
+/
+
+
+/*=========================================*/
 /*               PARA ELIMINAR LOS DISPARADORES           */
 /=========================================/
 
@@ -344,6 +362,61 @@ DROP TRIGGER trg_calcular_comision_vendedor;
 /=========================================/
 /*                  Procedimientos y Funciones                      */
 /=========================================/
+
+
+CREATE OR REPLACE PROCEDURE registrar_empleado (
+    p_nombre            IN VARCHAR2,
+    p_apellido          IN VARCHAR2,
+    p_tipo_empleado     IN VARCHAR2, -- 'TECNICO' o 'VENDEDOR'
+    p_fecha_contratacion IN TIMESTAMP,
+    p_estado            IN VARCHAR2 DEFAULT 'activo', -- Estado por defecto: 'activo'
+    p_filasInsertadas   OUT NUMBER
+) AS
+    v_idRol INTEGER;
+    v_salario CONSTANT NUMBER := 3000; 
+BEGIN
+    -- Validar el tipo de empleado
+    IF p_tipo_empleado NOT IN ('TECNICO', 'VENDEDOR') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: El tipo de empleado debe ser "TECNICO" o "VENDEDOR".');
+    END IF;
+
+    -- Validar el estado
+    IF p_estado NOT IN ('activo', 'inactivo') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El estado del empleado debe ser "activo" o "inactivo".');
+    END IF;
+
+    -- Obtener el rol correspondiente al tipo de empleado
+    BEGIN
+        SELECT idRol
+        INTO v_idRol
+        FROM tblRol
+        WHERE nombreRol = p_tipo_empleado;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: No existe un rol asociado al tipo de empleado "' || p_tipo_empleado || '".');
+    END;
+
+    -- Insertar en la tabla correspondiente (tblTecnico o tblVendedor)
+    IF p_tipo_empleado = 'TECNICO' THEN
+        INSERT INTO tblTecnico (nombreTecnico, apellidoTecnico, estadoTecnico, salarioTecnico, fechaContratacionTecnico)
+        VALUES (p_nombre, p_apellido, p_estado, v_salario, p_fecha_contratacion);
+    ELSIF p_tipo_empleado = 'VENDEDOR' THEN
+        INSERT INTO tblVendedor (nombreVendedor, apellidoVendedor, estadoVendedor, salarioVendedor, fechaContratacionVendedor)
+        VALUES (p_nombre, p_apellido, p_estado, v_salario, p_fecha_contratacion);
+    END IF;
+
+    -- Confirmar la inserción
+    p_filasInsertadas := 1;
+    DBMS_OUTPUT.PUT_LINE('Empleado registrado exitosamente.');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: Ya existe un registro con la misma información.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error inesperado: ' || SQLERRM);
+END registrar_empleado;
+/
+
 
 -- Procedimiento para eliminar usuarios inactivos 
 CREATE OR REPLACE PROCEDURE actualizar_y_eliminar_usuarios_inactivos AS
@@ -394,8 +467,9 @@ IS
     cursor_servicios SYS_REFCURSOR;
 BEGIN
     OPEN cursor_servicios FOR
-    SELECT s.idServicio, s.fechaServicio, s.tipoServicio, s.costoServicio
+    SELECT s.idServicio, st.fechaInicioServicio, st.fechaFinServicio, s.tipoServicio, s.costoServicio
     FROM tblServiciosPostVenta s
+    JOIN tblRealizaServicioTecnico st ON s.idServicio = st.idServicio
     JOIN tblSe_RealizaServicioPostVenta sp ON s.idServicio = sp.idServicio
     JOIN tblVenta v ON sp.idVenta = v.idVenta
     WHERE v.cedulaCliente = p_idCliente;
@@ -478,39 +552,49 @@ CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
 
     -- Procedimiento para registrar una venta
     PROCEDURE registrar_venta(
-        p_fecha         IN DATE,
-        p_id_vendedor   IN NUMBER,
-        p_cedula_cliente IN NUMBER,
-        p_id_ejemplar   IN NUMBER
-    ) IS
-        v_totalVenta NUMBER;
-        v_comisionVenta NUMBER;
-        v_idVenta INTEGER;
-    BEGIN
-        -- Calcular el total de la venta
-        v_totalVenta := calcular_total_venta(p_id_ejemplar);
+    p_fecha         IN DATE,
+    p_id_vendedor   IN NUMBER,
+    p_cedula_cliente IN NUMBER,
+    p_id_ejemplar   IN NUMBER
+) IS
+    v_totalVenta NUMBER;
+    v_comisionVenta NUMBER;
+    v_idVenta INTEGER;
+BEGIN
+    -- Iniciar la transacción explícita
+    SAVEPOINT inicio_transaccion;
 
-        -- Insertar la venta y recuperar su ID
-        INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-        VALUES (p_fecha, v_totalVenta, NULL, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
-        RETURNING idVenta INTO v_idVenta;
+    -- Calcular el total de la venta
+    v_totalVenta := calcular_total_venta(p_id_ejemplar);
 
-        -- Calcular la comisión de la venta recién insertada
-        v_comisionVenta := calcular_comision_venta(v_idVenta);
+    -- Insertar la venta y recuperar su ID
+    INSERT INTO tblVenta (fechaVenta, totalVenta, idVendedor, cedulaCliente, idEjemplar)
+    VALUES (p_fecha, v_totalVenta, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
+    RETURNING idVenta INTO v_idVenta;
 
-        -- Actualizar la venta con la comisión calculada
-        UPDATE tblVenta
-        SET comisionVenta = v_comisionVenta
-        WHERE idVenta = v_idVenta;
+    -- Confirmar la transacción
+    COMMIT;
 
-        DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
+    DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
 
-        COMMIT;
-    EXCEPTION
-        WHEN OTHERS THEN
-            ROLLBACK;
-            RAISE;
-    END registrar_venta;
+        EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: La venta ya existe con el ID proporcionado.');
+    WHEN NO_DATA_FOUND THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: No se encontró información para calcular el total de la venta.');
+    WHEN INVALID_NUMBER THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: Se proporcionó un número inválido en los parámetros.');
+    WHEN VALUE_ERROR THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: Valor fuera de rango o no válido.');
+    WHEN OTHERS THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+        RAISE;
+        END registrar_venta;
     
     -- Procedimiento para reporte de ventas 
     PROCEDURE generar_reporte_ventas(
@@ -640,7 +724,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         p_filasInsertadas   OUT NUMBER
     ) IS
         v_exists INTEGER;
-        ex_cedula_duplicada EXCEPTION;
 
     BEGIN
         -- Verificar si ya existe un cliente con la misma cédula
@@ -649,7 +732,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         WHERE cedulaCliente = p_cedulaCliente;
         
         IF v_exists > 0 THEN
-            RAISE ex_cedula_duplicada; 
+            RAISE_APPLICATION_ERROR(-20001, 'Error: La cédula del cliente ya está registrada en el sistema.');
         END IF;
 
         -- Intentar insertar el cliente en la tabla
@@ -661,12 +744,10 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
 
     EXCEPTION
-        WHEN ex_cedula_duplicada THEN
-            DBMS_OUTPUT.PUT_LINE('Error: La cédula del cliente ya está registrada en el sistema.');
         WHEN DUP_VAL_ON_INDEX THEN
-            DBMS_OUTPUT.PUT_LINE('Error: El email ya está registrado en el sistema.');
+            RAISE_APPLICATION_ERROR(-20002, 'Error: El email ya está registrado en el sistema.');
         WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20003, 'Error inesperado: ' || SQLERRM);
     END Registrar_Cliente_Nuevo;
 END pkg_clientes;
 

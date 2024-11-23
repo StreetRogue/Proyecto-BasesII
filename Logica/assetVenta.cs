@@ -31,6 +31,23 @@ namespace ProyectoBasesII.Logica
             }
         }
 
+        public int consultarPrecioVehiculo(string modeloVehiculo)
+        {
+            DataSet ds = new DataSet();
+            int auxIdVehiculo = 0;
+            string consulta = "SELECT precioVehiculo FROM tblVehiculo WHERE modeloVehiculo LIKE '" + modeloVehiculo + "'";
+            ds = dt.ejecutarSelect(consulta);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                auxIdVehiculo = Convert.ToInt32(ds.Tables[0].Rows[0]["precioVehiculo"]);
+                return auxIdVehiculo;
+            }
+            else
+            {
+                return 0;
+            }
+        }
 
         public string consultarCliente(int cedulaCliente)
         {
@@ -49,6 +66,51 @@ namespace ProyectoBasesII.Logica
             {
                 return "";
             }
+        }
+
+        public int consultarVehiculo(string modeloVehiculo)
+        {
+            DataSet ds = new DataSet();
+            int auxIdVehiculo = 0;
+            string consulta = "SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo LIKE '" + modeloVehiculo + "'";
+            ds = dt.ejecutarSelect(consulta);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                auxIdVehiculo = Convert.ToInt32(ds.Tables[0].Rows[0]["idVehiculo"]);
+                return auxIdVehiculo;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public List<string> ObtenerEjemplaresPorVehiculo(int idVehiculo)
+        {
+            List<string> ejemplaresDisponibles = new List<string>();
+
+            // Consulta SQL para obtener los ejemplares por vehiculo
+            string consulta = $"SELECT idEjemplar FROM tblEjemplar INNER JOIN tblVehiculo ON tblEjemplar.idVehiculo = tblVehiculo.idVehiculo WHERE estadoEjemplar like 'disponible'";
+
+            try
+            {
+                DataSet ds = dt.ejecutarSelect(consulta); // Usar el método existente para ejecutar consultas
+
+                if (ds.Tables["resultadoDatos"].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables["resultadoDatos"].Rows)
+                    {
+                        ejemplaresDisponibles.Add(row["idEjemplar"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los ejemplares del vehiculo: " + ex.Message);
+            }
+
+            return ejemplaresDisponibles;
         }
     }
 }

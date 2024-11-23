@@ -73,7 +73,6 @@ namespace ProyectoBasesII.Logica
             return filasInsertadas;
         }
 
-
         public DataSet buscarEjemplar(int idEjemplar)
         {
             DataSet ds = new DataSet();
@@ -88,7 +87,6 @@ namespace ProyectoBasesII.Logica
             // Ejecutar el procedimiento almacenado y obtener los datos
             return dt.ejecutarSPConCursores("pkg_ejemplares.Consultar_informacion_ejemplar", parametros);
         }
-
 
         public DataSet buscarEjemplarGeneral()
         {

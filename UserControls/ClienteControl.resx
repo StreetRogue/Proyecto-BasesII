@@ -117,47 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lending" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lending.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DerrapaZone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DerrapaZone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ventaEjemplar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ventaEjemplar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addEjemplar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addEjemplar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImgEmpleados" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ImgEmpleados.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImgProv" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ImgProv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ImgCarros" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ImgCarros.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DerrapaZone2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DerrapaZone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="iconLoginCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconLoginCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DerrapaZone1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DerrapaZone.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="imgVehiculo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\imgVehiculo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addCar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addCar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="servicioTecnico" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\servicioTecnico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

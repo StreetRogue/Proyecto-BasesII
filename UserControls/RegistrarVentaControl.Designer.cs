@@ -28,45 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbxVehiculo = new CustomBox.RJControls.RJComboBox();
+            this.cbxVehiculoEjemplar = new CustomBox.RJControls.RJComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblStock = new System.Windows.Forms.Label();
             this.btnRegistrarEjem = new CustomBox.RJControls.RJButton();
             this.lblRegVenta = new System.Windows.Forms.Label();
-            this.cbxProovedor = new CustomBox.RJControls.RJComboBox();
+            this.cbxVendedor = new CustomBox.RJControls.RJComboBox();
             this.lblSelecEjemplar = new System.Windows.Forms.Label();
             this.lblVentaVendedor = new System.Windows.Forms.Label();
-            this.pbxImgVenta = new System.Windows.Forms.PictureBox();
-            this.rjComboBox1 = new CustomBox.RJControls.RJComboBox();
+            this.cbxCedulaClienteVenta = new CustomBox.RJControls.RJComboBox();
             this.lblSelecCliente = new System.Windows.Forms.Label();
             this.lblNombreClienteVenta = new System.Windows.Forms.Label();
             this.lblPrecioEjemplar = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblPrecioVenta = new System.Windows.Forms.Label();
+            this.pbxImgVenta = new System.Windows.Forms.PictureBox();
+            this.cbxEjemplarVenta = new CustomBox.RJControls.RJComboBox();
+            this.lblSelecEjemplarVenta = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImgVenta)).BeginInit();
             this.SuspendLayout();
             // 
-            // cbxVehiculo
+            // cbxVehiculoEjemplar
             // 
-            this.cbxVehiculo.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cbxVehiculo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.cbxVehiculo.BorderSize = 1;
-            this.cbxVehiculo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.cbxVehiculo.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.cbxVehiculo.ForeColor = System.Drawing.Color.DimGray;
-            this.cbxVehiculo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.cbxVehiculo.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.cbxVehiculo.ListTextColor = System.Drawing.Color.DimGray;
-            this.cbxVehiculo.Location = new System.Drawing.Point(459, 242);
-            this.cbxVehiculo.Margin = new System.Windows.Forms.Padding(4);
-            this.cbxVehiculo.MinimumSize = new System.Drawing.Size(267, 37);
-            this.cbxVehiculo.Name = "cbxVehiculo";
-            this.cbxVehiculo.Padding = new System.Windows.Forms.Padding(1);
-            this.cbxVehiculo.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbxVehiculo.Size = new System.Drawing.Size(287, 43);
-            this.cbxVehiculo.TabIndex = 24;
-            this.cbxVehiculo.Texts = "";
+            this.cbxVehiculoEjemplar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbxVehiculoEjemplar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxVehiculoEjemplar.BorderSize = 1;
+            this.cbxVehiculoEjemplar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbxVehiculoEjemplar.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.cbxVehiculoEjemplar.ForeColor = System.Drawing.Color.DimGray;
+            this.cbxVehiculoEjemplar.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxVehiculoEjemplar.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.cbxVehiculoEjemplar.ListTextColor = System.Drawing.Color.DimGray;
+            this.cbxVehiculoEjemplar.Location = new System.Drawing.Point(459, 242);
+            this.cbxVehiculoEjemplar.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxVehiculoEjemplar.MinimumSize = new System.Drawing.Size(267, 37);
+            this.cbxVehiculoEjemplar.Name = "cbxVehiculoEjemplar";
+            this.cbxVehiculoEjemplar.Padding = new System.Windows.Forms.Padding(1);
+            this.cbxVehiculoEjemplar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbxVehiculoEjemplar.Size = new System.Drawing.Size(287, 43);
+            this.cbxVehiculoEjemplar.TabIndex = 24;
+            this.cbxVehiculoEjemplar.Texts = "";
             // 
             // panel2
             // 
@@ -80,7 +82,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel1.Location = new System.Drawing.Point(541, 464);
+            this.panel1.Location = new System.Drawing.Point(540, 550);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(204, 1);
@@ -92,7 +94,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStock.AutoSize = true;
             this.lblStock.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStock.Location = new System.Drawing.Point(449, 436);
+            this.lblStock.Location = new System.Drawing.Point(448, 522);
             this.lblStock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStock.Name = "lblStock";
             this.lblStock.Size = new System.Drawing.Size(83, 28);
@@ -110,7 +112,7 @@
             this.btnRegistrarEjem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrarEjem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnRegistrarEjem.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrarEjem.Location = new System.Drawing.Point(516, 567);
+            this.btnRegistrarEjem.Location = new System.Drawing.Point(113, 489);
             this.btnRegistrarEjem.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegistrarEjem.Name = "btnRegistrarEjem";
             this.btnRegistrarEjem.Size = new System.Drawing.Size(200, 49);
@@ -118,6 +120,7 @@
             this.btnRegistrarEjem.Text = "Registrar";
             this.btnRegistrarEjem.TextColor = System.Drawing.Color.White;
             this.btnRegistrarEjem.UseVisualStyleBackColor = false;
+            this.btnRegistrarEjem.Click += new System.EventHandler(this.btnRegistrarEjem_Click);
             // 
             // lblRegVenta
             // 
@@ -130,26 +133,26 @@
             this.lblRegVenta.TabIndex = 17;
             this.lblRegVenta.Text = "Registrar Venta";
             // 
-            // cbxProovedor
+            // cbxVendedor
             // 
-            this.cbxProovedor.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cbxProovedor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.cbxProovedor.BorderSize = 1;
-            this.cbxProovedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.cbxProovedor.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.cbxProovedor.ForeColor = System.Drawing.Color.DimGray;
-            this.cbxProovedor.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.cbxProovedor.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.cbxProovedor.ListTextColor = System.Drawing.Color.DimGray;
-            this.cbxProovedor.Location = new System.Drawing.Point(459, 139);
-            this.cbxProovedor.Margin = new System.Windows.Forms.Padding(4);
-            this.cbxProovedor.MinimumSize = new System.Drawing.Size(267, 37);
-            this.cbxProovedor.Name = "cbxProovedor";
-            this.cbxProovedor.Padding = new System.Windows.Forms.Padding(1);
-            this.cbxProovedor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbxProovedor.Size = new System.Drawing.Size(287, 43);
-            this.cbxProovedor.TabIndex = 16;
-            this.cbxProovedor.Texts = "";
+            this.cbxVendedor.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbxVendedor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxVendedor.BorderSize = 1;
+            this.cbxVendedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbxVendedor.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.cbxVendedor.ForeColor = System.Drawing.Color.DimGray;
+            this.cbxVendedor.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxVendedor.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.cbxVendedor.ListTextColor = System.Drawing.Color.DimGray;
+            this.cbxVendedor.Location = new System.Drawing.Point(459, 139);
+            this.cbxVendedor.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxVendedor.MinimumSize = new System.Drawing.Size(267, 37);
+            this.cbxVendedor.Name = "cbxVendedor";
+            this.cbxVendedor.Padding = new System.Windows.Forms.Padding(1);
+            this.cbxVendedor.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbxVendedor.Size = new System.Drawing.Size(287, 43);
+            this.cbxVendedor.TabIndex = 16;
+            this.cbxVendedor.Texts = "";
             // 
             // lblSelecEjemplar
             // 
@@ -160,9 +163,9 @@
             this.lblSelecEjemplar.Location = new System.Drawing.Point(453, 202);
             this.lblSelecEjemplar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelecEjemplar.Name = "lblSelecEjemplar";
-            this.lblSelecEjemplar.Size = new System.Drawing.Size(224, 28);
+            this.lblSelecEjemplar.Size = new System.Drawing.Size(221, 28);
             this.lblSelecEjemplar.TabIndex = 15;
-            this.lblSelecEjemplar.Text = "Seleccione el ejemplar";
+            this.lblSelecEjemplar.Text = "Seleccione el vehiculo";
             // 
             // lblVentaVendedor
             // 
@@ -177,37 +180,26 @@
             this.lblVentaVendedor.TabIndex = 14;
             this.lblVentaVendedor.Text = "Seleccione el vendedor";
             // 
-            // pbxImgVenta
+            // cbxCedulaClienteVenta
             // 
-            this.pbxImgVenta.Image = global::ProyectoBasesII.Properties.Resources.ventaEjemplar;
-            this.pbxImgVenta.Location = new System.Drawing.Point(42, 93);
-            this.pbxImgVenta.Margin = new System.Windows.Forms.Padding(4);
-            this.pbxImgVenta.Name = "pbxImgVenta";
-            this.pbxImgVenta.Size = new System.Drawing.Size(349, 359);
-            this.pbxImgVenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxImgVenta.TabIndex = 23;
-            this.pbxImgVenta.TabStop = false;
-            // 
-            // rjComboBox1
-            // 
-            this.rjComboBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.rjComboBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.rjComboBox1.BorderSize = 1;
-            this.rjComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.rjComboBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.rjComboBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.rjComboBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.rjComboBox1.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.rjComboBox1.ListTextColor = System.Drawing.Color.DimGray;
-            this.rjComboBox1.Location = new System.Drawing.Point(461, 350);
-            this.rjComboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.rjComboBox1.MinimumSize = new System.Drawing.Size(267, 37);
-            this.rjComboBox1.Name = "rjComboBox1";
-            this.rjComboBox1.Padding = new System.Windows.Forms.Padding(1);
-            this.rjComboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.rjComboBox1.Size = new System.Drawing.Size(287, 43);
-            this.rjComboBox1.TabIndex = 26;
-            this.rjComboBox1.Texts = "";
+            this.cbxCedulaClienteVenta.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbxCedulaClienteVenta.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxCedulaClienteVenta.BorderSize = 1;
+            this.cbxCedulaClienteVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbxCedulaClienteVenta.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.cbxCedulaClienteVenta.ForeColor = System.Drawing.Color.DimGray;
+            this.cbxCedulaClienteVenta.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxCedulaClienteVenta.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.cbxCedulaClienteVenta.ListTextColor = System.Drawing.Color.DimGray;
+            this.cbxCedulaClienteVenta.Location = new System.Drawing.Point(460, 436);
+            this.cbxCedulaClienteVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxCedulaClienteVenta.MinimumSize = new System.Drawing.Size(267, 37);
+            this.cbxCedulaClienteVenta.Name = "cbxCedulaClienteVenta";
+            this.cbxCedulaClienteVenta.Padding = new System.Windows.Forms.Padding(1);
+            this.cbxCedulaClienteVenta.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbxCedulaClienteVenta.Size = new System.Drawing.Size(287, 43);
+            this.cbxCedulaClienteVenta.TabIndex = 26;
+            this.cbxCedulaClienteVenta.Texts = "";
             // 
             // lblSelecCliente
             // 
@@ -215,7 +207,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSelecCliente.AutoSize = true;
             this.lblSelecCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelecCliente.Location = new System.Drawing.Point(455, 310);
+            this.lblSelecCliente.Location = new System.Drawing.Point(454, 396);
             this.lblSelecCliente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelecCliente.Name = "lblSelecCliente";
             this.lblSelecCliente.Size = new System.Drawing.Size(308, 28);
@@ -225,16 +217,16 @@
             // lblNombreClienteVenta
             // 
             this.lblNombreClienteVenta.AutoSize = true;
-            this.lblNombreClienteVenta.Location = new System.Drawing.Point(541, 436);
+            this.lblNombreClienteVenta.Location = new System.Drawing.Point(540, 522);
             this.lblNombreClienteVenta.Name = "lblNombreClienteVenta";
-            this.lblNombreClienteVenta.Size = new System.Drawing.Size(23, 16);
+            this.lblNombreClienteVenta.Size = new System.Drawing.Size(15, 16);
             this.lblNombreClienteVenta.TabIndex = 27;
-            this.lblNombreClienteVenta.Text = "----";
+            this.lblNombreClienteVenta.Text = "--";
             // 
             // lblPrecioEjemplar
             // 
             this.lblPrecioEjemplar.AutoSize = true;
-            this.lblPrecioEjemplar.Location = new System.Drawing.Point(541, 498);
+            this.lblPrecioEjemplar.Location = new System.Drawing.Point(540, 584);
             this.lblPrecioEjemplar.Name = "lblPrecioEjemplar";
             this.lblPrecioEjemplar.Size = new System.Drawing.Size(23, 16);
             this.lblPrecioEjemplar.TabIndex = 30;
@@ -243,7 +235,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel3.Location = new System.Drawing.Point(541, 526);
+            this.panel3.Location = new System.Drawing.Point(540, 612);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(204, 1);
@@ -255,35 +247,82 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPrecioVenta.AutoSize = true;
             this.lblPrecioVenta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecioVenta.Location = new System.Drawing.Point(449, 498);
+            this.lblPrecioVenta.Location = new System.Drawing.Point(448, 584);
             this.lblPrecioVenta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPrecioVenta.Name = "lblPrecioVenta";
             this.lblPrecioVenta.Size = new System.Drawing.Size(76, 28);
             this.lblPrecioVenta.TabIndex = 28;
             this.lblPrecioVenta.Text = "Precio:";
             // 
+            // pbxImgVenta
+            // 
+            this.pbxImgVenta.Image = global::ProyectoBasesII.Properties.Resources.ventaEjemplar;
+            this.pbxImgVenta.Location = new System.Drawing.Point(42, 93);
+            this.pbxImgVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.pbxImgVenta.Name = "pbxImgVenta";
+            this.pbxImgVenta.Size = new System.Drawing.Size(349, 359);
+            this.pbxImgVenta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxImgVenta.TabIndex = 23;
+            this.pbxImgVenta.TabStop = false;
+            // 
+            // cbxEjemplarVenta
+            // 
+            this.cbxEjemplarVenta.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbxEjemplarVenta.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxEjemplarVenta.BorderSize = 1;
+            this.cbxEjemplarVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cbxEjemplarVenta.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.cbxEjemplarVenta.ForeColor = System.Drawing.Color.DimGray;
+            this.cbxEjemplarVenta.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.cbxEjemplarVenta.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.cbxEjemplarVenta.ListTextColor = System.Drawing.Color.DimGray;
+            this.cbxEjemplarVenta.Location = new System.Drawing.Point(464, 340);
+            this.cbxEjemplarVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxEjemplarVenta.MinimumSize = new System.Drawing.Size(267, 37);
+            this.cbxEjemplarVenta.Name = "cbxEjemplarVenta";
+            this.cbxEjemplarVenta.Padding = new System.Windows.Forms.Padding(1);
+            this.cbxEjemplarVenta.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbxEjemplarVenta.Size = new System.Drawing.Size(287, 43);
+            this.cbxEjemplarVenta.TabIndex = 32;
+            this.cbxEjemplarVenta.Texts = "";
+            // 
+            // lblSelecEjemplarVenta
+            // 
+            this.lblSelecEjemplarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSelecEjemplarVenta.AutoSize = true;
+            this.lblSelecEjemplarVenta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelecEjemplarVenta.Location = new System.Drawing.Point(458, 300);
+            this.lblSelecEjemplarVenta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSelecEjemplarVenta.Name = "lblSelecEjemplarVenta";
+            this.lblSelecEjemplarVenta.Size = new System.Drawing.Size(224, 28);
+            this.lblSelecEjemplarVenta.TabIndex = 31;
+            this.lblSelecEjemplarVenta.Text = "Seleccione el ejemplar";
+            // 
             // RegistrarVentaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbxEjemplarVenta);
+            this.Controls.Add(this.lblSelecEjemplarVenta);
             this.Controls.Add(this.lblPrecioEjemplar);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lblPrecioVenta);
             this.Controls.Add(this.lblNombreClienteVenta);
-            this.Controls.Add(this.rjComboBox1);
+            this.Controls.Add(this.cbxCedulaClienteVenta);
             this.Controls.Add(this.lblSelecCliente);
-            this.Controls.Add(this.cbxVehiculo);
+            this.Controls.Add(this.cbxVehiculoEjemplar);
             this.Controls.Add(this.pbxImgVenta);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblStock);
             this.Controls.Add(this.btnRegistrarEjem);
             this.Controls.Add(this.lblRegVenta);
-            this.Controls.Add(this.cbxProovedor);
+            this.Controls.Add(this.cbxVendedor);
             this.Controls.Add(this.lblSelecEjemplar);
             this.Controls.Add(this.lblVentaVendedor);
             this.Name = "RegistrarVentaControl";
-            this.Size = new System.Drawing.Size(924, 660);
+            this.Size = new System.Drawing.Size(924, 654);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImgVenta)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -292,21 +331,23 @@
 
         #endregion
 
-        private CustomBox.RJControls.RJComboBox cbxVehiculo;
+        private CustomBox.RJControls.RJComboBox cbxVehiculoEjemplar;
         private System.Windows.Forms.PictureBox pbxImgVenta;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblStock;
         private CustomBox.RJControls.RJButton btnRegistrarEjem;
         private System.Windows.Forms.Label lblRegVenta;
-        private CustomBox.RJControls.RJComboBox cbxProovedor;
+        private CustomBox.RJControls.RJComboBox cbxVendedor;
         private System.Windows.Forms.Label lblSelecEjemplar;
         private System.Windows.Forms.Label lblVentaVendedor;
-        private CustomBox.RJControls.RJComboBox rjComboBox1;
+        private CustomBox.RJControls.RJComboBox cbxCedulaClienteVenta;
         private System.Windows.Forms.Label lblSelecCliente;
         private System.Windows.Forms.Label lblNombreClienteVenta;
         private System.Windows.Forms.Label lblPrecioEjemplar;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblPrecioVenta;
+        private CustomBox.RJControls.RJComboBox cbxEjemplarVenta;
+        private System.Windows.Forms.Label lblSelecEjemplarVenta;
     }
 }
