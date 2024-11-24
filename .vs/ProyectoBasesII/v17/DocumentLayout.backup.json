@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,41 +30,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "assetVehiculo.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
-              "RelativeDocumentMoniker": "Logica\\assetVehiculo.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
-              "RelativeToolTip": "Logica\\assetVehiculo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T03:38:43.135Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "assetProveedor.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
-              "RelativeDocumentMoniker": "Logica\\assetProveedor.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetProveedor.cs",
-              "RelativeToolTip": "Logica\\assetProveedor.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T03:37:58.958Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "assetEjemplar.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
-              "RelativeDocumentMoniker": "Logica\\assetEjemplar.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
-              "RelativeToolTip": "Logica\\assetEjemplar.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAYwDkAAAA/AAAAAAAAAA==",
+              "Title": "RegistrarVentaControl.cs",
+              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarVentaControl.cs",
+              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
+              "RelativeToolTip": "UserControls\\RegistrarVentaControl.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowDcAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-20T03:36:23.871Z",
+              "WhenOpened": "2024-11-24T01:57:53.703Z",
               "EditorCaption": ""
             },
             {
@@ -87,35 +49,22 @@
               "RelativeDocumentMoniker": "Logica\\assetVenta.cs",
               "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetVenta.cs",
               "RelativeToolTip": "Logica\\assetVenta.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAowHYAAADiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T07:56:29.114Z",
+              "WhenOpened": "2024-11-24T01:06:01.492Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "RegistrarVentaControl.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
               "RelativeDocumentMoniker": "UserControls\\RegistrarVentaControl.cs",
               "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs [Dise\u00F1o]",
               "RelativeToolTip": "UserControls\\RegistrarVentaControl.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T07:55:27.403Z",
+              "WhenOpened": "2024-11-24T01:55:38.816Z",
               "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Datos.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeDocumentMoniker": "AccesoDatos\\Datos.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeToolTip": "AccesoDatos\\Datos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T23:20:57.405Z",
-              "EditorCaption": ""
             }
           ]
         },

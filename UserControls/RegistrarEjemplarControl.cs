@@ -24,7 +24,7 @@ namespace ProyectoBasesII.UserControls
        assetEjemplar objEjemplar = new assetEjemplar();
        assetProveedor objProveedores = new assetProveedor();
        assetVehiculo objVehiculo = new assetVehiculo();
-        private bool cargandoProveedores = true;
+       private bool cargandoProveedores = true;
 
 
         private void RegistrarEjemplarControl_Load(object sender, EventArgs e)

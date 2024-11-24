@@ -145,3 +145,9 @@ C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\Pro
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.DashboardVendedor.resources
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarVentaControl.resources
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.VentaInventarioControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarServicioControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ServiciosControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ClienteControl.resources
+C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ClienteControl.resources
+C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarServicioControl.resources
+C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ServiciosControl.resources

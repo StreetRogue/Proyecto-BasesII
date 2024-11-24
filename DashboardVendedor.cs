@@ -131,5 +131,15 @@ namespace ProyectoBasesII
         {
             LoadUserControl(new InventarioEjemplarControl());
         }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new VentaInventarioControl());
+        }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ClienteControl());
+        }
     }
 }

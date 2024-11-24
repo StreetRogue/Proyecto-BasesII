@@ -44,6 +44,26 @@ namespace ProyectoBasesII.Logica
 
         }
 
+        public List<string> ObtenerModelosVehiculos()
+        {
+            List<string> modelosVehiculos = new List<string>();
+            string consulta = "SELECT modeloVehiculo FROM tblVehiculo";
+
+            // Usar el método ejecutarSelect para obtener el DataSet
+            DataSet ds = dt.ejecutarSelect(consulta);
+
+            // Verificar si el DataSet tiene datos
+            if (ds != null && ds.Tables["resultadoDatos"].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables["resultadoDatos"].Rows)
+                {
+                    modelosVehiculos.Add(row["modeloVehiculo"].ToString());
+                }
+            }
+
+            return modelosVehiculos;
+        }
+
         public List<string> ObtenerVehiculosPorProveedor(int idProveedor)
         {
             List<string> nombresVehiculos = new List<string>();

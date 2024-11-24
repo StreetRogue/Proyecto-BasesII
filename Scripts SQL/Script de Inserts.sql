@@ -1,11 +1,11 @@
-/=========================================/
+--/=========================================/
 /*                                 CRUD                                       */
-/=========================================/
+--/=========================================/
 
 
-/=========================================/
+--/=========================================/
 /*               PARA BORRAR INSERCIONES          */
-/=========================================/
+--/=========================================/
 -- Eliminar registros de las tablas dependientes primero
 DELETE FROM tblSe_RealizaServicioPostVenta;
 DELETE FROM tblInvolucraVentaEjemplar;
@@ -24,14 +24,21 @@ DELETE FROM tblRol;
 -- Confirmación
 COMMIT;
 
-/--------------------------------------------------------------/
+--/--------------------------------------------------------------/
 /* INSERTS DERRAPA ZONE:                                                          */
-/-------------------------------------------------------------/
+--/-------------------------------------------------------------/
 
 --tblRoles
 INSERT INTO tblRol (idRol, nombreRol) VALUES (1, 'ADMIN');
 INSERT INTO tblRol (idRol, nombreRol) VALUES (2, 'VENDEDOR');
 INSERT INTO tblRol (idRol, nombreRol) VALUES (3, 'TECNICO');
+
+--tblServiciosPostVenta
+INSERT INTO tblServiciosPostVenta (idServicio,tipoServicio, costoServicio)
+VALUES (1,'mantenimiento', 500.00);
+
+INSERT INTO tblServiciosPostVenta (idServicio,tipoServicio, costoServicio)
+VALUES (2,'reparacion', 750.00);
 
 --tblUsuarios
 INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol) 
@@ -46,10 +53,10 @@ VALUES (2, 'Proveedor Dos', '987654321', 'Avenida B #456');
 
 --tblVehiculo
 INSERT INTO tblVehiculo (modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo,idProveedor)
-VALUES ('Modelo X', 'Marca A', 2024, 25000.00,1);
+VALUES ('Modelo X', 'Marca A', 2024, 25000,1);
 
 INSERT INTO tblVehiculo (modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo,idProveedor)
-VALUES ('Modelo Y', 'Marca B', 2022, 25000.00,1);
+VALUES ('Modelo Y', 'Marca B', 2022, 25000,1);
 
 --tblCliente
 INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
@@ -82,7 +89,6 @@ VALUES (2, 2, 'disponible');
 INSERT INTO tblEjemplar (idVehiculo, idProveedor, estadoEjemplar)
 VALUES (1, 1, 'disponible');
 
-
 --tblVenta
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
 VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000.00, 1800, 1, 1, 1);
@@ -90,12 +96,6 @@ VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000.00, 
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
 VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000.00, 2000, 2, 2, 2);
 
---tblServiciosPostVenta
-INSERT INTO tblServiciosPostVenta (fechaServicio, tipoServicio, costoServicio)
-VALUES (TO_TIMESTAMP('2024-07-01 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'mantenimiento', 500.00);
-
-INSERT INTO tblServiciosPostVenta (fechaServicio, tipoServicio, costoServicio)
-VALUES (TO_TIMESTAMP('2024-07-10 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'reparacion', 750.00);
 
 --tblRealizaServicioTecnico
 INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico, fechaInicioServicio, fechaFinServicio)
@@ -119,9 +119,9 @@ INSERT INTO tblSe_RealizaServicioPostVenta (idServicio, idVenta)
 VALUES (2, 2);
 
 commit;
-/--------------------------------------------------------------/
+--/--------------------------------------------------------------/
 /* UPDATES:                                                        */
-/-------------------------------------------------------------/
+--/-------------------------------------------------------------/
 
 UPDATE tblProveedor
 SET direccionProveedor = 'Calle A #456'
@@ -160,9 +160,9 @@ SET idServicio = 2
 WHERE idVenta = 1;  
 
 
-/--------------------------------------------------------------/
+--/--------------------------------------------------------------/
 /* DELETES:                                                        */
-/-------------------------------------------------------------/
+--/-------------------------------------------------------------/
 
 DELETE FROM tblRealizaServicioTecnico WHERE idServicio = 1 AND idTecnico = 1;
 
@@ -188,9 +188,9 @@ UPDATE tblVendedor SET estadoVendedor = 'inactivo' WHERE idVendedor = 1;
 
 UPDATE tblTecnico SET estadoTecnico = 'inactivo' WHERE idTecnico = 1;
 
-/--------------------------------------------------------------/
+--/--------------------------------------------------------------/
 /* SELECT:                                                        */
-/-------------------------------------------------------------/
+--/-------------------------------------------------------------/
 
 SELECT idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor
 FROM tblProveedor

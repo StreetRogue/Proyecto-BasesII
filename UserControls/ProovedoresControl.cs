@@ -109,8 +109,13 @@ namespace ProyectoBasesII.UserControls
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(txtBusqueda.Texts, out int idProveedor))
+            if (string.IsNullOrWhiteSpace(txtBusqueda.Texts))
             {
+                CargarTodosLosProveedores();
+            }
+            else if (int.TryParse(txtBusqueda.Texts, out int idProveedor))
+            {
+                // Si se ingresa un ID válido, buscar por ese ID
                 MostrarDatosEnGrilla(idProveedor);
             }
             else

@@ -11,9 +11,9 @@
 --
 ----SCRIPT DE CREACION
 
-/=====================================/
+--/=====================================/
 /*                      Eliminación de Tablas                    */
-/=====================================/
+--/=====================================/
 DROP TABLE tblRealizaServicioTecnico CASCADE CONSTRAINTS;
 DROP TABLE tblInvolucraVentaEjemplar CASCADE CONSTRAINTS;
 DROP TABLE tblSe_RealizaServicioPostventa CASCADE CONSTRAINTS;
@@ -28,21 +28,21 @@ DROP TABLE tblTecnico CASCADE CONSTRAINTS;
 DROP TABLE tblUsuario CASCADE CONSTRAINTS;
 DROP TABLE tblRol CASCADE CONSTRAINTS;
 
-/=====================================/
+--/=====================================/
 /*                     Creación de Tablas                        */
-/=====================================/
+--/=====================================/
 
-/=========================================/
+--/=========================================/
 /* Table: tblRol                                                           */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblRol (
     idRol INTEGER PRIMARY KEY,
     nombreRol VARCHAR2(50) NOT NULL UNIQUE
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblUsuario                                                       */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblUsuario (
     idUsuario INTEGER PRIMARY KEY,
     nombreUsuario VARCHAR2(50) NOT NULL UNIQUE,
@@ -51,9 +51,9 @@ CREATE TABLE tblUsuario (
     CONSTRAINT fk_usuario_rol FOREIGN KEY (idRol) REFERENCES tblRol(idRol)
 );
 
-/=========================================/
+--
 /* Table: tblProveedor                                                     */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblProveedor (
     idProveedor INTEGER NOT NULL,
     nombreProveedor VARCHAR2(50) NOT NULL,
@@ -62,23 +62,23 @@ CREATE TABLE tblProveedor (
     CONSTRAINT pk_tblProveedor PRIMARY KEY (idProveedor)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblVehiculo                                                       */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblVehiculo (
     idVehiculo INTEGER NOT NULL,
     modeloVehiculo VARCHAR2(50) NOT NULL,
     marcaVehiculo VARCHAR2(50) NOT NULL,
     añoVehiculo INTEGER NOT NULL,
-    precioVehiculo DECIMAL(10, 2) NOT NULL,
+    precioVehiculo NUMBER NOT NULL,
     idProveedor INTEGER NOT NULL,
     CONSTRAINT pk_tblVehiculo PRIMARY KEY (idVehiculo),
     CONSTRAINT fk_tblVehiculo_Proveedor FOREIGN KEY (idProveedor) REFERENCES tblProveedor(idProveedor)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblCliente                                                          */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblCliente (
     cedulaCliente INTEGER NOT NULL,
     nombreCliente VARCHAR2(50) NOT NULL,
@@ -89,9 +89,9 @@ CREATE TABLE tblCliente (
     CONSTRAINT pk_tblCliente PRIMARY KEY (cedulaCliente)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblVendedor                                                     */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblVendedor (
     idVendedor INTEGER NOT NULL,
     nombreVendedor VARCHAR2(50) NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE tblVendedor (
     CONSTRAINT ckc_salarioVendedor CHECK (salarioVendedor >= 0)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblTecnico                                                        */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblTecnico (
     idTecnico INTEGER NOT NULL,
     nombreTecnico VARCHAR2(50) NOT NULL,
@@ -123,9 +123,9 @@ CREATE TABLE tblTecnico (
     CONSTRAINT ckc_salarioTecnico CHECK (salarioTecnico >= 0)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblEjemplar                                                       */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblEjemplar (
     idEjemplar INTEGER NOT NULL,
     idVehiculo INTEGER NOT NULL,
@@ -137,9 +137,9 @@ CREATE TABLE tblEjemplar (
     CONSTRAINT ckc_estadoEjemplar CHECK (estadoEjemplar IN ('disponible', 'vendido'))
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblVenta                                                            */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblVenta (
     idVenta INTEGER NOT NULL,
     fechaVenta TIMESTAMP NOT NULL,
@@ -156,23 +156,21 @@ CREATE TABLE tblVenta (
     CONSTRAINT ckc_totalVenta CHECK (totalVenta >= 0)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblServiciosPostVenta                                       */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblServiciosPostVenta (
     idServicio INTEGER NOT NULL,
-    fechaServicio TIMESTAMP NOT NULL,
     tipoServicio VARCHAR2(50) NOT NULL,
     costoServicio DECIMAL(10, 2) NOT NULL,
     CONSTRAINT pk_tblServiciosPostVenta PRIMARY KEY (idServicio),
-    CONSTRAINT uq_servicioPostVenta UNIQUE(fechaServicio),
     CONSTRAINT ckc_tipoServicio CHECK (tipoServicio IN ('mantenimiento', 'reparacion')),
     CONSTRAINT ckc_costoServicio CHECK (costoServicio >= 0)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblRealizaServicioTecnico                                  */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblRealizaServicioTecnico (
     idRealizacionServicio INTEGER NOT NULL,   
     idServicio INTEGER NOT NULL,
@@ -185,9 +183,9 @@ CREATE TABLE tblRealizaServicioTecnico (
     CONSTRAINT fk_tblRealiza_servicio_id FOREIGN KEY (idServicio) REFERENCES tblServiciosPostVenta(idServicio)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblInvolucraVentaEjemplar                                  */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblInvolucraVentaEjemplar (
     idEjemplar INTEGER NOT NULL,
     idVenta INTEGER NOT NULL,
@@ -196,9 +194,9 @@ CREATE TABLE tblInvolucraVentaEjemplar (
     CONSTRAINT fk_tblInvolucraVentaEjemplar_venta_id FOREIGN KEY (idVenta) REFERENCES tblVenta(idVenta)
 );
 
-/=========================================/
+--/=========================================/
 /* Table: tblSe_RealizaServicioPostVenta                         */
-/=========================================/
+--/=========================================/
 CREATE TABLE tblSe_RealizaServicioPostVenta (
     idServicio INTEGER NOT NULL,
     idVenta INTEGER NOT NULL,
@@ -207,9 +205,9 @@ CREATE TABLE tblSe_RealizaServicioPostVenta (
     CONSTRAINT fk_tblSe_Realiza_venta FOREIGN KEY (idVenta) REFERENCES tblVenta(idVenta)
 );
 
-/=========================================/
+--/=========================================/
 /*                  Secuencias para Autogeneración               */
-/=========================================/
+--/=========================================/
 
 CREATE SEQUENCE seq_ventas START WITH 1 INCREMENT BY 1;
 
@@ -227,9 +225,9 @@ CREATE SEQUENCE seq_tecnicos START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE seq_vendedores START WITH 1 INCREMENT BY 1;
 
-/=========================================/
+--/=========================================/
 /*               PARA REINICIAR LAS SECUENCIAS           */
-/=========================================/
+--/=========================================/
 ALTER SEQUENCE seq_ventas RESTART;
 
 ALTER SEQUENCE seq_ejemplar RESTART;
@@ -246,9 +244,9 @@ ALTER SEQUENCE seq_tecnicos RESTART;
 
 ALTER SEQUENCE seq_vendedores RESTART;
 
-/=========================================/
+--/=========================================/
 /*               PARA ELIMINAR LAS SECUENCIAS           */
-/=========================================/
+--/=========================================/
 
 DROP SEQUENCE seq_ventas;
 
@@ -267,9 +265,9 @@ DROP SEQUENCE seq_tecnicos;
 DROP SEQUENCE seq_vendedores;
 
 
-/=========================================/
+--/=========================================/
 /*               PARA ELIMINAR LAS SECUENCIAS           */
-/=========================================/
+--/=========================================/
 
 --------------Creación de roles
 CONNECT system/oracle;
@@ -319,9 +317,9 @@ GRANT CONNECT TO vendedor_usuario;
 GRANT CONNECT TO tecnico_usuario;
 
 
-/=========================================/
+--/=========================================/
 /*               PRUEBAS           */
-/=========================================/
+--/=========================================/
 
 
 CONNECT vendedor_usuario/vendedor123;

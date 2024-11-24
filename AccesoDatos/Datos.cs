@@ -12,7 +12,7 @@ namespace ProyectoBasesII.AccesoDatos
     {
         public Datos() { }
         /*paso 1 crear la cadena de conexion */
-        string cadenaConexion = "Data Source=localhost;User ID=USER_BASES;Password=oracle;";
+        string cadenaConexion = "Data Source=localhost;User ID=USER_PROYECTOBASES;Password=oracle;";
 
         public int ejecutarDML(string consulta)
         {
@@ -131,6 +131,58 @@ namespace ProyectoBasesII.AccesoDatos
             }
 
             return ds;
+        }
+
+        public object ejecutarFuncion(string nombreFuncion, OracleParameter[] parametros)
+        {
+            object resultado = null;
+
+            // Crear conexión
+            using (OracleConnection miConexion = new OracleConnection(cadenaConexion))
+            {
+                // Crear comando para ejecutar la función
+                using (OracleCommand miComando = new OracleCommand(nombreFuncion, miConexion))
+                {
+                    miComando.CommandType = CommandType.StoredProcedure;
+
+                    // Crear un parámetro para el valor de retorno
+                    OracleParameter returnParam = new OracleParameter("return_value", OracleDbType.Varchar2, 4000) // Cambiar el tipo según lo que devuelva la función
+                    {
+                        Direction = ParameterDirection.ReturnValue
+                    };
+
+                    // Agregar el parámetro de retorno al comando
+                    miComando.Parameters.Add(returnParam);
+
+                    // Agregar parámetros adicionales a la función, si los hay
+                    if (parametros != null)
+                    {
+                        foreach (var param in parametros)
+                        {
+                            miComando.Parameters.Add(param);
+                        }
+                    }
+
+                    try
+                    {
+                        // Abrir conexión
+                        miConexion.Open();
+
+                        // Ejecutar la función
+                        miComando.ExecuteNonQuery();
+
+                        // Obtener el resultado de la función
+                        resultado = returnParam.Value;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        throw; // Relanzar la excepción si es necesario
+                    }
+                }
+            }
+
+            return resultado;
         }
 
     }
