@@ -37,7 +37,6 @@
             this.lblTextBusqueda = new System.Windows.Forms.Label();
             this.lblTituloProovedores = new System.Windows.Forms.Label();
             this.btnModificarProveedor = new FontAwesome.Sharp.IconButton();
-            this.btnEliminar = new FontAwesome.Sharp.IconButton();
             this.btnAgregar = new FontAwesome.Sharp.IconButton();
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgProovedores)).BeginInit();
@@ -154,22 +153,7 @@
             this.btnModificarProveedor.Size = new System.Drawing.Size(53, 38);
             this.btnModificarProveedor.TabIndex = 8;
             this.btnModificarProveedor.UseVisualStyleBackColor = false;
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.BackColor = System.Drawing.Color.Red;
-            this.btnEliminar.FlatAppearance.BorderSize = 0;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            this.btnEliminar.IconColor = System.Drawing.Color.Black;
-            this.btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnEliminar.IconSize = 25;
-            this.btnEliminar.Location = new System.Drawing.Point(731, 259);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(53, 38);
-            this.btnEliminar.TabIndex = 5;
-            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnModificarProveedor.Click += new System.EventHandler(this.btnModificarProveedor_Click);
             // 
             // btnAgregar
             // 
@@ -212,7 +196,6 @@
             this.Controls.Add(this.btnModificarProveedor);
             this.Controls.Add(this.lblTituloProovedores);
             this.Controls.Add(this.lblTextBusqueda);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dtgProovedores);
             this.Controls.Add(this.btnBuscar);
@@ -233,7 +216,6 @@
         private FontAwesome.Sharp.IconButton btnBuscar;
         private System.Windows.Forms.DataGridView dtgProovedores;
         private FontAwesome.Sharp.IconButton btnAgregar;
-        private FontAwesome.Sharp.IconButton btnEliminar;
         private System.Windows.Forms.Label lblTextBusqueda;
         private System.Windows.Forms.Label lblTituloProovedores;
         private FontAwesome.Sharp.IconButton btnModificarProveedor;

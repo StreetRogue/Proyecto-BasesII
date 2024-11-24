@@ -152,3 +152,6 @@ C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\P
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.RegistrarServicioControl.resources
 C:\Users\camac\OneDrive\Escritorio\Proyecto-BasesII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ServiciosControl.resources
 C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ModificarInventarioEjemplaresControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.DashboardTecnico.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ClienteTecnicoControl.resources
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ModificarProveedorControl.resources

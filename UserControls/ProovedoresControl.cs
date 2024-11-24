@@ -16,7 +16,7 @@ namespace ProyectoBasesII.UserControls
     public partial class ProovedoresControl : UserControl
     
     {
-
+        public event Action<string> SolicitarModificarProveedoresControl;
         public event EventHandler SolicitarRegistrarProovedores;
 
         public ProovedoresControl()
@@ -127,6 +127,32 @@ namespace ProyectoBasesII.UserControls
         private void ProovedoresControl_Load(object sender, EventArgs e)
         {
             CargarTodosLosProveedores();
+        }
+
+        private void btnModificarProveedor_Click(object sender, EventArgs e)
+        {
+            if (dtgProovedores.SelectedCells.Count > 0)
+            {
+                // Obtener la celda seleccionada
+                DataGridViewCell celdaSeleccionada = dtgProovedores.SelectedCells[0];
+                int filaSeleccionada = celdaSeleccionada.RowIndex;
+
+                // Obtener el valor del ID Proveedor
+                var idProveedor = dtgProovedores.Rows[filaSeleccionada].Cells["ID Proveedor"].Value;
+
+                if (idProveedor != null)
+                {
+                    SolicitarModificarProveedoresControl?.Invoke(idProveedor.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo obtener el ID del ejemplar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un ejemplar en la grilla antes de modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

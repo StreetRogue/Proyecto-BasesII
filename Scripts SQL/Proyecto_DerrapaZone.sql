@@ -1,346 +1,7 @@
 
---=========================================/
-/*                      Creación de Disparadores                     
---=========================================/
-
-/* Disparador para generar idVenta */
-CREATE OR REPLACE TRIGGER trg_venta_id
-BEFORE INSERT ON tblVenta
-FOR EACH ROW
-DECLARE
-    v_estadoEjemplar tblEjemplar.estadoEjemplar%TYPE;
-BEGIN
-    IF :NEW.idVenta IS NULL THEN
-        SELECT estadoEjemplar 
-        INTO v_estadoEjemplar 
-        FROM tblEjemplar 
-        WHERE idEjemplar = :NEW.idEjemplar; 
-        IF v_estadoEjemplar = 'vendido' THEN
-            RAISE_APPLICATION_ERROR(-20001, 'El ejemplar ya está vendido. No se puede realizar la venta.');
-        ELSE
-            SELECT seq_ventas.NEXTVAL INTO :NEW.idVenta FROM dual;
-        END IF;
-    END IF;
-END;
-
-/* Disparador para actualizar estado de ejemplar */
-CREATE OR REPLACE TRIGGER trg_actualizar_estado_ejemplar
-AFTER INSERT ON tblVenta
-FOR EACH ROW
-BEGIN
-    UPDATE tblEjemplar SET estadoEjemplar = 'vendido' WHERE idEjemplar = :NEW.idEjemplar;
-END;
-
-/* Disparador para generar idEjemplar */
-CREATE OR REPLACE TRIGGER trg_validate_and_set_idEjemplar
-BEFORE INSERT ON tblEjemplar
-FOR EACH ROW
-DECLARE
-    v_vehiculo_exists INTEGER;
-    v_proveedor_exists INTEGER;
-BEGIN
-    -- Validar que el idVehiculo exista en tblVehiculo
-    SELECT COUNT(*)
-    INTO v_vehiculo_exists
-    FROM tblVehiculo
-    WHERE idVehiculo = :NEW.idVehiculo;
-
-    IF v_vehiculo_exists = 0 THEN
-        RAISE_APPLICATION_ERROR(-20001, 'El idVehiculo no existe en la tabla tblVehiculo.');
-    END IF;
-
-    -- Validar que el idProveedor exista en tblProveedor
-    SELECT COUNT(*)
-    INTO v_proveedor_exists
-    FROM tblProveedor
-    WHERE idProveedor = :NEW.idProveedor;
-
-    IF v_proveedor_exists = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'El idProveedor no existe en la tabla tblProveedor.');
-    END IF;
-
-    -- Asignar el idEjemplar desde la secuencia si no se especifica
-    IF :NEW.idEjemplar IS NULL THEN
-        :NEW.idEjemplar := seq_ejemplar.NEXTVAL;
-    END IF;
-END;
-
-
-/* Disparador para registro duplicado para un servicio tecnico*/
-CREATE OR REPLACE TRIGGER trg_servicios_tecnicos_id
-BEFORE INSERT ON tblRealizaServicioTecnico
-FOR EACH ROW
-DECLARE
-    v_count NUMBER;
-BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM tblRealizaServicioTecnico
-    WHERE idServicio = :NEW.idServicio
-      AND idTecnico = :NEW.idTecnico
-      AND fechaInicioServicio = :NEW.fechaInicioServicio;
-
-    IF v_count = 0 THEN
-        IF :NEW.idRealizacionServicio IS NULL THEN
-            SELECT seq_servicios_tecnicos.NEXTVAL 
-            INTO :NEW.idRealizacionServicio
-            FROM dual;
-        END IF;
-    ELSE
-        RAISE_APPLICATION_ERROR(-20001, 'Registro duplicado: el mismo servicio ya fue realizado por este técnico en esta fecha.');
-    END IF;
-END;
-
-/* Disparador para validar rol de Vendedor */
-CREATE OR REPLACE TRIGGER trg_validar_rol_vendedor
-BEFORE INSERT ON tblVendedor
-FOR EACH ROW
-DECLARE
-    v_idRolUsuario INTEGER;
-    v_idRolVendedor INTEGER;
-BEGIN
-    SELECT idRol INTO v_idRolUsuario FROM tblUsuario WHERE idUsuario = :NEW.idUsuario;
-    SELECT idRol INTO v_idRolVendedor FROM tblRol WHERE nombreRol = 'VENDEDOR';
-    IF v_idRolUsuario <> v_idRolVendedor THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Error: El usuario no tiene el rol de VENDEDOR.');
-    END IF;
-END;
-
-/* Disparador para validar rol de Técnico */
-CREATE OR REPLACE TRIGGER trg_validar_rol_tecnico
-BEFORE INSERT ON tblTecnico
-FOR EACH ROW
-DECLARE
-    v_idRolUsuario INTEGER;
-    v_idRolTecnico INTEGER;
-BEGIN
-    SELECT idRol INTO v_idRolUsuario FROM tblUsuario WHERE idUsuario = :NEW.idUsuario;
-    SELECT idRol INTO v_idRolTecnico FROM tblRol WHERE nombreRol = 'TECNICO';
-    IF v_idRolUsuario <> v_idRolTecnico THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Error: El usuario no tiene el rol de TECNICO.');
-    END IF;
-END;
-
-------Disparador para usertecnico
-CREATE OR REPLACE TRIGGER trg_auto_user_tecnico
-BEFORE INSERT ON tblTecnico
-FOR EACH ROW
-DECLARE
-    v_nombreUsuario VARCHAR2(50);
-    v_sufijo NUMBER := 1;
-    v_usuarioFinal VARCHAR2(50);
-    v_password VARCHAR2(20);
-    v_count NUMBER;
-BEGIN
-    -- Crear el nombre base: inicial del nombre + apellido en minúsculas
-    v_nombreUsuario := LOWER(SUBSTR(:NEW.nombreTecnico, 1, 1)) || LOWER(:NEW.apellidoTecnico);
-
-    -- Iniciar con el nombre base
-    v_usuarioFinal := v_nombreUsuario;
-
-    -- Validar unicidad del nombre de usuario
-    LOOP
-        -- Contar cuántos usuarios existen con este nombre
-        SELECT COUNT(*)
-        INTO v_count
-        FROM tblUsuario
-        WHERE nombreUsuario = v_usuarioFinal;
-
-        -- Si no existen usuarios con este nombre, salir del loop
-        IF v_count = 0 THEN
-            EXIT;
-        END IF;
-
-        -- Si existe, agregar un sufijo
-        v_usuarioFinal := v_nombreUsuario || v_sufijo;
-        v_sufijo := v_sufijo + 1;
-    END LOOP;
-
-    -- Generar una contraseña aleatoria
-    v_password := DBMS_RANDOM.STRING('x', 10);
-
-    -- Insertar en tblUsuario
-    :NEW.idUsuario := seq_usuarios.NEXTVAL;
-    INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol)
-    VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
-            (SELECT idRol FROM tblRol WHERE nombreRol = 'TECNICO'));
-
-END;
-/
-
----Disparador para userVendedor
-CREATE OR REPLACE TRIGGER trg_auto_user_vendedor
-BEFORE INSERT ON tblVendedor
-FOR EACH ROW
-DECLARE
-    v_nombreUsuario VARCHAR2(50);
-    v_sufijo NUMBER := 1;
-    v_usuarioFinal VARCHAR2(50);
-    v_password VARCHAR2(20);
-    v_count NUMBER;
-BEGIN
-    -- Crear el nombre base: inicial del nombre + apellido en minúsculas
-    v_nombreUsuario := LOWER(SUBSTR(:NEW.nombreVendedor, 1, 1)) || LOWER(:NEW.apellidoVendedor);
-
-    -- Iniciar con el nombre base
-    v_usuarioFinal := v_nombreUsuario;
-
-    -- Validar unicidad del nombre de usuario
-    LOOP
-        -- Contar cuántos usuarios existen con este nombre
-        SELECT COUNT(*)
-        INTO v_count
-        FROM tblUsuario
-        WHERE nombreUsuario = v_usuarioFinal;
-
-        -- Si no existen usuarios con este nombre, salir del loop
-        IF v_count = 0 THEN
-            EXIT;
-        END IF;
-
-        -- Si existe, agregar un sufijo
-        v_usuarioFinal := v_nombreUsuario || v_sufijo;
-        v_sufijo := v_sufijo + 1;
-    END LOOP;
-
-    -- Generar una contraseña aleatoria
-    v_password := DBMS_RANDOM.STRING('x', 10);
-
-    -- Insertar en tblUsuario
-    :NEW.idUsuario := seq_usuarios.NEXTVAL;
-    INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol)
-    VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
-            (SELECT idRol FROM tblRol WHERE nombreRol = 'VENDEDOR'));
-END;
-
------Disparador para idtecnico
-CREATE OR REPLACE TRIGGER trg_auto_id_tecnico
-BEFORE INSERT ON tblTecnico
-FOR EACH ROW
-BEGIN
-    -- Asignar automáticamente idTecnico desde la secuencia
-    IF :NEW.idTecnico IS NULL THEN
-        :NEW.idTecnico := seq_tecnicos.NEXTVAL;
-    END IF;
-END;
-
---Disparador para idVendedor
-CREATE OR REPLACE TRIGGER trg_auto_id_vendedor
-BEFORE INSERT ON tblVendedor
-FOR EACH ROW
-BEGIN
-    -- Asignar automáticamente idVendedor desde la secuencia
-    IF :NEW.idVendedor IS NULL THEN
-        :NEW.idVendedor := seq_vendedores.NEXTVAL;
-    END IF;
-END;
-
--- Disparador para verificar datos duplicado
-CREATE OR REPLACE TRIGGER trg_id_vehiculo_proveedor
-BEFORE INSERT ON tblVehiculo
-FOR EACH ROW
-DECLARE
-    v_count NUMBER;
-BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM tblVehiculo
-    WHERE modeloVehiculo = :NEW.modeloVehiculo
-    OR marcaVehiculo = :NEW.marcaVehiculo;
-
-    IF v_count = 0 THEN
-        IF :NEW.idVehiculo IS NULL THEN
-            SELECT seq_vehiculos.NEXTVAL 
-            INTO :NEW.idVehiculo
-            FROM dual;
-        END IF;
-    ELSE
-        RAISE_APPLICATION_ERROR(-20001, 'Registro duplicado: ya existe un vehículo con este modelo y marca.');
-    END IF;
-END;
-
-/*Disparador compuesto para calcular comision de vendedor*/
-CREATE OR REPLACE TRIGGER trg_calcular_comision_vendedor
-FOR INSERT OR UPDATE ON tblVenta
-COMPOUND TRIGGER
-    v_total_comision NUMBER := 0;
-    v_idVendedor NUMBER;
-
-    -- Sección: Antes de cada fila modificada
-    BEFORE EACH ROW IS
-    BEGIN
-        -- Calcular la comisión de la venta actual y asignarla a :NEW.comisionVenta
-        :NEW.comisionVenta := :NEW.totalVenta * 0.05;
-
-        -- Guardar el ID del vendedor afectado
-        v_idVendedor := :NEW.idVendedor;
-    END BEFORE EACH ROW;
-
-    -- Sección: Después de la sentencia
-    AFTER STATEMENT IS
-    BEGIN
-        -- Calcular la comisión acumulada para el vendedor afectado en los últimos 30 días
-        SELECT NVL(SUM(comisionVenta), 0)
-        INTO v_total_comision
-        FROM tblVenta
-        WHERE idVendedor = v_idVendedor
-          AND fechaVenta >= TRUNC(SYSDATE) - 30;
-
-        -- Mostrar la comisión acumulada en los últimos 30 días en la salida
-        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ' en los últimos 30 días: ' || v_total_comision);
-    END AFTER STATEMENT;
-
-END trg_calcular_comision_vendedor;
-/
-
-CREATE OR REPLACE TRIGGER trg_bloquear_tecnicos_inactivos
-BEFORE INSERT OR UPDATE ON tblTecnico
-FOR EACH ROW
-BEGIN
-    IF :NEW.estadoTecnico = 'inactivo' THEN
-        RAISE_APPLICATION_ERROR(-20006, 'Error: No se puede insertar o actualizar técnicos con estado "inactivo".');
-    END IF;
-END trg_bloquear_tecnicos_inactivos;
-/
-
-
-CREATE OR REPLACE TRIGGER trg_bloquear_vendedores_inactivos
-BEFORE INSERT OR UPDATE ON tblVendedor
-FOR EACH ROW
-BEGIN
-    IF :NEW.estadoVendedor = 'inactivo' THEN
-        RAISE_APPLICATION_ERROR(-20007, 'Error: No se puede insertar o actualizar vendedores con estado "inactivo".');
-    END IF;
-END trg_bloquear_vendedores_inactivos;
-/
-
-
-/*=========================================*/
-/*               PARA ELIMINAR LOS DISPARADORES           */
---/=========================================/
-
-DROP TRIGGER trg_venta_id;
-
-DROP TRIGGER trg_actualizar_estado_ejemplar;
-
-DROP TRIGGER trg_servicios_postventa_id;
-
-DROP TRIGGER trg_servicios_tecnicos_id;
-
-DROP TRIGGER trg_validar_rol_vendedor;
-
-DROP TRIGGER trg_validar_rol_tecnico;
-
-DROP TRIGGER trg_validate_and_set_idEjemplar;
-
-DROP TRIGGER trg_id_vehiculo_proveedor;
-
-DROP TRIGGER trg_calcular_comision_vendedor;
- 
 --/=========================================/
 /*                  Procedimientos y Funciones                      */
 --/=========================================/
-
 
 CREATE OR REPLACE PROCEDURE registrar_empleado (
     p_nombre            IN VARCHAR2,
@@ -458,6 +119,8 @@ END consultar_servicios_realizados;
 --/=========================================/
 /*               PARA ELIMINAR FUNCIONES           */
 --/=========================================/
+
+DROP PROCEDURE registrar_empleado;
 
 DROP PROCEDURE actualizar_y_eliminar_usuarios_inactivos;
 
@@ -885,34 +548,49 @@ END pkg_proveedores;
 CREATE OR REPLACE PACKAGE BODY pkg_proveedores AS
     -- Procedimiento para registrar un proveedor
     PROCEDURE RegistrarProveedor(
-        p_idProveedor       IN tblProveedor.idProveedor%TYPE,
-        p_nombreProveedor   IN tblProveedor.nombreProveedor%TYPE,
-        p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
-        p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
-        p_filasInsertadas   OUT NUMBER
-    ) IS
-        v_count INTEGER;
-    BEGIN
-        SELECT COUNT(*)
-        INTO v_count
-        FROM tblProveedor
-        WHERE idProveedor = p_idProveedor;
+    p_idProveedor       IN tblProveedor.idProveedor%TYPE,
+    p_nombreProveedor   IN tblProveedor.nombreProveedor%TYPE,
+    p_telefonoProveedor IN tblProveedor.telefonoProveedor%TYPE,
+    p_direccionProveedor IN tblProveedor.direccionProveedor%TYPE,
+    p_filasInsertadas   OUT NUMBER
+) IS
+    v_id_count INTEGER;
+    v_nombre_count INTEGER;
+BEGIN
+    -- Verificar si el ID ya existe
+    SELECT COUNT(*)
+    INTO v_id_count
+    FROM tblProveedor
+    WHERE idProveedor = p_idProveedor;
 
-        IF v_count > 0 THEN
-            RAISE_APPLICATION_ERROR(-20001, 'Error: El ID de proveedor ' || p_idProveedor || ' ya existe.');
-        END IF;
+    IF v_id_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: El ID de proveedor ya existe.');
+    END IF;
 
-        INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
-        VALUES (p_idProveedor, p_nombreProveedor, p_telefonoProveedor, p_direccionProveedor);
+    -- Verificar si el nombre ya existe
+    SELECT COUNT(*)
+    INTO v_nombre_count
+    FROM tblProveedor
+    WHERE nombreProveedor = p_nombreProveedor;
 
-        p_filasInsertadas := 1;
+    IF v_nombre_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El nombre del proveedor ya existe.');
+    END IF;
 
-        DBMS_OUTPUT.PUT_LINE('Proveedor "' || p_nombreProveedor || '" registrado con ID ' || p_idProveedor);
+    -- Insertar nuevo proveedor
+    INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
+    VALUES (p_idProveedor, p_nombreProveedor, p_telefonoProveedor, p_direccionProveedor);
 
-    EXCEPTION
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Se ha producido un error al registrar el proveedor: ' || SQLERRM);
-    END RegistrarProveedor;
+    p_filasInsertadas := 1;
+
+    DBMS_OUTPUT.PUT_LINE('Proveedor registrado con ID ' || p_idProveedor);
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Solo registrar el error, pero dejar que se propague
+        DBMS_OUTPUT.PUT_LINE('Error en RegistrarProveedor: ' || SQLERRM);
+        RAISE;
+END RegistrarProveedor;
 
     -- Procedimiento para consultar información de un proveedor y sus vehículos
     PROCEDURE Consultar_informacion_proveedor(
@@ -976,6 +654,27 @@ CREATE OR REPLACE PACKAGE BODY pkg_proveedores AS
 
 END pkg_proveedores;
 
+commit;
+
+SET SERVEROUTPUT ON
+DECLARE
+    filas_insertadas NUMBER;
+BEGIN
+    pkg_proveedores.RegistrarProveedor(
+        p_idProveedor       => 1,
+        p_nombreProveedor   => 'Proveedor Ejemplo',
+        p_telefonoProveedor => '123456789',
+        p_direccionProveedor => 'Calle 123',
+        p_filasInsertadas   => filas_insertadas
+    );
+
+    DBMS_OUTPUT.PUT_LINE('Filas Insertadas: ' || filas_insertadas);
+END;
+
+
+
+
+
 
 --/=========================================/
 /*               PARA BORRAR PAQUETES           */
@@ -1002,9 +701,7 @@ CONNECT system/oracle;
 GRANT CREATE VIEW TO USER_PROYECTOBASES;
 
 
-
-
--- Vista para inventario ejemplares INTEAD OF
+-- Vista para inventario ejemplares INSTEAD OF
 CREATE OR REPLACE VIEW vista_inventario_ejemplares AS
 SELECT 
     e.idEjemplar AS "ID Ejemplar",
@@ -1082,12 +779,12 @@ BEGIN
         END IF;
 
         -- Realizar la actualización si todas las validaciones pasan
-UPDATE tblEjemplar
-SET 
-    idVehiculo = (SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo = :NEW."Modelo Vehículo" AND ROWNUM = 1),
-    idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = :NEW."Nombre Proveedor" AND ROWNUM = 1),
-    estadoEjemplar = :NEW."Estado Ejemplar"
-WHERE idEjemplar = :OLD."ID Ejemplar";
+        UPDATE tblEjemplar
+        SET 
+            idVehiculo = (SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo = :NEW."Modelo Vehículo" AND ROWNUM = 1),
+            idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = :NEW."Nombre Proveedor" AND ROWNUM = 1),
+            estadoEjemplar = :NEW."Estado Ejemplar"
+        WHERE idEjemplar = :OLD."ID Ejemplar";
 
     END IF;
 
@@ -1096,11 +793,8 @@ WHERE idEjemplar = :OLD."ID Ejemplar";
         DELETE FROM tblEjemplar
         WHERE idEjemplar = :OLD."ID Ejemplar";
     END IF;
-END;
-
-
-
-
+    
+END trg_inventario_ejemplares;
 
 ---Prueba
 
@@ -1110,7 +804,6 @@ SET
     "Nombre Proveedor" = 'Proveedor Uno'
 WHERE "ID Ejemplar" = 3;
 commit;
-
 
 
 
@@ -1129,6 +822,113 @@ LEFT JOIN
 GROUP BY 
     p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
 
+
+-- Trigger para vista proveedor
+
+CREATE OR REPLACE TRIGGER trg_proveedores
+INSTEAD OF INSERT OR UPDATE OR DELETE ON vista_proveedores
+FOR EACH ROW
+DECLARE
+    v_proveedor_exists INTEGER;
+    v_vehiculo_count INTEGER;
+BEGIN
+    -- Operación INSERT
+    IF INSERTING THEN
+        -- Validar que el ID del proveedor no sea NULL
+        IF :NEW."ID Proveedor" IS NULL THEN
+            RAISE_APPLICATION_ERROR(-20005, 'Error: El ID del proveedor es obligatorio.');
+        END IF;
+
+        -- Validar que no exista ya un proveedor con el mismo ID
+        SELECT COUNT(*)
+        INTO v_proveedor_exists
+        FROM tblProveedor
+        WHERE idProveedor = :NEW."ID Proveedor";
+
+        IF v_proveedor_exists > 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Error: Ya existe un proveedor con el mismo ID.');
+        END IF;
+
+        -- Validar que no exista ya un proveedor con el mismo nombre
+        SELECT COUNT(*)
+        INTO v_proveedor_exists
+        FROM tblProveedor
+        WHERE nombreProveedor = :NEW."Nombre Proveedor";
+
+        IF v_proveedor_exists > 0 THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Error: Ya existe un proveedor con el mismo nombre.');
+        END IF;
+
+        -- Insertar en tblProveedor
+        INSERT INTO tblProveedor (idProveedor, nombreProveedor, telefonoProveedor, direccionProveedor)
+        VALUES (
+            :NEW."ID Proveedor",
+            :NEW."Nombre Proveedor",
+            :NEW."Teléfono Proveedor",
+            :NEW."Dirección Proveedor"
+        );
+    END IF;
+
+    -- Operación UPDATE
+    IF UPDATING THEN
+        -- Validar que el proveedor exista
+        SELECT COUNT(*)
+        INTO v_proveedor_exists
+        FROM tblProveedor
+        WHERE idProveedor = :OLD."ID Proveedor";
+
+        IF v_proveedor_exists = 0 THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: El proveedor especificado no existe.');
+        END IF;
+
+        -- Validar que el nuevo nombre no esté duplicado en otro proveedor
+        SELECT COUNT(*)
+        INTO v_proveedor_exists
+        FROM tblProveedor
+        WHERE nombreProveedor = :NEW."Nombre Proveedor" AND idProveedor != :OLD."ID Proveedor";
+
+        IF v_proveedor_exists > 0 THEN
+            RAISE_APPLICATION_ERROR(-20004, 'Error: Ya existe otro proveedor con el mismo nombre.');
+        END IF;
+
+        -- Actualizar los datos del proveedor
+        UPDATE tblProveedor
+        SET 
+            nombreProveedor = :NEW."Nombre Proveedor",
+            telefonoProveedor = :NEW."Teléfono Proveedor",
+            direccionProveedor = :NEW."Dirección Proveedor"
+        WHERE idProveedor = :OLD."ID Proveedor";
+    END IF;
+
+    -- Operación DELETE
+    IF DELETING THEN
+        -- Validar si el proveedor tiene vehículos asociados
+        SELECT COUNT(*)
+        INTO v_vehiculo_count
+        FROM tblVehiculo
+        WHERE idProveedor = :OLD."ID Proveedor";
+
+        IF v_vehiculo_count > 0 THEN
+            RAISE_APPLICATION_ERROR(-20006, 'Error: No se puede eliminar un proveedor con vehículos asociados.');
+        END IF;
+
+        -- Eliminar el proveedor
+        DELETE FROM tblProveedor
+        WHERE idProveedor = :OLD."ID Proveedor";
+    END IF;
+END trg_proveedores;
+/
+
+
+-- Prueba
+
+UPDATE vista_proveedores
+SET 
+    "Nombre Proveedor" = 'Proveedor Actualizado prueba de vehículo',
+    "Teléfono Proveedor" = '123456789',
+    "Dirección Proveedor" = 'Avenida Vieja'
+WHERE "ID Proveedor" = 1;
+commit;
 
 -- Vista para 
 CREATE OR REPLACE VIEW vista_ventas AS
@@ -1160,8 +960,143 @@ DROP VIEW vista_proveedores;
 
 DROP VIEW vista_ventas;
 
+--/=========================================/
+/*                             INDICES                            */
+--/=========================================/
 
 
+-- Índice básico en la columna modeloVehiculo
+CREATE INDEX idx_tblVehiculo_modeloVehiculo
+ON tblVehiculo (modeloVehiculo);
+
+SELECT index_name, table_name, column_name
+FROM user_ind_columns
+WHERE table_name = 'TBLVEHICULO';
+
+ALTER INDEX idx_tblVehiculo_modeloVehiculo MONITORING USAGE
+
+----Debe ejecutarse desde system o un usuario q tenga privilegios 
+--Monitoreo
+SELECT *
+FROM DBA_OBJECT_USAGE
+WHERE TABLE_NAME='TBLVEHICULO'
+
+---Esta consulta de tblVehiculo pone el indice en USED Yes
+    SELECT idVehiculo, modeloVehiculo
+    FROM TBLVEHICULO
+    WHERE modeloVehiculo LIKE 'M%' ORDER BY
+    modeloVehiculo DESC
+
+
+--consultes los servicios realizados en los últimos X días. 
+----Funcion determinista
+CREATE OR REPLACE FUNCTION fn_dias_servicio(p_fechaServicio DATE) 
+RETURN NUMBER
+DETERMINISTIC
+IS
+BEGIN
+    RETURN (SYSDATE - p_fechaServicio);
+END fn_dias_servicio;
+
+---Indice basado en una funcion para la tblServiciosPostventa
+CREATE INDEX idx_tblServiciosPostVenta_dias_servicio
+ON tblServiciosPostVenta (fn_dias_servicio(fechaServicio));
+
+ALTER INDEX idx_tblServiciosPostVenta_dias_servicio MONITORING USAGE;
+
+----Debe ejecutarse desde system o un usuario q tenga privilegios 
+--Monitoreo
+SELECT *
+FROM DBA_OBJECT_USAGE
+WHERE TABLE_NAME='TBLSERVICIOSPOSTVENTA'
+
+---Esta consulta pone el indice en USED Yes
+SELECT *
+FROM tblServiciosPostVenta
+WHERE fn_dias_servicio(fechaServicio) <= 30;
+
+/=========================================/
+/*               DICCIONARIO DE DATOS         */
+/=========================================/
+
+--1. Mostrar información de los objetos de la BD
+
+SELECT object_name, object_type, created, status
+FROM user_objects
+ORDER BY object_type;
+
+--2. Mostrar el nombre de todas las tablas que posee.
+
+SELECT table_name
+FROM user_tables;
+
+--3. Mostrar información de las restricciones definidas sobre sus tablas
+
+SELECT column_name, data_type, data_length,
+data_precision, data_scale, nullable
+FROM user_tab_columns;
+
+--4. Mostrar información de las secuencias
+
+SELECT sequence_name, min_value, max_value,
+increment_by, last_number
+FROM user_sequences;
+
+--5. Mostrar los nombres de las columnas de una de las tablas de su esquema.
+
+SELECT column_name, data_type, data_length,
+data_precision, data_scale, nullable
+FROM user_tab_columns
+WHERE table_name = 'TBLVEHICULO';
+
+--6. Mostrar la consulta de una de las vistas.
+
+CREATE OR REPLACE VIEW vista_proveedores AS
+SELECT 
+    p.idProveedor AS "ID Proveedor",
+    p.nombreProveedor AS "Nombre Proveedor",
+    p.telefonoProveedor AS "Teléfono Proveedor",
+    p.direccionProveedor AS "Dirección Proveedor",
+    COUNT(v.idVehiculo) AS "Cantidad de Vehículos Asociados"
+FROM 
+    tblProveedor p
+LEFT JOIN 
+    tblVehiculo v ON p.idProveedor = v.idProveedor
+GROUP BY 
+    p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
+    
+    
+--7. Consulte las restricciones de una de las tablas de su esquema.
+
+SELECT constraint_name, constraint_type,
+search_condition, r_constraint_name,
+delete_rule, status
+FROM user_constraints
+WHERE table_name = 'TBLVEHICULO';
+
+--8. Mostrar el nombre de todos los procedimientos que posee.
+
+SELECT OBJECT_NAME AS NOMBRE_PROCEDIMIENTO
+FROM USER_OBJECTS
+WHERE OBJECT_TYPE = 'PROCEDURE';
+
+---Consulta para cuando los procedimientos estan encapsulados en packages
+
+SELECT OBJECT_NAME AS PAQUETE,
+       PROCEDURE_NAME AS NOMBRE_PROCEDIMIENTO
+FROM USER_PROCEDURES
+WHERE OBJECT_TYPE = 'PACKAGE'
+   OR OBJECT_TYPE = 'PACKAGE BODY';
+
+
+--9. Ver usuarios con roles y privilegios asignados
+
+----Permite ver el rol y privilegios del usuario actual
+SELECT GRANTED_ROLE AS ROL, ADMIN_OPTION
+FROM USER_ROLE_PRIVS;
+
+SELECT PRIVILEGE, ADMIN_OPTION
+FROM USER_SYS_PRIVS;
 
 
 

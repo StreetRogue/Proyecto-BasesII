@@ -27,31 +27,29 @@ namespace ProyectoBasesII.UserControls
             int varIdProveedor;
             string varNombreProveedor, varTelefonoProveedor, varDireccionProveedor;
 
-            // PASO 1
-            if (string.IsNullOrEmpty(txtProovedorID.Texts) || string.IsNullOrEmpty(txtNombreProovedor.Texts) || string.IsNullOrEmpty(txtTelefonoProovedor.Texts) || string.IsNullOrEmpty(txtTelefonoProovedor.Texts) || string.IsNullOrEmpty(txtDireccionProovedor.Texts))
+            // Validar que los campos no estén vacíos
+            if (string.IsNullOrEmpty(txtProovedorID.Texts) ||string.IsNullOrEmpty(txtNombreProovedor.Texts) ||
+                string.IsNullOrEmpty(txtTelefonoProovedor.Texts) || string.IsNullOrEmpty(txtDireccionProovedor.Texts))
             {
                 MessageBox.Show("Debe llenar todos los campos.", "Ingrese todos los campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else
-            {
-                varIdProveedor = int.Parse(txtProovedorID.Texts);
-                varNombreProveedor = txtNombreProovedor.Texts;
-                varTelefonoProveedor = txtTelefonoProovedor.Texts;
-                varDireccionProveedor = txtDireccionProovedor.Texts;
-                
-            }
 
-            // PASO 2
+            // Asignar valores a las variables restantes
+            varIdProveedor = int.Parse(txtProovedorID.Texts);
+            varNombreProveedor = txtNombreProovedor.Texts;
+            varTelefonoProveedor = txtTelefonoProovedor.Texts;
+            varDireccionProveedor = txtDireccionProovedor.Texts;
 
             try
             {
-            
-               resultado = objProveedor.registrarProveedor(varIdProveedor,varNombreProveedor,varTelefonoProveedor,varDireccionProveedor);
-               
+                // Llamar al método para registrar el proveedor
+                int resultado = objProveedor.registrarProveedor(varIdProveedor, varNombreProveedor, varTelefonoProveedor, varDireccionProveedor);
+
                 if (resultado > 0)
                 {
                     MessageBox.Show("Proveedor Registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Limpiar los campos
                     txtProovedorID.Texts = "";
                     txtNombreProovedor.Texts = "";
                     txtTelefonoProovedor.Texts = "";
@@ -61,13 +59,28 @@ namespace ProyectoBasesII.UserControls
                 {
                     MessageBox.Show("Proveedor No Registrado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
-            catch(OracleException ex)
+            catch (OracleException ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Manejar errores específicos del procedimiento
+                if (ex.Message.Contains("Error: El ID de proveedor ya existe"))
+                {
+                    MessageBox.Show("El ID del proveedor ya existe. Intente con un ID diferente.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (ex.Message.Contains("Error: El nombre del proveedor ya existe."))
+                {
+                    MessageBox.Show("Ya existe un proveedor con el mismo nombre. Verifique el nombre ingresado.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
+            catch (Exception ex)
+            {
+                // Manejo genérico de errores
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
