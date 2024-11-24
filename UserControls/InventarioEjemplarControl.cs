@@ -16,20 +16,12 @@ namespace ProyectoBasesII.UserControls
 
         public event Action<string> SolicitarModificarInventarioEjemplares;
 
-        private readonly int? ejemplarId;
-
         public InventarioEjemplarControl()
         {
             InitializeComponent();
         }
 
         assetEjemplar objEjemplar = new assetEjemplar();
-
-        // Constructor que acepta un ID Ejemplar
-        public InventarioEjemplarControl(int idEjemplar) : this() // Llama al constructor predeterminado
-        {
-            this.ejemplarId = idEjemplar; // Asigna el ID Ejemplar a la propiedad
-        }
 
         public void MostrarDatosEnGrillaEjemplar(int idEjemplar)
         {

@@ -3,6 +3,7 @@ using ProyectoBasesII.AccesoDatos;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,7 +75,6 @@ namespace ProyectoBasesII.Logica
             return dt.ejecutarSPConCursores("pkg_proveedores.Consultar_informacion_proveedor_cursor", parametros);
         }
 
-
         public DataSet buscarProveedorGeneral()
         {
             DataSet ds = new DataSet();
@@ -85,6 +85,40 @@ namespace ProyectoBasesII.Logica
             ds = dt.ejecutarSelect(consulta);
 
             return ds;
+        }
+
+        public int modificarProveedores(int idProveedor, string nombreProveedor, string telefonoProveedor, string direccionProveedor)
+        {
+            int filasAfectadas = 0;
+
+            // Construir la consulta SQL para actualizar
+            string consulta = "UPDATE vista_proveedores " +
+                    "SET \"Nombre Proveedor\" = '" + nombreProveedor + "', " +
+                    "\"Teléfono Proveedor\" = '" + telefonoProveedor + "', " +
+                    "\"Dirección Proveedor\" = '" + direccionProveedor + "' " +
+                    "WHERE \"ID Proveedor\" = " + idProveedor;
+
+
+
+            // Ejecutar la consulta y realizar commit
+            try
+            {
+                filasAfectadas = dt.ejecutarDML(consulta);
+                Debug.WriteLine(filasAfectadas);
+
+                if (filasAfectadas > 0)
+                {
+                    // Confirmar los cambios
+                    dt.ejecutarDML("COMMIT");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si ocurre un error, puedes manejarlo aquí (opcionalmente podrías hacer un rollback)
+                throw new Exception($"Error al modificar el ejemplar: {ex.Message}");
+            }
+
+            return filasAfectadas;
         }
 
     }

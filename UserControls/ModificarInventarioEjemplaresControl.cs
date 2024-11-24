@@ -118,9 +118,6 @@ namespace ProyectoBasesII.UserControls
 
             string modeloVehiculo = "", nombreProveedor = "";
 
-            int auxIdEjemplar;
-
-
             if (string.IsNullOrEmpty(cbxProovedor.Texts) || string.IsNullOrEmpty(cbxVehiculo.Texts))
             {
                 MessageBox.Show("Debe llenar todos los campos.", "Ingrese todos los campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -155,7 +152,6 @@ namespace ProyectoBasesII.UserControls
             {
                 MessageBox.Show("Error: " + ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         public void CargarEjemplar(string idEjemplarSeleccionado)

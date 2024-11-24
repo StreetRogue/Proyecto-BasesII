@@ -134,7 +134,7 @@ namespace ProyectoBasesII
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            this.Close(); // Cierra Formulario2
+            this.Close(); 
             Form1 form1 = new Form1();
             form1.Show();
         }
@@ -147,31 +147,33 @@ namespace ProyectoBasesII
             // Suscribirse al evento
             ProovedoresControl.SolicitarRegistrarProovedores += ProovedoresControl_SolicitarRegistrarProovedores;
 
+         
+
+            // Suscribirse al evento
+            ProovedoresControl.SolicitarModificarProveedoresControl += idProveedor =>
+            {
+                // Crear una instancia de ModificarProveedorControl
+                ModificarProveedorControl modificarControl = new ModificarProveedorControl();
+
+                // Pasar el idProveedor al método CargarProveedor de modificarControl
+                modificarControl.CargarProveedor(idProveedor);
+
+                // Cargar el control ModificarProveedorControl en el panel
+                LoadUserControl(modificarControl);
+            };
+
+
             // Cargar ProovedoresControl en el panel
             LoadUserControl(ProovedoresControl);
+
+
+
         }
 
         private void ProovedoresControl_SolicitarRegistrarProovedores(object sender, EventArgs e)
         {
             // Cargar RegistrarProovedoresControl en el panel
             LoadUserControl(new RegistrarProovedorControl());
-        }
-
-        private void InventarioEjemplarControl_SolicitarModificarInventarioEjemplares(object sender, EventArgs e)
-        {
-            // Cargar RegistrarProovedoresControl en el panel
-            LoadUserControl(new ModificarInventarioEjemplaresControl());
-        }
-
-        private void InventarioEjemplarControl_SolicitarModificarInventarioEjemplares(string idEjemplar)
-        {
-            // Instanciar el control y pasar el ID Ejemplar
-            ModificarInventarioEjemplaresControl modificarControl = new ModificarInventarioEjemplaresControl();
-            modificarControl.CargarEjemplar(idEjemplar); // Método que carga el ejemplar en el nuevo control
-            
-
-            // Cargar el nuevo control en el panel
-            LoadUserControl(modificarControl);
         }
 
         private void btnGestionarEjem_Click(object sender, EventArgs e)
@@ -224,6 +226,11 @@ namespace ProyectoBasesII
         private void btnServicios_Click(object sender, EventArgs e)
         {
             LoadUserControl(new ServiciosControl());
+        }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ClienteControl());
         }
     }
 }

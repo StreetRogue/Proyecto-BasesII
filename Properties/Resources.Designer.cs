@@ -193,6 +193,16 @@ namespace ProyectoBasesII.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ModificarProvImg {
+            get {
+                object obj = ResourceManager.GetObject("ModificarProvImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap servicioTecnico {
             get {
                 object obj = ResourceManager.GetObject("servicioTecnico", resourceCulture);
