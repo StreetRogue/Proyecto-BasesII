@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProyectoBasesII.UserControls;
+using System.Diagnostics;
 
 
 namespace ProyectoBasesII
@@ -156,9 +157,43 @@ namespace ProyectoBasesII
             LoadUserControl(new RegistrarProovedorControl());
         }
 
+        private void InventarioEjemplarControl_SolicitarModificarInventarioEjemplares(object sender, EventArgs e)
+        {
+            // Cargar RegistrarProovedoresControl en el panel
+            LoadUserControl(new ModificarInventarioEjemplaresControl());
+        }
+
+        private void InventarioEjemplarControl_SolicitarModificarInventarioEjemplares(string idEjemplar)
+        {
+            // Instanciar el control y pasar el ID Ejemplar
+            ModificarInventarioEjemplaresControl modificarControl = new ModificarInventarioEjemplaresControl();
+            modificarControl.CargarEjemplar(idEjemplar); // Método que carga el ejemplar en el nuevo control
+            
+
+            // Cargar el nuevo control en el panel
+            LoadUserControl(modificarControl);
+        }
+
         private void btnGestionarEjem_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new InventarioEjemplarControl());
+            // Crear una instancia de InventarioEjemplarControl
+            InventarioEjemplarControl inventarioEjemplar = new InventarioEjemplarControl();
+
+            // Suscribirse al evento
+            inventarioEjemplar.SolicitarModificarInventarioEjemplares += idEjemplar =>
+            {
+                // Crear una instancia de ModificarInventarioEjemplaresControl
+                ModificarInventarioEjemplaresControl modificarControl = new ModificarInventarioEjemplaresControl();
+
+                // Pasar el idEjemplar al método CargarEjemplar de modificarControl
+                modificarControl.CargarEjemplar(idEjemplar);
+
+                // Cargar el control ModificarInventarioEjemplaresControl en el panel
+                LoadUserControl(modificarControl);
+            };
+
+            // Cargar InventarioEjemplarControl en el panel
+            LoadUserControl(inventarioEjemplar);
         }
 
         private void btnRegEmpleado_Click(object sender, EventArgs e)

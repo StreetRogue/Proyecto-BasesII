@@ -33,11 +33,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTextBusqueda = new System.Windows.Forms.Label();
-            this.btnEliminar = new FontAwesome.Sharp.IconButton();
             this.dtgEjemplares = new System.Windows.Forms.DataGridView();
-            this.btnBuscar = new FontAwesome.Sharp.IconButton();
             this.txtBusqueda = new CustomBox.RJControls.RJTextBox();
             this.lblTituloEjemplares = new System.Windows.Forms.Label();
+            this.btnModificarEjemplar = new FontAwesome.Sharp.IconButton();
+            this.btnBuscar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgEjemplares)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,22 +53,6 @@
             this.lblTextBusqueda.Size = new System.Drawing.Size(77, 28);
             this.lblTextBusqueda.TabIndex = 11;
             this.lblTextBusqueda.Text = "Buscar:";
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.BackColor = System.Drawing.Color.Red;
-            this.btnEliminar.FlatAppearance.BorderSize = 0;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            this.btnEliminar.IconColor = System.Drawing.Color.Black;
-            this.btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnEliminar.IconSize = 25;
-            this.btnEliminar.Location = new System.Drawing.Point(727, 153);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(53, 38);
-            this.btnEliminar.TabIndex = 10;
-            this.btnEliminar.UseVisualStyleBackColor = false;
             // 
             // dtgEjemplares
             // 
@@ -99,6 +83,7 @@
             this.dtgEjemplares.Location = new System.Drawing.Point(55, 153);
             this.dtgEjemplares.Margin = new System.Windows.Forms.Padding(4);
             this.dtgEjemplares.Name = "dtgEjemplares";
+            this.dtgEjemplares.ReadOnly = true;
             this.dtgEjemplares.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
@@ -117,23 +102,6 @@
             this.dtgEjemplares.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgEjemplares.Size = new System.Drawing.Size(648, 401);
             this.dtgEjemplares.TabIndex = 9;
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
-            this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
-            this.btnBuscar.IconColor = System.Drawing.Color.Black;
-            this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnBuscar.IconSize = 30;
-            this.btnBuscar.Location = new System.Drawing.Point(608, 87);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(96, 38);
-            this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtBusqueda
             // 
@@ -161,20 +129,54 @@
             // 
             this.lblTituloEjemplares.AutoSize = true;
             this.lblTituloEjemplares.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTituloEjemplares.Location = new System.Drawing.Point(363, 16);
+            this.lblTituloEjemplares.Location = new System.Drawing.Point(346, 16);
             this.lblTituloEjemplares.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTituloEjemplares.Name = "lblTituloEjemplares";
             this.lblTituloEjemplares.Size = new System.Drawing.Size(134, 32);
             this.lblTituloEjemplares.TabIndex = 12;
             this.lblTituloEjemplares.Text = "Inventario";
             // 
+            // btnModificarEjemplar
+            // 
+            this.btnModificarEjemplar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnModificarEjemplar.FlatAppearance.BorderSize = 0;
+            this.btnModificarEjemplar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificarEjemplar.IconChar = FontAwesome.Sharp.IconChar.Gears;
+            this.btnModificarEjemplar.IconColor = System.Drawing.Color.Black;
+            this.btnModificarEjemplar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnModificarEjemplar.IconSize = 30;
+            this.btnModificarEjemplar.Location = new System.Drawing.Point(726, 153);
+            this.btnModificarEjemplar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModificarEjemplar.Name = "btnModificarEjemplar";
+            this.btnModificarEjemplar.Size = new System.Drawing.Size(53, 38);
+            this.btnModificarEjemplar.TabIndex = 13;
+            this.btnModificarEjemplar.UseVisualStyleBackColor = false;
+            this.btnModificarEjemplar.Click += new System.EventHandler(this.btnModificarEjemplar_Click);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
+            this.btnBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.btnBuscar.IconColor = System.Drawing.Color.Black;
+            this.btnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBuscar.IconSize = 30;
+            this.btnBuscar.Location = new System.Drawing.Point(608, 87);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(96, 38);
+            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // InventarioEjemplarControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnModificarEjemplar);
             this.Controls.Add(this.lblTituloEjemplares);
             this.Controls.Add(this.lblTextBusqueda);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.dtgEjemplares);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBusqueda);
@@ -191,10 +193,10 @@
         #endregion
 
         private System.Windows.Forms.Label lblTextBusqueda;
-        private FontAwesome.Sharp.IconButton btnEliminar;
         private System.Windows.Forms.DataGridView dtgEjemplares;
         private FontAwesome.Sharp.IconButton btnBuscar;
         private CustomBox.RJControls.RJTextBox txtBusqueda;
         private System.Windows.Forms.Label lblTituloEjemplares;
+        private FontAwesome.Sharp.IconButton btnModificarEjemplar;
     }
 }

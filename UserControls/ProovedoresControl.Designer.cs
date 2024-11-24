@@ -35,11 +35,11 @@
             this.txtBusqueda = new CustomBox.RJControls.RJTextBox();
             this.dtgProovedores = new System.Windows.Forms.DataGridView();
             this.lblTextBusqueda = new System.Windows.Forms.Label();
+            this.lblTituloProovedores = new System.Windows.Forms.Label();
+            this.btnModificarProveedor = new FontAwesome.Sharp.IconButton();
             this.btnEliminar = new FontAwesome.Sharp.IconButton();
             this.btnAgregar = new FontAwesome.Sharp.IconButton();
             this.btnBuscar = new FontAwesome.Sharp.IconButton();
-            this.lblTituloProovedores = new System.Windows.Forms.Label();
-            this.btnModificarProveedor = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgProovedores)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,6 +96,7 @@
             this.dtgProovedores.Location = new System.Drawing.Point(56, 167);
             this.dtgProovedores.Margin = new System.Windows.Forms.Padding(4);
             this.dtgProovedores.Name = "dtgProovedores";
+            this.dtgProovedores.ReadOnly = true;
             this.dtgProovedores.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
@@ -126,6 +127,33 @@
             this.lblTextBusqueda.Size = new System.Drawing.Size(77, 28);
             this.lblTextBusqueda.TabIndex = 6;
             this.lblTextBusqueda.Text = "Buscar:";
+            // 
+            // lblTituloProovedores
+            // 
+            this.lblTituloProovedores.AutoSize = true;
+            this.lblTituloProovedores.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloProovedores.Location = new System.Drawing.Point(331, 16);
+            this.lblTituloProovedores.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTituloProovedores.Name = "lblTituloProovedores";
+            this.lblTituloProovedores.Size = new System.Drawing.Size(162, 32);
+            this.lblTituloProovedores.TabIndex = 7;
+            this.lblTituloProovedores.Text = "Proovedores";
+            // 
+            // btnModificarProveedor
+            // 
+            this.btnModificarProveedor.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnModificarProveedor.FlatAppearance.BorderSize = 0;
+            this.btnModificarProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificarProveedor.IconChar = FontAwesome.Sharp.IconChar.Gears;
+            this.btnModificarProveedor.IconColor = System.Drawing.Color.Black;
+            this.btnModificarProveedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnModificarProveedor.IconSize = 30;
+            this.btnModificarProveedor.Location = new System.Drawing.Point(731, 213);
+            this.btnModificarProveedor.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModificarProveedor.Name = "btnModificarProveedor";
+            this.btnModificarProveedor.Size = new System.Drawing.Size(53, 38);
+            this.btnModificarProveedor.TabIndex = 8;
+            this.btnModificarProveedor.UseVisualStyleBackColor = false;
             // 
             // btnEliminar
             // 
@@ -176,33 +204,6 @@
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // lblTituloProovedores
-            // 
-            this.lblTituloProovedores.AutoSize = true;
-            this.lblTituloProovedores.Font = new System.Drawing.Font("Segoe UI Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTituloProovedores.Location = new System.Drawing.Point(363, 16);
-            this.lblTituloProovedores.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTituloProovedores.Name = "lblTituloProovedores";
-            this.lblTituloProovedores.Size = new System.Drawing.Size(162, 32);
-            this.lblTituloProovedores.TabIndex = 7;
-            this.lblTituloProovedores.Text = "Proovedores";
-            // 
-            // btnModificarProveedor
-            // 
-            this.btnModificarProveedor.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnModificarProveedor.FlatAppearance.BorderSize = 0;
-            this.btnModificarProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModificarProveedor.IconChar = FontAwesome.Sharp.IconChar.Gears;
-            this.btnModificarProveedor.IconColor = System.Drawing.Color.Black;
-            this.btnModificarProveedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnModificarProveedor.IconSize = 30;
-            this.btnModificarProveedor.Location = new System.Drawing.Point(731, 213);
-            this.btnModificarProveedor.Margin = new System.Windows.Forms.Padding(4);
-            this.btnModificarProveedor.Name = "btnModificarProveedor";
-            this.btnModificarProveedor.Size = new System.Drawing.Size(53, 38);
-            this.btnModificarProveedor.TabIndex = 8;
-            this.btnModificarProveedor.UseVisualStyleBackColor = false;
             // 
             // ProovedoresControl
             // 

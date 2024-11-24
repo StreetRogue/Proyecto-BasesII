@@ -1,22 +1,54 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\",
+  "WorkspaceRootPath": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\modificarinventarioejemplarescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\modificarinventarioejemplarescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\modificarinventarioejemplarescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\modificarinventarioejemplarescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetejemplar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\inventarioejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:accesodatos\\datos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:dashboardadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\camac\\onedrive\\escritorio\\proyecto-basesii\\proyecto-basesii\\usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarventacontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetvehiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\logica\\assetcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:logica\\assetcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,72 +58,171 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Datos.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeDocumentMoniker": "AccesoDatos\\Datos.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
-              "RelativeToolTip": "AccesoDatos\\Datos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T04:14:03.848Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RegistrarVentaControl.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarVentaControl.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
-              "RelativeToolTip": "UserControls\\RegistrarVentaControl.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAowG0AAAAJAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ModificarInventarioEjemplaresControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarInventarioEjemplaresControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ModificarInventarioEjemplaresControl.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T01:57:53.703Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-24T06:16:49.461Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "assetVenta.cs",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetVenta.cs",
-              "RelativeDocumentMoniker": "Logica\\assetVenta.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\Logica\\assetVenta.cs",
-              "RelativeToolTip": "Logica\\assetVenta.cs",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAswIcAAAANAAAAAAAAAA==",
+              "Title": "ModificarInventarioEjemplaresControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "RelativeToolTip": "UserControls\\ModificarInventarioEjemplaresControl.cs",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAUwI4AAAB+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T01:06:01.492Z",
+              "WhenOpened": "2024-11-24T06:16:50.414Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RegistrarVentaControl.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs",
-              "RelativeDocumentMoniker": "UserControls\\RegistrarVentaControl.cs",
-              "ToolTip": "C:\\Users\\camac\\OneDrive\\Escritorio\\Proyecto-BasesII\\Proyecto-BasesII\\UserControls\\RegistrarVentaControl.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UserControls\\RegistrarVentaControl.cs [Dise\u00F1o]",
+              "DocumentIndex": 5,
+              "Title": "DashboardAdmin.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\DashboardAdmin.cs",
+              "RelativeDocumentMoniker": "DashboardAdmin.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\DashboardAdmin.cs",
+              "RelativeToolTip": "DashboardAdmin.cs",
+              "ViewState": "AQIAAJ0AAAAAAAAAAAAAwKoAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-24T01:55:38.816Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 138,
-          "SelectedChildIndex": -1,
-          "Children": [
+              "WhenOpened": "2024-11-24T06:15:18.661Z",
+              "EditorCaption": ""
+            },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "assetEjemplar.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
+              "RelativeDocumentMoniker": "Logica\\assetEjemplar.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetEjemplar.cs",
+              "RelativeToolTip": "Logica\\assetEjemplar.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAwwHMAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:26:38.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "InventarioEjemplarControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\InventarioEjemplarControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\InventarioEjemplarControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:14:43.242Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InventarioEjemplarControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\InventarioEjemplarControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\InventarioEjemplarControl.cs",
+              "RelativeToolTip": "UserControls\\InventarioEjemplarControl.cs",
+              "ViewState": "AQIAAI4AAAAAAAAAAAAkwIEAAABLAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:14:43.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Datos.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
+              "RelativeDocumentMoniker": "AccesoDatos\\Datos.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\AccesoDatos\\Datos.cs",
+              "RelativeToolTip": "AccesoDatos\\Datos.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAQwCYAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T07:03:03.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DashboardAdmin.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\DashboardAdmin.cs",
+              "RelativeDocumentMoniker": "DashboardAdmin.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\DashboardAdmin.cs [Dise\u00F1o]",
+              "RelativeToolTip": "DashboardAdmin.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:15:18.191Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "assetVenta.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetVenta.cs",
+              "RelativeDocumentMoniker": "Logica\\assetVenta.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetVenta.cs",
+              "RelativeToolTip": "Logica\\assetVenta.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAzwF8AAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:31:31.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "assetVehiculo.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
+              "RelativeDocumentMoniker": "Logica\\assetVehiculo.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetVehiculo.cs",
+              "RelativeToolTip": "Logica\\assetVehiculo.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:31:29.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "assetCliente.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetCliente.cs",
+              "RelativeDocumentMoniker": "Logica\\assetCliente.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\Logica\\assetCliente.cs",
+              "RelativeToolTip": "Logica\\assetCliente.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:31:19.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProovedoresControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ProovedoresControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T06:23:40.06Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }

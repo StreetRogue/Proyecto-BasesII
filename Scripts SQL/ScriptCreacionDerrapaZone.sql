@@ -97,7 +97,7 @@ CREATE TABLE tblVendedor (
     nombreVendedor VARCHAR2(50) NOT NULL,
     apellidoVendedor VARCHAR2(50) NOT NULL,
     estadoVendedor VARCHAR2(50) NOT NULL, 
-    salarioVendedor DECIMAL(10, 2) NOT NULL,
+    salarioVendedor NUMBER NOT NULL,
     fechaContratacionVendedor TIMESTAMP NOT NULL,
     idUsuario INTEGER,
     CONSTRAINT fk_vendedor_usuario FOREIGN KEY (idUsuario) REFERENCES tblUsuario(idUsuario),
@@ -114,7 +114,7 @@ CREATE TABLE tblTecnico (
     nombreTecnico VARCHAR2(50) NOT NULL,
     apellidoTecnico VARCHAR2(50) NOT NULL,
     estadoTecnico VARCHAR2(50) NOT NULL,
-    salarioTecnico DECIMAL(10, 2) NOT NULL,
+    salarioTecnico NUMBER NOT NULL,
     fechaContratacionTecnico TIMESTAMP NOT NULL,
     idUsuario INTEGER,
     CONSTRAINT fk_tecnico_usuario FOREIGN KEY (idUsuario) REFERENCES tblUsuario(idUsuario),
@@ -143,7 +143,7 @@ CREATE TABLE tblEjemplar (
 CREATE TABLE tblVenta (
     idVenta INTEGER NOT NULL,
     fechaVenta TIMESTAMP NOT NULL,
-    totalVenta DECIMAL(10, 2) NOT NULL,
+    totalVenta NUMBER NOT NULL,
     comisionVenta INTEGER,
     idVendedor INTEGER NOT NULL,
     cedulaCliente INTEGER NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE tblVenta (
 CREATE TABLE tblServiciosPostVenta (
     idServicio INTEGER NOT NULL,
     tipoServicio VARCHAR2(50) NOT NULL,
-    costoServicio DECIMAL(10, 2) NOT NULL,
+    costoServicio NUMBER NOT NULL,
     CONSTRAINT pk_tblServiciosPostVenta PRIMARY KEY (idServicio),
     CONSTRAINT ckc_tipoServicio CHECK (tipoServicio IN ('mantenimiento', 'reparacion')),
     CONSTRAINT ckc_costoServicio CHECK (costoServicio >= 0)

@@ -97,6 +97,7 @@
             this.dtgServicios.Location = new System.Drawing.Point(88, 179);
             this.dtgServicios.Margin = new System.Windows.Forms.Padding(4);
             this.dtgServicios.Name = "dtgServicios";
+            this.dtgServicios.ReadOnly = true;
             this.dtgServicios.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
