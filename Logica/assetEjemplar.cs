@@ -3,9 +3,11 @@ using ProyectoBasesII.AccesoDatos;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 namespace ProyectoBasesII.Logica
@@ -99,6 +101,38 @@ namespace ProyectoBasesII.Logica
 
             return ds;
         }
+
+        public int modificarEjemplaresInventario(int idEjemplar, string modeloVehiculo, string nombreProveedor)
+        {
+            int filasAfectadas = 0;
+
+            // Construir la consulta SQL para actualizar
+            string consulta = "UPDATE vista_inventario_ejemplares " + "SET \"Modelo Vehículo\" = '" + modeloVehiculo + "', \"Nombre Proveedor\" = '" + nombreProveedor + "' " + "WHERE \"ID Ejemplar\" = " + idEjemplar;
+
+            // Ejecutar la consulta y realizar commit
+            try
+            {
+                filasAfectadas = dt.ejecutarDML(consulta);
+                Debug.WriteLine(filasAfectadas);
+
+                if (filasAfectadas > 0)
+                {
+                    // Confirmar los cambios
+                    dt.ejecutarDML("COMMIT");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si ocurre un error, puedes manejarlo aquí (opcionalmente podrías hacer un rollback)
+                throw new Exception($"Error al modificar el ejemplar: {ex.Message}");
+            }
+
+            return filasAfectadas;
+        }
+
+
+
+
 
     }
 }

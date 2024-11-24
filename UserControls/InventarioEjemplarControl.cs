@@ -13,6 +13,11 @@ namespace ProyectoBasesII.UserControls
 {
     public partial class InventarioEjemplarControl : UserControl
     {
+
+        public event Action<string> SolicitarModificarInventarioEjemplares;
+
+        private readonly int? ejemplarId;
+
         public InventarioEjemplarControl()
         {
             InitializeComponent();
@@ -20,6 +25,11 @@ namespace ProyectoBasesII.UserControls
 
         assetEjemplar objEjemplar = new assetEjemplar();
 
+        // Constructor que acepta un ID Ejemplar
+        public InventarioEjemplarControl(int idEjemplar) : this() // Llama al constructor predeterminado
+        {
+            this.ejemplarId = idEjemplar; // Asigna el ID Ejemplar a la propiedad
+        }
 
         public void MostrarDatosEnGrillaEjemplar(int idEjemplar)
         {
@@ -58,7 +68,6 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-
         public void CargarTodosLosEjemplares()
         {
             // Obtener los datos de la vista a través del método buscarEjemplarGeneral
@@ -95,8 +104,6 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -115,10 +122,48 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-
         private void InventarioEjemplarControl_Load(object sender, EventArgs e)
         {
             CargarTodosLosEjemplares();
         }
+
+        private void btnModificarEjemplar_Click(object sender, EventArgs e)
+        {
+            if (dtgEjemplares.SelectedCells.Count > 0)
+            {
+                // Obtener la celda seleccionada
+                DataGridViewCell celdaSeleccionada = dtgEjemplares.SelectedCells[0];
+                int filaSeleccionada = celdaSeleccionada.RowIndex;
+
+                // Obtener el valor del ID Ejemplar
+                var idEjemplar = dtgEjemplares.Rows[filaSeleccionada].Cells["ID Ejemplar"].Value;
+                var estadoEjemplar = dtgEjemplares.Rows[filaSeleccionada].Cells["Estado Ejemplar"].Value;
+
+
+                if (idEjemplar != null && estadoEjemplar != null)
+                {
+                    // Validar si el estado es "disponible"
+                    if (estadoEjemplar.ToString().ToLower() == "disponible")
+                    {
+                        // Disparar el evento con el ID Ejemplar seleccionado
+                        SolicitarModificarInventarioEjemplares?.Invoke(idEjemplar.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Solo se pueden modificar ejemplares con estado 'disponible'.","Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo obtener el ID del ejemplar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un ejemplar en la grilla antes de modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+       
     }
 }

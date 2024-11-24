@@ -713,6 +713,13 @@ CREATE OR REPLACE PACKAGE pkg_ejemplares AS
         p_idEjemplar IN INTEGER,
         p_ejemplar OUT SYS_REFCURSOR
     );
+    
+    PROCEDURE modificar_ejemplar (
+    p_idEjemplar       IN INTEGER,
+    p_estadoEjemplar   IN VARCHAR2,
+    p_modeloVehiculo   IN VARCHAR2,
+    p_nombreProveedor  IN VARCHAR2
+    );
   
 END pkg_ejemplares;
 
@@ -764,6 +771,90 @@ CREATE OR REPLACE PACKAGE BODY pkg_ejemplares AS
             ON tblVehiculo.idProveedor = tblProveedor.idProveedor
             WHERE idEjemplar = p_idEjemplar;
     END Consultar_informacion_ejemplar;
+    
+    -- Procedimiento para modificar un ejemplar    
+    PROCEDURE modificar_ejemplar (
+    p_idEjemplar       IN INTEGER,
+    p_estadoEjemplar   IN VARCHAR2,
+    p_modeloVehiculo   IN VARCHAR2,
+    p_nombreProveedor  IN VARCHAR2
+) AS
+    v_vehiculo_exists INTEGER;
+    v_proveedor_exists INTEGER;
+    v_relacion_exists INTEGER;
+    v_estado_actual VARCHAR2(50);
+    v_ejemplar_exists INTEGER;
+BEGIN
+    -- Validar que el ejemplar exista
+    SELECT COUNT(*)
+    INTO v_ejemplar_exists
+    FROM tblEjemplar
+    WHERE idEjemplar = p_idEjemplar;
+
+    IF v_ejemplar_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: El ejemplar especificado no existe.');
+    END IF;
+
+    -- Validar que el estado sea válido
+    IF p_estadoEjemplar NOT IN ('disponible', 'vendido') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El estado del ejemplar debe ser "disponible" o "vendido".');
+    END IF;
+
+    -- Validar que el modelo del vehículo exista
+    SELECT COUNT(*)
+    INTO v_vehiculo_exists
+    FROM tblVehiculo
+    WHERE modeloVehiculo = p_modeloVehiculo;
+
+    IF v_vehiculo_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Error: El modelo del vehículo especificado no existe.');
+    END IF;
+
+    -- Validar que el proveedor exista
+    SELECT COUNT(*)
+    INTO v_proveedor_exists
+    FROM tblProveedor
+    WHERE nombreProveedor = p_nombreProveedor;
+
+    IF v_proveedor_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: El proveedor especificado no existe.');
+    END IF;
+
+    -- Validar que el modelo del vehículo esté asociado al proveedor
+    SELECT COUNT(*)
+    INTO v_relacion_exists
+    FROM tblVehiculo v
+    WHERE v.modeloVehiculo = p_modeloVehiculo
+      AND v.idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = p_nombreProveedor);
+
+    IF v_relacion_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error: El modelo del vehículo no está asociado al proveedor especificado.');
+    END IF;
+
+    -- Validar que el estado actual del ejemplar no sea 'vendido'
+    SELECT estadoEjemplar
+    INTO v_estado_actual
+    FROM tblEjemplar
+    WHERE idEjemplar = p_idEjemplar;
+
+    IF v_estado_actual = 'vendido' THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Error: No se puede modificar un ejemplar que ya está vendido.');
+    END IF;
+
+    -- Actualizar el ejemplar
+    UPDATE tblEjemplar
+    SET estadoEjemplar = p_estadoEjemplar,
+        idVehiculo = (SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo = p_modeloVehiculo),
+        idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = p_nombreProveedor)
+    WHERE idEjemplar = p_idEjemplar;
+
+    DBMS_OUTPUT.PUT_LINE('Ejemplar actualizado exitosamente.');
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Error: Datos relacionados no encontrados durante la validación.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20008, 'Error inesperado: ' || SQLERRM);
+END modificar_ejemplar;
 
 END pkg_ejemplares;
 
@@ -903,6 +994,16 @@ DROP PACKAGE pkg_proveedores;
 /*               VISTAS           */
 --/=========================================/
 
+--/=========================================/
+/*               EJECUTAR        */
+--/=========================================/
+
+CONNECT system/oracle;
+GRANT CREATE VIEW TO USER_PROYECTOBASES;
+
+
+
+
 -- Vista para inventario ejemplares INTEAD OF
 CREATE OR REPLACE VIEW vista_inventario_ejemplares AS
 SELECT 
@@ -981,9 +1082,13 @@ BEGIN
         END IF;
 
         -- Realizar la actualización si todas las validaciones pasan
-        UPDATE tblEjemplar
-        SET estadoEjemplar = :NEW."Estado Ejemplar"
-        WHERE idEjemplar = :OLD."ID Ejemplar";
+UPDATE tblEjemplar
+SET 
+    idVehiculo = (SELECT idVehiculo FROM tblVehiculo WHERE modeloVehiculo = :NEW."Modelo Vehículo" AND ROWNUM = 1),
+    idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = :NEW."Nombre Proveedor" AND ROWNUM = 1),
+    estadoEjemplar = :NEW."Estado Ejemplar"
+WHERE idEjemplar = :OLD."ID Ejemplar";
+
     END IF;
 
     -- Operación DELETE
@@ -993,14 +1098,20 @@ BEGIN
     END IF;
 END;
 
+
+
+
+
 ---Prueba
 
 UPDATE vista_inventario_ejemplares
-SET "Estado Ejemplar" = 'disponible',
-    "Modelo Vehículo" = 'Modelo X',
+SET 
+    "Modelo Vehículo" = 'Modelo Y',
     "Nombre Proveedor" = 'Proveedor Uno'
-WHERE "ID Ejemplar" = 8;
+WHERE "ID Ejemplar" = 3;
 commit;
+
+
 
 
 -- Vista para proveedores
@@ -1050,12 +1161,7 @@ DROP VIEW vista_proveedores;
 DROP VIEW vista_ventas;
 
 
---/=========================================/
-/*               POR SI ACASO          */
---/=========================================/
 
-CONNECT system/oracle;
-GRANT CREATE VIEW TO USER_BASES;
 
 
 

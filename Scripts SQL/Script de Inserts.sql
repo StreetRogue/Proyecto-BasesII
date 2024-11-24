@@ -35,10 +35,10 @@ INSERT INTO tblRol (idRol, nombreRol) VALUES (3, 'TECNICO');
 
 --tblServiciosPostVenta
 INSERT INTO tblServiciosPostVenta (idServicio,tipoServicio, costoServicio)
-VALUES (1,'mantenimiento', 500.00);
+VALUES (1,'mantenimiento', 500);
 
 INSERT INTO tblServiciosPostVenta (idServicio,tipoServicio, costoServicio)
-VALUES (2,'reparacion', 750.00);
+VALUES (2,'reparacion', 750);
 
 --tblUsuarios
 INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol) 
@@ -67,10 +67,10 @@ VALUES (2, 'Laura', 'Gomez', '444555666', 'laura.gomez@example.com', 'Calle D #1
 
 --tblVendedor
 INSERT INTO tblVendedor (nombreVendedor, apellidoVendedor, estadoVendedor, salarioVendedor, fechaContratacionVendedor)
-VALUES ('Ana', 'Martinez', 'activo', 3000.00, TO_TIMESTAMP('2024-01-01 09:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+VALUES ('Ana', 'Martinez', 'activo', 3000, TO_TIMESTAMP('2024-01-01 09:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 INSERT INTO tblVendedor (nombreVendedor, apellidoVendedor, estadoVendedor, salarioVendedor, fechaContratacionVendedor)
-VALUES ('Juan', 'Rodriguez', 'activo', 3200.00, TO_TIMESTAMP('2024-02-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+VALUES ('Juan', 'Rodriguez', 'activo', 3200, TO_TIMESTAMP('2024-02-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 --tblTecnico
 INSERT INTO tblTecnico (nombreTecnico, apellidoTecnico, estadoTecnico, salarioTecnico, fechaContratacionTecnico)
@@ -91,10 +91,10 @@ VALUES (1, 1, 'disponible');
 
 --tblVenta
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000.00, 1800, 1, 1, 1);
+VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000, 1800, 1, 1, 1);
 
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000.00, 2000, 2, 2, 2);
+VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000, 2000, 2, 2, 2);
 
 
 --tblRealizaServicioTecnico
