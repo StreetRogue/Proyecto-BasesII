@@ -29,28 +29,28 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panelDesktopVendedor = new System.Windows.Forms.Panel();
-            this.lblSaludo = new System.Windows.Forms.Label();
-            this.lblTituloDktp = new System.Windows.Forms.Label();
             this.lblTextHora = new System.Windows.Forms.Label();
             this.lblHoraActual = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.Logo = new System.Windows.Forms.PictureBox();
-            this.btnMenu = new FontAwesome.Sharp.IconButton();
+            this.lblTituloDktp = new System.Windows.Forms.Label();
+            this.lblSaludo = new System.Windows.Forms.Label();
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnCerrar = new FontAwesome.Sharp.IconButton();
-            this.btnRegistrarCliente = new FontAwesome.Sharp.IconButton();
-            this.btnRegistrarVenta = new FontAwesome.Sharp.IconButton();
-            this.btnVentas = new FontAwesome.Sharp.IconButton();
-            this.btnGestionarEjem = new FontAwesome.Sharp.IconButton();
-            this.btnLogOut = new FontAwesome.Sharp.IconButton();
             this.btnClientes = new FontAwesome.Sharp.IconButton();
+            this.btnLogOut = new FontAwesome.Sharp.IconButton();
+            this.btnGestionarEjem = new FontAwesome.Sharp.IconButton();
+            this.btnVentas = new FontAwesome.Sharp.IconButton();
+            this.btnRegistrarVenta = new FontAwesome.Sharp.IconButton();
+            this.btnRegistrarCliente = new FontAwesome.Sharp.IconButton();
+            this.btnMenu = new FontAwesome.Sharp.IconButton();
+            this.Logo = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panelHeader.SuspendLayout();
             this.panelDesktopVendedor.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +69,16 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(250, 730);
             this.panelMenu.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnMenu);
+            this.panel1.Controls.Add(this.Logo);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(250, 131);
+            this.panel1.TabIndex = 0;
             // 
             // panelHeader
             // 
@@ -106,28 +116,6 @@
             this.panelDesktopVendedor.Size = new System.Drawing.Size(832, 630);
             this.panelDesktopVendedor.TabIndex = 2;
             // 
-            // lblSaludo
-            // 
-            this.lblSaludo.AutoSize = true;
-            this.lblSaludo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaludo.Location = new System.Drawing.Point(25, 66);
-            this.lblSaludo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSaludo.Name = "lblSaludo";
-            this.lblSaludo.Size = new System.Drawing.Size(195, 23);
-            this.lblSaludo.TabIndex = 2;
-            this.lblSaludo.Text = "Hola de nuevo  Vendedor";
-            // 
-            // lblTituloDktp
-            // 
-            this.lblTituloDktp.AutoSize = true;
-            this.lblTituloDktp.Font = new System.Drawing.Font("Segoe UI Black", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTituloDktp.Location = new System.Drawing.Point(15, 84);
-            this.lblTituloDktp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTituloDktp.Name = "lblTituloDktp";
-            this.lblTituloDktp.Size = new System.Drawing.Size(544, 50);
-            this.lblTituloDktp.TabIndex = 3;
-            this.lblTituloDktp.Text = "¡Bienvenido a Derrapa Zone!";
-            // 
             // lblTextHora
             // 
             this.lblTextHora.AutoSize = true;
@@ -149,45 +137,27 @@
             this.lblHoraActual.Size = new System.Drawing.Size(0, 32);
             this.lblHoraActual.TabIndex = 4;
             // 
-            // panel1
+            // lblTituloDktp
             // 
-            this.panel1.Controls.Add(this.btnMenu);
-            this.panel1.Controls.Add(this.Logo);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(250, 131);
-            this.panel1.TabIndex = 0;
+            this.lblTituloDktp.AutoSize = true;
+            this.lblTituloDktp.Font = new System.Drawing.Font("Segoe UI Black", 22F, System.Drawing.FontStyle.Bold);
+            this.lblTituloDktp.Location = new System.Drawing.Point(15, 84);
+            this.lblTituloDktp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTituloDktp.Name = "lblTituloDktp";
+            this.lblTituloDktp.Size = new System.Drawing.Size(544, 50);
+            this.lblTituloDktp.TabIndex = 3;
+            this.lblTituloDktp.Text = "¡Bienvenido a Derrapa Zone!";
             // 
-            // Logo
+            // lblSaludo
             // 
-            this.Logo.BackColor = System.Drawing.Color.Transparent;
-            this.Logo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.Logo.Image = global::ProyectoBasesII.Properties.Resources.DerrapaZone;
-            this.Logo.Location = new System.Drawing.Point(0, 0);
-            this.Logo.Margin = new System.Windows.Forms.Padding(4);
-            this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(201, 131);
-            this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Logo.TabIndex = 1;
-            this.Logo.TabStop = false;
-            this.Logo.Click += new System.EventHandler(this.Logo_Click);
-            // 
-            // btnMenu
-            // 
-            this.btnMenu.FlatAppearance.BorderSize = 0;
-            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenu.IconChar = FontAwesome.Sharp.IconChar.ListUl;
-            this.btnMenu.IconColor = System.Drawing.Color.White;
-            this.btnMenu.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnMenu.IconSize = 30;
-            this.btnMenu.Location = new System.Drawing.Point(205, 49);
-            this.btnMenu.Margin = new System.Windows.Forms.Padding(4);
-            this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(41, 38);
-            this.btnMenu.TabIndex = 2;
-            this.btnMenu.UseVisualStyleBackColor = true;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            this.lblSaludo.AutoSize = true;
+            this.lblSaludo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaludo.Location = new System.Drawing.Point(25, 66);
+            this.lblSaludo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSaludo.Name = "lblSaludo";
+            this.lblSaludo.Size = new System.Drawing.Size(195, 23);
+            this.lblSaludo.TabIndex = 2;
+            this.lblSaludo.Text = "Hola de nuevo  Vendedor";
             // 
             // btnMinimizar
             // 
@@ -226,84 +196,25 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // btnRegistrarCliente
+            // btnClientes
             // 
-            this.btnRegistrarCliente.FlatAppearance.BorderSize = 0;
-            this.btnRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegistrarCliente.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrarCliente.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
-            this.btnRegistrarCliente.IconColor = System.Drawing.Color.White;
-            this.btnRegistrarCliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRegistrarCliente.IconSize = 35;
-            this.btnRegistrarCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarCliente.Location = new System.Drawing.Point(0, 166);
-            this.btnRegistrarCliente.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRegistrarCliente.Name = "btnRegistrarCliente";
-            this.btnRegistrarCliente.Size = new System.Drawing.Size(250, 44);
-            this.btnRegistrarCliente.TabIndex = 2;
-            this.btnRegistrarCliente.Tag = "Registrar Cliente";
-            this.btnRegistrarCliente.Text = "Registrar Cliente";
-            this.btnRegistrarCliente.UseVisualStyleBackColor = true;
-            this.btnRegistrarCliente.Click += new System.EventHandler(this.btnRegistrarCliente_Click);
-            // 
-            // btnRegistrarVenta
-            // 
-            this.btnRegistrarVenta.FlatAppearance.BorderSize = 0;
-            this.btnRegistrarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegistrarVenta.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrarVenta.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
-            this.btnRegistrarVenta.IconColor = System.Drawing.Color.White;
-            this.btnRegistrarVenta.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnRegistrarVenta.IconSize = 35;
-            this.btnRegistrarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegistrarVenta.Location = new System.Drawing.Point(0, 218);
-            this.btnRegistrarVenta.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRegistrarVenta.Name = "btnRegistrarVenta";
-            this.btnRegistrarVenta.Size = new System.Drawing.Size(250, 44);
-            this.btnRegistrarVenta.TabIndex = 3;
-            this.btnRegistrarVenta.Tag = "Registrar Venta";
-            this.btnRegistrarVenta.Text = "Registrar Venta";
-            this.btnRegistrarVenta.UseVisualStyleBackColor = true;
-            this.btnRegistrarVenta.Click += new System.EventHandler(this.btnRegistrarVenta_Click);
-            // 
-            // btnVentas
-            // 
-            this.btnVentas.FlatAppearance.BorderSize = 0;
-            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVentas.ForeColor = System.Drawing.Color.White;
-            this.btnVentas.IconChar = FontAwesome.Sharp.IconChar.SackDollar;
-            this.btnVentas.IconColor = System.Drawing.Color.White;
-            this.btnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnVentas.IconSize = 32;
-            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(0, 374);
-            this.btnVentas.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(250, 44);
-            this.btnVentas.TabIndex = 8;
-            this.btnVentas.Tag = "Ventas";
-            this.btnVentas.Text = "Ventas";
-            this.btnVentas.UseVisualStyleBackColor = true;
-            // 
-            // btnGestionarEjem
-            // 
-            this.btnGestionarEjem.FlatAppearance.BorderSize = 0;
-            this.btnGestionarEjem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionarEjem.ForeColor = System.Drawing.Color.White;
-            this.btnGestionarEjem.IconChar = FontAwesome.Sharp.IconChar.TruckRampBox;
-            this.btnGestionarEjem.IconColor = System.Drawing.Color.White;
-            this.btnGestionarEjem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnGestionarEjem.IconSize = 32;
-            this.btnGestionarEjem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGestionarEjem.Location = new System.Drawing.Point(0, 270);
-            this.btnGestionarEjem.Margin = new System.Windows.Forms.Padding(4);
-            this.btnGestionarEjem.Name = "btnGestionarEjem";
-            this.btnGestionarEjem.Size = new System.Drawing.Size(250, 44);
-            this.btnGestionarEjem.TabIndex = 9;
-            this.btnGestionarEjem.Tag = "Inventario Ejemplares";
-            this.btnGestionarEjem.Text = "Inventario Ejemplares";
-            this.btnGestionarEjem.UseVisualStyleBackColor = true;
-            this.btnGestionarEjem.Click += new System.EventHandler(this.btnGestionarEjem_Click);
+            this.btnClientes.FlatAppearance.BorderSize = 0;
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.ForeColor = System.Drawing.Color.White;
+            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
+            this.btnClientes.IconColor = System.Drawing.Color.White;
+            this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnClientes.IconSize = 32;
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.Location = new System.Drawing.Point(0, 322);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(250, 44);
+            this.btnClientes.TabIndex = 11;
+            this.btnClientes.Tag = "Clientes";
+            this.btnClientes.Text = "Clientes";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnLogOut
             // 
@@ -326,24 +237,115 @@
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
-            // btnClientes
+            // btnGestionarEjem
             // 
-            this.btnClientes.FlatAppearance.BorderSize = 0;
-            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClientes.ForeColor = System.Drawing.Color.White;
-            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
-            this.btnClientes.IconColor = System.Drawing.Color.White;
-            this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnClientes.IconSize = 32;
-            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(0, 322);
-            this.btnClientes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(250, 44);
-            this.btnClientes.TabIndex = 11;
-            this.btnClientes.Tag = "Clientes";
-            this.btnClientes.Text = "Clientes";
-            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnGestionarEjem.FlatAppearance.BorderSize = 0;
+            this.btnGestionarEjem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionarEjem.ForeColor = System.Drawing.Color.White;
+            this.btnGestionarEjem.IconChar = FontAwesome.Sharp.IconChar.TruckRampBox;
+            this.btnGestionarEjem.IconColor = System.Drawing.Color.White;
+            this.btnGestionarEjem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnGestionarEjem.IconSize = 32;
+            this.btnGestionarEjem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGestionarEjem.Location = new System.Drawing.Point(0, 270);
+            this.btnGestionarEjem.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGestionarEjem.Name = "btnGestionarEjem";
+            this.btnGestionarEjem.Size = new System.Drawing.Size(250, 44);
+            this.btnGestionarEjem.TabIndex = 9;
+            this.btnGestionarEjem.Tag = "Inventario Ejemplares";
+            this.btnGestionarEjem.Text = "Inventario Ejemplares";
+            this.btnGestionarEjem.UseVisualStyleBackColor = true;
+            this.btnGestionarEjem.Click += new System.EventHandler(this.btnGestionarEjem_Click);
+            // 
+            // btnVentas
+            // 
+            this.btnVentas.FlatAppearance.BorderSize = 0;
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentas.ForeColor = System.Drawing.Color.White;
+            this.btnVentas.IconChar = FontAwesome.Sharp.IconChar.SackDollar;
+            this.btnVentas.IconColor = System.Drawing.Color.White;
+            this.btnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnVentas.IconSize = 32;
+            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentas.Location = new System.Drawing.Point(0, 374);
+            this.btnVentas.Margin = new System.Windows.Forms.Padding(4);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(250, 44);
+            this.btnVentas.TabIndex = 8;
+            this.btnVentas.Tag = "Ventas";
+            this.btnVentas.Text = "Ventas";
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
+            // 
+            // btnRegistrarVenta
+            // 
+            this.btnRegistrarVenta.FlatAppearance.BorderSize = 0;
+            this.btnRegistrarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrarVenta.ForeColor = System.Drawing.Color.White;
+            this.btnRegistrarVenta.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
+            this.btnRegistrarVenta.IconColor = System.Drawing.Color.White;
+            this.btnRegistrarVenta.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRegistrarVenta.IconSize = 35;
+            this.btnRegistrarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegistrarVenta.Location = new System.Drawing.Point(0, 218);
+            this.btnRegistrarVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegistrarVenta.Name = "btnRegistrarVenta";
+            this.btnRegistrarVenta.Size = new System.Drawing.Size(250, 44);
+            this.btnRegistrarVenta.TabIndex = 3;
+            this.btnRegistrarVenta.Tag = "Registrar Venta";
+            this.btnRegistrarVenta.Text = "Registrar Venta";
+            this.btnRegistrarVenta.UseVisualStyleBackColor = true;
+            this.btnRegistrarVenta.Click += new System.EventHandler(this.btnRegistrarVenta_Click);
+            // 
+            // btnRegistrarCliente
+            // 
+            this.btnRegistrarCliente.FlatAppearance.BorderSize = 0;
+            this.btnRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrarCliente.ForeColor = System.Drawing.Color.White;
+            this.btnRegistrarCliente.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            this.btnRegistrarCliente.IconColor = System.Drawing.Color.White;
+            this.btnRegistrarCliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnRegistrarCliente.IconSize = 35;
+            this.btnRegistrarCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegistrarCliente.Location = new System.Drawing.Point(0, 166);
+            this.btnRegistrarCliente.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegistrarCliente.Name = "btnRegistrarCliente";
+            this.btnRegistrarCliente.Size = new System.Drawing.Size(250, 44);
+            this.btnRegistrarCliente.TabIndex = 2;
+            this.btnRegistrarCliente.Tag = "Registrar Cliente";
+            this.btnRegistrarCliente.Text = "Registrar Cliente";
+            this.btnRegistrarCliente.UseVisualStyleBackColor = true;
+            this.btnRegistrarCliente.Click += new System.EventHandler(this.btnRegistrarCliente_Click);
+            // 
+            // btnMenu
+            // 
+            this.btnMenu.FlatAppearance.BorderSize = 0;
+            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMenu.IconChar = FontAwesome.Sharp.IconChar.ListUl;
+            this.btnMenu.IconColor = System.Drawing.Color.White;
+            this.btnMenu.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnMenu.IconSize = 30;
+            this.btnMenu.Location = new System.Drawing.Point(205, 49);
+            this.btnMenu.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(41, 38);
+            this.btnMenu.TabIndex = 2;
+            this.btnMenu.UseVisualStyleBackColor = true;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
+            // Logo
+            // 
+            this.Logo.BackColor = System.Drawing.Color.Transparent;
+            this.Logo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Logo.Image = global::ProyectoBasesII.Properties.Resources.DerrapaZone;
+            this.Logo.Location = new System.Drawing.Point(0, 0);
+            this.Logo.Margin = new System.Windows.Forms.Padding(4);
+            this.Logo.Name = "Logo";
+            this.Logo.Size = new System.Drawing.Size(201, 131);
+            this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Logo.TabIndex = 1;
+            this.Logo.TabStop = false;
+            this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
             // DashboardVendedor
             // 
@@ -354,16 +356,16 @@
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DashboardVendedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DashboardVendedor";
             this.panelMenu.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.panelDesktopVendedor.ResumeLayout(false);
             this.panelDesktopVendedor.PerformLayout();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.ResumeLayout(false);
 

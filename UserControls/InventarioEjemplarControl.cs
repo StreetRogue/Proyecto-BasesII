@@ -97,12 +97,16 @@ namespace ProyectoBasesII.UserControls
 
 
 
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
-            if (int.TryParse(txtBusqueda.Texts, out int idEjemplar))
+            if (string.IsNullOrWhiteSpace(txtBusqueda.Texts))
             {
+                CargarTodosLosEjemplares();
+            }
+            else if (int.TryParse(txtBusqueda.Texts, out int idEjemplar))
+            {
+                // Si se ingresa un ID válido, buscar por ese ID
                 MostrarDatosEnGrillaEjemplar(idEjemplar);
             }
             else
@@ -110,6 +114,7 @@ namespace ProyectoBasesII.UserControls
                 MessageBox.Show("Ingrese un ID válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void InventarioEjemplarControl_Load(object sender, EventArgs e)
         {

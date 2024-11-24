@@ -64,30 +64,7 @@ BEGIN
         :NEW.idEjemplar := seq_ejemplar.NEXTVAL;
     END IF;
 END;
-/
 
-/* Disparador para verificar que no esté duplicado para un servicio postventa*/
-CREATE OR REPLACE TRIGGER trg_servicios_postventa_id
-BEFORE INSERT ON tblServiciosPostVenta
-FOR EACH ROW
-DECLARE
-    v_count NUMBER;
-BEGIN
-    SELECT COUNT(*)
-    INTO v_count
-    FROM tblServiciosPostVenta
-    WHERE fechaServicio = :NEW.fechaServicio;
-
-    IF v_count = 0 THEN
-        IF :NEW.idServicio IS NULL THEN
-            SELECT seq_servicios_postventa.NEXTVAL 
-            INTO :NEW.idServicio 
-            FROM dual;
-        END IF;
-    ELSE
-        RAISE_APPLICATION_ERROR(-20002, 'Registro duplicado: ya existe un servicio postventa con esta fecha.');
-    END IF;
-END;
 
 /* Disparador para registro duplicado para un servicio tecnico*/
 CREATE OR REPLACE TRIGGER trg_servicios_tecnicos_id
@@ -302,26 +279,45 @@ COMPOUND TRIGGER
     -- Sección: Después de la sentencia
     AFTER STATEMENT IS
     BEGIN
-        -- Calcular la comisión acumulada para el vendedor afectado
+        -- Calcular la comisión acumulada para el vendedor afectado en los últimos 30 días
         SELECT NVL(SUM(comisionVenta), 0)
         INTO v_total_comision
         FROM tblVenta
-        WHERE idVendedor = v_idVendedor;
+        WHERE idVendedor = v_idVendedor
+          AND fechaVenta >= TRUNC(SYSDATE) - 30;
 
-        -- Mostrar la comisión total en la salida
-        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ': ' || v_total_comision);
+        -- Mostrar la comisión acumulada en los últimos 30 días en la salida
+        DBMS_OUTPUT.PUT_LINE('Comisión acumulada para el vendedor con ID ' || v_idVendedor || ' en los últimos 30 días: ' || v_total_comision);
     END AFTER STATEMENT;
 
 END trg_calcular_comision_vendedor;
 /
 
-INSERT INTO tblVenta (fechaVenta, totalVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (SYSDATE, 200000, 2, 1, 3);
+CREATE OR REPLACE TRIGGER trg_bloquear_tecnicos_inactivos
+BEFORE INSERT OR UPDATE ON tblTecnico
+FOR EACH ROW
+BEGIN
+    IF :NEW.estadoTecnico = 'inactivo' THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Error: No se puede insertar o actualizar técnicos con estado "inactivo".');
+    END IF;
+END trg_bloquear_tecnicos_inactivos;
+/
 
 
-/=========================================/
+CREATE OR REPLACE TRIGGER trg_bloquear_vendedores_inactivos
+BEFORE INSERT OR UPDATE ON tblVendedor
+FOR EACH ROW
+BEGIN
+    IF :NEW.estadoVendedor = 'inactivo' THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Error: No se puede insertar o actualizar vendedores con estado "inactivo".');
+    END IF;
+END trg_bloquear_vendedores_inactivos;
+/
+
+
+/*=========================================*/
 /*               PARA ELIMINAR LOS DISPARADORES           */
-/=========================================/
+--/=========================================/
 
 DROP TRIGGER trg_venta_id;
 
@@ -341,9 +337,64 @@ DROP TRIGGER trg_id_vehiculo_proveedor;
 
 DROP TRIGGER trg_calcular_comision_vendedor;
  
-/=========================================/
+--/=========================================/
 /*                  Procedimientos y Funciones                      */
-/=========================================/
+--/=========================================/
+
+
+CREATE OR REPLACE PROCEDURE registrar_empleado (
+    p_nombre            IN VARCHAR2,
+    p_apellido          IN VARCHAR2,
+    p_tipo_empleado     IN VARCHAR2, -- 'TECNICO' o 'VENDEDOR'
+    p_fecha_contratacion IN TIMESTAMP,
+    p_estado            IN VARCHAR2 DEFAULT 'activo', -- Estado por defecto: 'activo'
+    p_filasInsertadas   OUT NUMBER
+) AS
+    v_idRol INTEGER;
+    v_salario CONSTANT NUMBER := 3000; 
+BEGIN
+    -- Validar el tipo de empleado
+    IF p_tipo_empleado NOT IN ('TECNICO', 'VENDEDOR') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: El tipo de empleado debe ser "TECNICO" o "VENDEDOR".');
+    END IF;
+
+    -- Validar el estado
+    IF p_estado NOT IN ('activo', 'inactivo') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El estado del empleado debe ser "activo" o "inactivo".');
+    END IF;
+
+    -- Obtener el rol correspondiente al tipo de empleado
+    BEGIN
+        SELECT idRol
+        INTO v_idRol
+        FROM tblRol
+        WHERE nombreRol = p_tipo_empleado;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: No existe un rol asociado al tipo de empleado "' || p_tipo_empleado || '".');
+    END;
+
+    -- Insertar en la tabla correspondiente (tblTecnico o tblVendedor)
+    IF p_tipo_empleado = 'TECNICO' THEN
+        INSERT INTO tblTecnico (nombreTecnico, apellidoTecnico, estadoTecnico, salarioTecnico, fechaContratacionTecnico)
+        VALUES (p_nombre, p_apellido, p_estado, v_salario, p_fecha_contratacion);
+    ELSIF p_tipo_empleado = 'VENDEDOR' THEN
+        INSERT INTO tblVendedor (nombreVendedor, apellidoVendedor, estadoVendedor, salarioVendedor, fechaContratacionVendedor)
+        VALUES (p_nombre, p_apellido, p_estado, v_salario, p_fecha_contratacion);
+    END IF;
+
+    -- Confirmar la inserción
+    p_filasInsertadas := 1;
+    DBMS_OUTPUT.PUT_LINE('Empleado registrado exitosamente.');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: Ya existe un registro con la misma información.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error inesperado: ' || SQLERRM);
+END registrar_empleado;
+/
+
 
 -- Procedimiento para eliminar usuarios inactivos 
 CREATE OR REPLACE PROCEDURE actualizar_y_eliminar_usuarios_inactivos AS
@@ -394,8 +445,9 @@ IS
     cursor_servicios SYS_REFCURSOR;
 BEGIN
     OPEN cursor_servicios FOR
-    SELECT s.idServicio, s.fechaServicio, s.tipoServicio, s.costoServicio
+    SELECT s.idServicio, st.fechaInicioServicio, st.fechaFinServicio, s.tipoServicio, s.costoServicio
     FROM tblServiciosPostVenta s
+    JOIN tblRealizaServicioTecnico st ON s.idServicio = st.idServicio
     JOIN tblSe_RealizaServicioPostVenta sp ON s.idServicio = sp.idServicio
     JOIN tblVenta v ON sp.idVenta = v.idVenta
     WHERE v.cedulaCliente = p_idCliente;
@@ -403,18 +455,18 @@ BEGIN
 END consultar_servicios_realizados;
 
 
-/=========================================/
+--/=========================================/
 /*               PARA ELIMINAR FUNCIONES           */
-/=========================================/
+--/=========================================/
 
 DROP PROCEDURE actualizar_y_eliminar_usuarios_inactivos;
 
 DROP FUNCTION consultar_servicios_realizados;
 
 
-/=========================================/
+--/=========================================/
 /*               PAQUETES           */
-/=========================================/
+--/=========================================/
 
 -- Paquete para ventas
 CREATE OR REPLACE PACKAGE pkg_ventas AS
@@ -423,42 +475,22 @@ CREATE OR REPLACE PACKAGE pkg_ventas AS
         p_fecha       IN DATE,
         p_id_vendedor IN NUMBER,
         p_cedula_cliente IN NUMBER,
-        p_id_ejemplar IN NUMBER
+        p_id_ejemplar IN NUMBER,
+        p_filasInsertadas OUT NUMBER
     );
-    PROCEDURE generar_reporte_ventas(
-        p_fecha_inicio IN TIMESTAMP,
-        p_id_vendedor  IN INTEGER,
-        p_id_cliente   IN INTEGER
+    PROCEDURE generar_reporte_venta(
+        p_id_venta IN INTEGER,
+        p_cursor OUT SYS_REFCURSOR
     );
 
     -- Funciones 
-    FUNCTION calcular_comision_venta(p_idVenta IN INTEGER) RETURN NUMBER;
     FUNCTION calcular_total_venta(p_idEjemplar IN INTEGER) RETURN NUMBER;
+    
 END pkg_ventas;
 
 
 CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
- 
-     -- Función para calcular la comisión de una venta
-    FUNCTION calcular_comision_venta(p_idVenta IN INTEGER) RETURN NUMBER IS
-        v_totalVenta NUMBER;
-        v_comisionVenta NUMBER;
-        v_porcentaje_comision CONSTANT NUMBER := 0.05;
-    BEGIN
-        SELECT totalVenta INTO v_totalVenta
-        FROM tblVenta
-        WHERE idVenta = p_idVenta;
 
-        v_comisionVenta := v_totalVenta * v_porcentaje_comision;
-        RETURN v_comisionVenta;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            RETURN NULL;
-        WHEN OTHERS THEN
-            RETURN NULL;
-    END calcular_comision_venta;
-    
-    
     -- Función para calcular el total de una venta basada en el precio del vehículo
     FUNCTION calcular_total_venta(p_idEjemplar IN INTEGER) RETURN NUMBER IS
         v_precioVehiculo NUMBER;
@@ -479,11 +511,12 @@ CREATE OR REPLACE PACKAGE BODY pkg_ventas AS
 
 
     -- Procedimiento para registrar una venta
-PROCEDURE registrar_venta(
+    PROCEDURE registrar_venta(
     p_fecha         IN DATE,
     p_id_vendedor   IN NUMBER,
     p_cedula_cliente IN NUMBER,
-    p_id_ejemplar   IN NUMBER
+    p_id_ejemplar   IN NUMBER,
+    p_filasInsertadas OUT NUMBER
 ) IS
     v_totalVenta NUMBER;
     v_comisionVenta NUMBER;
@@ -496,81 +529,64 @@ BEGIN
     v_totalVenta := calcular_total_venta(p_id_ejemplar);
 
     -- Insertar la venta y recuperar su ID
-    INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-    VALUES (p_fecha, v_totalVenta, NULL, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
+    INSERT INTO tblVenta (fechaVenta, totalVenta, idVendedor, cedulaCliente, idEjemplar)
+    VALUES (p_fecha, v_totalVenta, p_id_vendedor, p_cedula_cliente, p_id_ejemplar)
+    
     RETURNING idVenta INTO v_idVenta;
-
-    -- Calcular la comisión de la venta recién insertada
-    v_comisionVenta := calcular_comision_venta(v_idVenta);
-
-    -- Actualizar la venta con la comisión calculada
-    UPDATE tblVenta
-    SET comisionVenta = v_comisionVenta
-    WHERE idVenta = v_idVenta;
+    
+    p_filasInsertadas := 1;
 
     -- Confirmar la transacción
     COMMIT;
 
     DBMS_OUTPUT.PUT_LINE('Se ha registrado la venta con un total de: ' || v_totalVenta || ' y una comisión de: ' || v_comisionVenta);
 
-EXCEPTION
-    WHEN OTHERS THEN
-        -- Revertir los cambios en caso de error
+        EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
         ROLLBACK TO inicio_transaccion;
-        DBMS_OUTPUT.PUT_LINE('Error al registrar la venta: ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE('Error: La venta ya existe con el ID proporcionado.');
+    WHEN NO_DATA_FOUND THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: No se encontró información para calcular el total de la venta.');
+    WHEN INVALID_NUMBER THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: Se proporcionó un número inválido en los parámetros.');
+    WHEN VALUE_ERROR THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error: Valor fuera de rango o no válido.');
+    WHEN OTHERS THEN
+        ROLLBACK TO inicio_transaccion;
+        DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
         RAISE;
-END registrar_venta;
-
+        END registrar_venta;
     
     -- Procedimiento para reporte de ventas 
-    PROCEDURE generar_reporte_ventas(
-        p_fecha_inicio IN TIMESTAMP,
-        p_id_vendedor  IN INTEGER,
-        p_id_cliente   IN INTEGER
-    ) AS
-        TYPE venta_record IS RECORD (
-            idVenta tblVenta.idVenta%TYPE,
-            fechaVenta tblVenta.fechaVenta%TYPE,
-            totalVenta tblVenta.totalVenta%TYPE,
-            comisionVenta tblVenta.comisionVenta%TYPE,
-            idVendedor tblVenta.idVendedor%TYPE,
-            cedulaCliente tblVenta.cedulaCliente%TYPE
-        );
-        CURSOR c_ventas IS
-            SELECT idVenta, fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente
-            FROM tblVenta
-            WHERE (p_fecha_inicio IS NULL OR fechaVenta >= p_fecha_inicio)
-              AND (p_id_vendedor IS NULL OR idVendedor = p_id_vendedor)
-              AND (p_id_cliente IS NULL OR cedulaCliente = p_id_cliente);
-        v_venta_row venta_record;
-    BEGIN
-        -- Validar si hay al menos un filtro
-        IF p_fecha_inicio IS NULL AND p_id_vendedor IS NULL AND p_id_cliente IS NULL THEN
-            DBMS_OUTPUT.PUT_LINE('Por favor, ingrese al menos un filtro de búsqueda.');
-            RETURN;
-        END IF;
+    PROCEDURE generar_reporte_venta(
+    p_id_venta IN INTEGER,
+    p_cursor OUT SYS_REFCURSOR
+) AS
+BEGIN
+    -- Validar si se ingresó un ID de venta
+    IF p_id_venta IS NULL THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Debe proporcionar un ID de venta.');
+    END IF;
 
-        -- Abrir el cursor y verificar si hay resultados
-        OPEN c_ventas;
-        FETCH c_ventas INTO v_venta_row;
-        IF c_ventas%NOTFOUND THEN
-            DBMS_OUTPUT.PUT_LINE('No se encontraron ventas para los criterios especificados.');
-            CLOSE c_ventas;
-            RETURN;
-        END IF;
-
-        -- Procesar los resultados
-        LOOP
-            DBMS_OUTPUT.PUT_LINE('ID Venta: ' || v_venta_row.idVenta || 
-                                 ', Fecha: ' || TO_CHAR(v_venta_row.fechaVenta, 'YYYY-MM-DD') ||
-                                 ', Total: ' || v_venta_row.totalVenta);
-            FETCH c_ventas INTO v_venta_row;
-            EXIT WHEN c_ventas%NOTFOUND;
-        END LOOP;
-        -- Cerrar el cursor
-        CLOSE c_ventas;
-    END generar_reporte_ventas;
-    
+    -- Abrir el cursor con los datos de la consulta
+    OPEN p_cursor FOR
+        SELECT v.idVenta AS "ID Venta",
+               v.fechaVenta AS "Fecha Venta",
+               e.idEjemplar AS "Ejemplar Vendido",
+               v.totalVenta AS "Total",
+               vd.nombreVendedor AS "Vendedor",
+               v.comisionVenta AS "Comision Venta",
+               c.cedulaCliente AS "Cedula Cliente",
+               c.nombreCliente AS "Nombre Cliente"
+        FROM tblVenta v
+        INNER JOIN tblEjemplar e ON v.idEjemplar = e.idEjemplar
+        INNER JOIN tblVendedor vd ON v.idVendedor = vd.idVendedor
+        INNER JOIN tblCliente c ON v.cedulaCliente = c.cedulaCliente
+        WHERE v.idVenta = p_id_venta;
+END generar_reporte_venta;
 END pkg_ventas;
 
 SET SERVEROUTPUT ON
@@ -578,11 +594,12 @@ BEGIN
     -- Registrar una venta sin especificar el total (se calculará automáticamente)
     pkg_ventas.registrar_venta(
         p_fecha         => SYSDATE,
-        p_id_vendedor   => 3,
+        p_id_vendedor   => 1,
         p_cedula_cliente => 1,
-        p_id_ejemplar   => 22
+        p_id_ejemplar   => 3
     );
 END;
+
 
 -- Paquete para clientes 
 CREATE OR REPLACE PACKAGE pkg_clientes AS
@@ -650,7 +667,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         p_filasInsertadas   OUT NUMBER
     ) IS
         v_exists INTEGER;
-        ex_cedula_duplicada EXCEPTION;
 
     BEGIN
         -- Verificar si ya existe un cliente con la misma cédula
@@ -659,7 +675,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         WHERE cedulaCliente = p_cedulaCliente;
         
         IF v_exists > 0 THEN
-            RAISE ex_cedula_duplicada; 
+            RAISE_APPLICATION_ERROR(-20001, 'Error: La cédula del cliente ya está registrada en el sistema.');
         END IF;
 
         -- Intentar insertar el cliente en la tabla
@@ -671,12 +687,10 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
 
     EXCEPTION
-        WHEN ex_cedula_duplicada THEN
-            DBMS_OUTPUT.PUT_LINE('Error: La cédula del cliente ya está registrada en el sistema.');
         WHEN DUP_VAL_ON_INDEX THEN
-            DBMS_OUTPUT.PUT_LINE('Error: El email ya está registrado en el sistema.');
+            RAISE_APPLICATION_ERROR(-20002, 'Error: El email ya está registrado en el sistema.');
         WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+            RAISE_APPLICATION_ERROR(-20003, 'Error inesperado: ' || SQLERRM);
     END Registrar_Cliente_Nuevo;
 END pkg_clientes;
 
@@ -872,9 +886,9 @@ CREATE OR REPLACE PACKAGE BODY pkg_proveedores AS
 END pkg_proveedores;
 
 
-/=========================================/
+--/=========================================/
 /*               PARA BORRAR PAQUETES           */
-/=========================================/
+--/=========================================/
 
 DROP PACKAGE pkg_ventas;
 
@@ -885,16 +899,9 @@ DROP PACKAGE pkg_ejemplares;
 DROP PACKAGE pkg_proveedores;
 
 
-/=========================================/
+--/=========================================/
 /*               VISTAS           */
-/=========================================/
-
-/=========================================/
-/*               POR SI ACASO          */
-/=========================================/
-
-CONNECT system/oracle;
-GRANT CREATE VIEW TO USER_BASES;
+--/=========================================/
 
 -- Vista para inventario ejemplares INTEAD OF
 CREATE OR REPLACE VIEW vista_inventario_ejemplares AS
@@ -910,10 +917,15 @@ JOIN
 JOIN 
     tblProveedor p ON v.idProveedor = p.idProveedor;
 
--- Trigger para vista inventario ejemplares
+-- Trigger para vista invetario ejemplares
 CREATE OR REPLACE TRIGGER trg_inventario_ejemplares
 INSTEAD OF INSERT OR UPDATE OR DELETE ON vista_inventario_ejemplares
 FOR EACH ROW
+DECLARE
+    v_vehiculo_exists INTEGER;
+    v_proveedor_exists INTEGER;
+    v_relacion_exists INTEGER;
+    v_estado_actual VARCHAR2(50);
 BEGIN
     -- Operación INSERT
     IF INSERTING THEN
@@ -927,6 +939,48 @@ BEGIN
 
     -- Operación UPDATE
     IF UPDATING THEN
+        -- Validar que el modelo del vehículo exista
+        SELECT COUNT(*)
+        INTO v_vehiculo_exists
+        FROM tblVehiculo
+        WHERE modeloVehiculo = :NEW."Modelo Vehículo";
+
+        IF v_vehiculo_exists = 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Error: El modelo del vehículo especificado no existe.');
+        END IF;
+
+        -- Validar que el proveedor exista
+        SELECT COUNT(*)
+        INTO v_proveedor_exists
+        FROM tblProveedor
+        WHERE nombreProveedor = :NEW."Nombre Proveedor";
+
+        IF v_proveedor_exists = 0 THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Error: El proveedor especificado no existe.');
+        END IF;
+
+        -- Validar que el modelo del vehículo esté asociado al proveedor
+        SELECT COUNT(*)
+        INTO v_relacion_exists
+        FROM tblVehiculo v
+        WHERE v.modeloVehiculo = :NEW."Modelo Vehículo"
+          AND v.idProveedor = (SELECT idProveedor FROM tblProveedor WHERE nombreProveedor = :NEW."Nombre Proveedor");
+
+        IF v_relacion_exists = 0 THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: El modelo del vehículo no está asociado al proveedor especificado.');
+        END IF;
+
+        -- Validar que el estado actual del ejemplar no sea 'vendido'
+        SELECT estadoEjemplar
+        INTO v_estado_actual
+        FROM tblEjemplar
+        WHERE idEjemplar = :OLD."ID Ejemplar";
+
+        IF v_estado_actual = 'vendido' THEN
+            RAISE_APPLICATION_ERROR(-20004, 'Error: No se puede actualizar un ejemplar que ya está vendido.');
+        END IF;
+
+        -- Realizar la actualización si todas las validaciones pasan
         UPDATE tblEjemplar
         SET estadoEjemplar = :NEW."Estado Ejemplar"
         WHERE idEjemplar = :OLD."ID Ejemplar";
@@ -938,7 +992,16 @@ BEGIN
         WHERE idEjemplar = :OLD."ID Ejemplar";
     END IF;
 END;
-/
+
+---Prueba
+
+UPDATE vista_inventario_ejemplares
+SET "Estado Ejemplar" = 'disponible',
+    "Modelo Vehículo" = 'Modelo X',
+    "Nombre Proveedor" = 'Proveedor Uno'
+WHERE "ID Ejemplar" = 8;
+commit;
+
 
 -- Vista para proveedores
 CREATE OR REPLACE VIEW vista_proveedores AS
@@ -956,164 +1019,44 @@ GROUP BY
     p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
 
 
-/=========================================/
+-- Vista para 
+CREATE OR REPLACE VIEW vista_ventas AS
+SELECT 
+    v.idVenta AS "ID Venta",
+    v.fechaVenta AS "Fecha Venta",
+    e.idEjemplar AS "Ejemplar Vendido",
+    v.totalVenta AS "Total",
+    vd.nombreVendedor AS "Vendedor",
+    v.comisionVenta AS "Comision Venta",
+    c.cedulaCliente AS "Cedula Cliente",
+    c.nombreCliente AS "Nombre Cliente"
+FROM 
+    tblVenta v
+INNER JOIN 
+    tblEjemplar e ON v.idEjemplar = e.idEjemplar
+INNER JOIN
+    tblVendedor vd ON v.idVendedor = vd.idVendedor
+INNER JOIN
+    tblCliente c ON v.cedulaCliente = c.cedulaCliente;
+
+--/=========================================/
 /*               PARA BORRAR VISTAS       */
-/=========================================/
+--/=========================================/
 
 DROP VIEW vista_inventario_ejemplares;
 
 DROP VIEW vista_proveedores;
 
-
-/=========================================/
-/*               INDICES         */
-/=========================================/
-
-    
--- Índice básico en la columna modeloVehiculo
-CREATE INDEX idx_tblVehiculo_modeloVehiculo
-ON tblVehiculo (modeloVehiculo);
-
-SELECT index_name, table_name, column_name
-FROM user_ind_columns
-WHERE table_name = 'TBLVEHICULO';
-
-ALTER INDEX idx_tblVehiculo_modeloVehiculo MONITORING USAGE
-
-----Debe ejecutarse desde system o un usuario q tenga privilegios 
---Monitoreo
-SELECT *
-FROM DBA_OBJECT_USAGE
-WHERE TABLE_NAME='TBLVEHICULO'
-
----Esta consulta y un insert de la tblVehiculo pone el indice en USED Yes
-SELECT idVehiculo, modeloVehiculo
-FROM TBLVEHICULO
-WHERE modeloVehiculo LIKE 'M%' ORDER BY
-modeloVehiculo DESC
+DROP VIEW vista_ventas;
 
 
---consultes los servicios realizados en los últimos X días. 
-----Funcion determinista
-CREATE OR REPLACE FUNCTION fn_dias_servicio(p_fechaServicio DATE) 
-RETURN NUMBER
-DETERMINISTIC
-IS
-BEGIN
-    RETURN (SYSDATE - p_fechaServicio);
-END fn_dias_servicio;
+--/=========================================/
+/*               POR SI ACASO          */
+--/=========================================/
 
----Indice basado en una funcion para la tblServiciosPostventa
-CREATE INDEX idx_tblServiciosPostVenta_dias_servicio
-ON tblServiciosPostVenta (fn_dias_servicio(fechaServicio));
+CONNECT system/oracle;
+GRANT CREATE VIEW TO USER_BASES;
 
-ALTER INDEX idx_tblServiciosPostVenta_dias_servicio MONITORING USAGE;
-
-
-----Debe ejecutarse desde system o un usuario q tenga privilegios 
---Monitoreo
-SELECT *
-FROM DBA_OBJECT_USAGE
-WHERE TABLE_NAME='TBLSERVICIOSPOSTVENTA'
-
----Esta consulta pone el indice en USED Yes
-SELECT *
-FROM tblServiciosPostVenta
-WHERE fn_dias_servicio(fechaServicio) <= 30;
-
-
-/=========================================/
-/*               DICCIONARIO DE DATOS         */
-/=========================================/
-
---1. Mostrar información de los objetos de la BD
-
-SELECT object_name, object_type, created, status
-FROM user_objects
-ORDER BY object_type;
-
---2. Mostrar el nombre de todas las tablas que posee.
-
-SELECT table_name
-FROM user_tables;
-
---3. Mostrar información de las restricciones definidas sobre sus tablas
-
-SELECT column_name, data_type, data_length,
-data_precision, data_scale, nullable
-FROM user_tab_columns;
-
---4. Mostrar información de las secuencias
-
-SELECT sequence_name, min_value, max_value,
-increment_by, last_number
-FROM user_sequences;
-
---5. Mostrar los nombres de las columnas de una de las tablas de su esquema.
-
-SELECT column_name, data_type, data_length,
-data_precision, data_scale, nullable
-FROM user_tab_columns
-WHERE table_name = 'TBLVEHICULO';
-
---6. Mostrar la consulta de una de las vistas.
-
-CREATE OR REPLACE VIEW vista_proveedores AS
-SELECT 
-    p.idProveedor AS "ID Proveedor",
-    p.nombreProveedor AS "Nombre Proveedor",
-    p.telefonoProveedor AS "Teléfono Proveedor",
-    p.direccionProveedor AS "Dirección Proveedor",
-    COUNT(v.idVehiculo) AS "Cantidad de Vehículos Asociados"
-FROM 
-    tblProveedor p
-LEFT JOIN 
-    tblVehiculo v ON p.idProveedor = v.idProveedor
-GROUP BY 
-    p.idProveedor, p.nombreProveedor, p.telefonoProveedor, p.direccionProveedor;
-    
-    
---7. Consulte las restricciones de una de las tablas de su esquema.
-
-SELECT constraint_name, constraint_type,
-search_condition, r_constraint_name,
-delete_rule, status
-FROM user_constraints
-WHERE table_name = 'TBLVEHICULO';
-
---8. Mostrar el nombre de todos los procedimientos que posee.
-
-SELECT OBJECT_NAME AS NOMBRE_PROCEDIMIENTO
-FROM USER_OBJECTS
-WHERE OBJECT_TYPE = 'PROCEDURE';
-
----Consulta para cuando los procedimientos estan encapsulados en packages
-
-SELECT OBJECT_NAME AS PAQUETE,
-       PROCEDURE_NAME AS NOMBRE_PROCEDIMIENTO
-FROM USER_PROCEDURES
-WHERE OBJECT_TYPE = 'PACKAGE'
-   OR OBJECT_TYPE = 'PACKAGE BODY';
-
-
---9. Ver usuarios con roles y privilegios asignados
-
-
-----Debe hacerce desde System
-SELECT GRANTEE AS USUARIO, GRANTED_ROLE AS ROL, ADMIN_OPTION
-FROM DBA_ROLE_PRIVS
-WHERE GRANTEE NOT LIKE 'SYS%';
-
-SELECT GRANTEE AS USUARIO, PRIVILEGE, ADMIN_OPTION
-FROM DBA_SYS_PRIVS
-WHERE GRANTEE NOT LIKE 'SYS%';
-
-----Permite ver el rol y privilegios del usuario actual
-SELECT GRANTED_ROLE AS ROL, ADMIN_OPTION
-FROM USER_ROLE_PRIVS;
-
-SELECT PRIVILEGE, ADMIN_OPTION
-FROM USER_SYS_PRIVS;
 
 
 

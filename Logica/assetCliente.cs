@@ -13,7 +13,6 @@ namespace ProyectoBasesII.Logica
     {
         Datos dt = new Datos();
 
-
         public int registrarCliente(int cedulaCliente, string nombreCliente, string apellidoCliente, string telefonoCliente, string emailCliente, string direccionCliente)
         {
             int filasInsertadas = 0;
@@ -38,5 +37,27 @@ namespace ProyectoBasesII.Logica
 
             return filasInsertadas;
         }
+
+        public List<int> ObtenerCedulaCliente()
+        {
+            List<int> cedulaCliente = new List<int>();
+            string consulta = "SELECT cedulaCliente FROM tblCliente";
+
+            // Usar el método ejecutarSelect para obtener el DataSet
+            DataSet ds = dt.ejecutarSelect(consulta);
+
+            // Verificar si el DataSet tiene datos
+            if (ds != null && ds.Tables["resultadoDatos"].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables["resultadoDatos"].Rows)
+                {
+                    // Casteo a entero antes de agregar a la lista
+                    cedulaCliente.Add(Convert.ToInt32(row["cedulaCliente"]));
+                }
+            }
+
+            return cedulaCliente;
+        }
+
     }
 }
