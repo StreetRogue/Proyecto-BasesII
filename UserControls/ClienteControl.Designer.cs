@@ -180,6 +180,7 @@
             this.Controls.Add(this.txtBusqueda);
             this.Name = "ClienteControl";
             this.Size = new System.Drawing.Size(899, 608);
+            this.Load += new System.EventHandler(this.ClienteControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgClientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

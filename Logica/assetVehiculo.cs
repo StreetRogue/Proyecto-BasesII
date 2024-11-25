@@ -1,4 +1,5 @@
-﻿using ProyectoBasesII.AccesoDatos;
+﻿using Oracle.ManagedDataAccess.Client;
+using ProyectoBasesII.AccesoDatos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,17 +33,28 @@ namespace ProyectoBasesII.Logica
 
         public int registrarVehiculo(string modeloVehiculo, string marcaVehiculo, int anioVehiculo, float precioVehiculo, int idProveedor)
         {
-            int resultado = 0;
+            int filasInsertadas = 0;
 
-            string consulta;
+            // Crear los parámetros para el procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
+            {
+                new OracleParameter("p_modeloVehiculo", OracleDbType.Varchar2) { Value = modeloVehiculo },
+                new OracleParameter("p_marcaVehiculo", OracleDbType.Varchar2) { Value = marcaVehiculo },
+                new OracleParameter("p_añoVehiculo", OracleDbType.Int32) { Value = anioVehiculo },
+                new OracleParameter("p_precioVehiculo", OracleDbType.Int32) { Value = precioVehiculo },
+                new OracleParameter("p_idProveedor", OracleDbType.Int32) { Value = idProveedor },
+                new OracleParameter("p_filasInsertadas", OracleDbType.Int32, ParameterDirection.Output)
+            };
 
-            consulta = "INSERT INTO tblVehiculo (modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo, idProveedor) values ('" + modeloVehiculo + "','" + marcaVehiculo + "',"+ anioVehiculo+ ","+ precioVehiculo + ","+ idProveedor+")";
+            // Ejecutar el procedimiento almacenado
+            dt.ejecutarSP("registrar_vehiculo", parametros);
 
-            resultado = dt.ejecutarDML(consulta);
+            // Obtener el valor del parámetro de salida
+            filasInsertadas = int.Parse(parametros[5].Value.ToString());
 
-            return resultado;
-
+            return filasInsertadas;
         }
+
 
         public List<string> ObtenerModelosVehiculos()
         {

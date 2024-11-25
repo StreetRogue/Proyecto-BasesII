@@ -130,9 +130,5 @@ namespace ProyectoBasesII.Logica
             return filasAfectadas;
         }
 
-
-
-
-
     }
 }

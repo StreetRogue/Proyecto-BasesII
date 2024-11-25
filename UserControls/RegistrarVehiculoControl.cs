@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -54,8 +55,35 @@ namespace ProyectoBasesII.UserControls
         {
             string varModeloVehiculo, varMarcaVehiculo, varNombreProveedor = "";
             DateTime varAnioVehiculo;
-            float varPrecioVehiculo;
+            int varPrecioVehiculo;
             int varIdProveedor,  varAnioVehiculoEntero; ;
+
+
+            // Expresiones regulares para validar los campos
+            Regex regexModelo = new Regex(@"^[A-Za-z0-9\s]{1,100}$"); // Letras, números y espacios, máximo 50 caracteres
+            Regex regexMarca = new Regex(@"^[A-Za-z\s]{1,100}$"); // Letras y espacios, máximo 50 caracteres
+            Regex regexPrecio = new Regex(@"^\d+$"); // Número entero positivo
+
+            // Validar formato del modelo
+            if (!regexModelo.IsMatch(txtModeloVehiculo.Texts))
+            {
+                MessageBox.Show("El modelo debe contener solo letras, números y espacios, con un máximo de 100 caracteres.", "Modelo Inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validar formato de la marca
+            if (!regexMarca.IsMatch(txtMarcaVehiculo.Texts))
+            {
+                MessageBox.Show("La marca debe contener solo letras y espacios, con un máximo de 100 caracteres.", "Marca Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validar formato del precio
+            if (!regexPrecio.IsMatch(txtPrecioVehiculo.Texts))
+            {
+                MessageBox.Show("El precio debe ser un número entero positivo.", "Precio Inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             //PASO 1
             if (string.IsNullOrEmpty(txtMarcaVehiculo.Texts) || string.IsNullOrEmpty(txtModeloVehiculo.Texts) || string.IsNullOrEmpty(txtPrecioVehiculo.Texts)|| string.IsNullOrEmpty(cbxProveedores.Texts))
@@ -70,8 +98,9 @@ namespace ProyectoBasesII.UserControls
                 varNombreProveedor = cbxProveedores.SelectedItem.ToString();
                 varAnioVehiculo = dtpAnioVehiculo.Value;
                 varAnioVehiculoEntero = varAnioVehiculo.Year;
-                varPrecioVehiculo = float.Parse(txtPrecioVehiculo.Texts);
+                varPrecioVehiculo = int.Parse(txtPrecioVehiculo.Texts);
             }
+
 
             //PASO 2
 
@@ -105,7 +134,27 @@ namespace ProyectoBasesII.UserControls
             }
             catch (OracleException ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Manejar excepciones específicas desde el procedimiento almacenado
+                if (ex.Message.Contains("Error: El proveedor especificado no existe."))
+                {
+                    MessageBox.Show("El proveedor especificado no existe.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (ex.Message.Contains("Error: Ya existe un vehículo con el mismo modelo."))
+                {
+                    MessageBox.Show(" Ya existe un vehículo con el mismo modelo.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (ex.Message.Contains("Error: El precio del vehículo debe ser un valor positivo."))
+                {
+                    MessageBox.Show(" El precio del vehículo debe ser un valor positivo.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Formato de datos incorrecto. Verifique la cédula y los demás campos.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

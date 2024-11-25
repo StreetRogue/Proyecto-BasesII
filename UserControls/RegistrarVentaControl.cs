@@ -217,7 +217,7 @@ namespace ProyectoBasesII.UserControls
 
                 if (idVendedor == 0)
                 {
-                    MessageBox.Show("No existe un Vehicilo registrado con ese ID ", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No existe un Vendedor registrado con ese ID ", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

@@ -76,10 +76,9 @@ namespace ProyectoBasesII.UserControls
                     MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch (FormatException)
             {
-                // Manejo genérico de errores
-                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Formato de datos incorrecto. Verifique la cédula y los demás campos.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
