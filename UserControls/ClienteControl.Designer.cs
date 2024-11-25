@@ -96,6 +96,7 @@
             this.dtgClientes.Location = new System.Drawing.Point(89, 179);
             this.dtgClientes.Margin = new System.Windows.Forms.Padding(4);
             this.dtgClientes.Name = "dtgClientes";
+            this.dtgClientes.ReadOnly = true;
             this.dtgClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
@@ -151,6 +152,7 @@
             this.btnModificarProveedor.Size = new System.Drawing.Size(53, 38);
             this.btnModificarProveedor.TabIndex = 23;
             this.btnModificarProveedor.UseVisualStyleBackColor = false;
+            this.btnModificarProveedor.Click += new System.EventHandler(this.btnModificarProveedor_Click);
             // 
             // btnBuscar
             // 
@@ -167,6 +169,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(96, 38);
             this.btnBuscar.TabIndex = 18;
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // ClienteControl
             // 

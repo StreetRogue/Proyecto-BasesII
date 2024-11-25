@@ -60,26 +60,83 @@ namespace ProyectoBasesII.Logica
             return cedulaCliente;
         }
 
-
-        public DataSet buscarClientesGeneral()
+        public DataTable ObtenerClientes()
         {
-            // Parámetros para ejecutar el procedimiento almacenado
+            Datos datos = new Datos(); // Instancia de la clase Datos
+            DataTable clientes = new DataTable();
+
+            // Crear los parámetros para el procedimiento almacenado
             OracleParameter[] parametros = new OracleParameter[]
             {
-            new OracleParameter("p_clientes", OracleDbType.Object)
-    {
-        Direction = ParameterDirection.Output
-    }
+                new OracleParameter("p_clientes", OracleDbType.RefCursor) { Direction = ParameterDirection.Output }
             };
 
 
-            // Llamar al procedimiento y obtener los datos en un DataSet
-            DataSet ds = dt.ejecutarSPConColeccion("obtener_clientes", parametros);
 
-            return ds;
+            try
+            {
+                // Llamar al procedimiento y obtener un DataSet
+                DataSet dsClientes = datos.ejecutarSPConCursores("pkg_clientes.obtener_clientes", parametros);
+
+                // Obtener la primera tabla del DataSet
+                clientes = dsClientes.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener clientes: {ex.Message}");
+            }
+
+            return clientes;
         }
 
+        public int modificarCliente(int cedulaCliente, string nombreCliente, string apellidoCliente, string telefonoCliente, string emailCliente, string direccionCliente)
+        {
+            int filasAfectadas = 0;
 
+            // Construir la consulta SQL para actualizar
+            string consulta = "UPDATE tblCliente " +
+                  "SET nombreCliente = '" + nombreCliente + "', " +
+                  "apellidoCliente = '" + apellidoCliente + "', " +
+                  "telefonoCliente = '" + telefonoCliente + "', " +
+                  "emailCliente = '" + emailCliente + "', " +
+                  "direccionCliente = '" + direccionCliente + "' " +
+                  "WHERE cedulaCliente = " + cedulaCliente;
+
+
+            // Ejecutar la consulta y realizar commit
+            try
+            {
+                filasAfectadas = dt.ejecutarDML(consulta);
+
+                if (filasAfectadas > 0)
+                {
+                    // Confirmar los cambios
+                    dt.ejecutarDML("COMMIT");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si ocurre un error, puedes manejarlo aquí (opcionalmente podrías hacer un rollback)
+                throw new Exception($"Error al modificar el ejemplar: {ex.Message}");
+            }
+
+            return filasAfectadas;
+        }
+
+        public DataSet buscarCliente(int cedulaCliente)
+        {
+            DataSet ds = new DataSet();
+
+            // Crear los parámetros para el procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
+            {
+                new OracleParameter("p_cedulaCliente", OracleDbType.Int32) { Value = cedulaCliente },
+                new OracleParameter("p_cliente", OracleDbType.RefCursor) { Direction = ParameterDirection.Output }
+            };
+
+            // Ejecutar el procedimiento almacenado y obtener los datos
+            return dt.ejecutarSPConCursores("pkg_clientes.obtener_cliente_por_cedula", parametros);
+        }
 
 
     }

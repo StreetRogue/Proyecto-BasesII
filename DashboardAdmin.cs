@@ -230,7 +230,25 @@ namespace ProyectoBasesII
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ClienteControl());
+            // Crear una instancia de ClienteControl
+            ClienteControl inventarioCliente = new ClienteControl();
+
+            // Suscribirse al evento
+            inventarioCliente.SolicitarModificarClienteControl += cedulaCliente =>
+            {
+                // Crear una instancia de ModificarClienteControl
+                ModificarClienteControl modificarControl = new ModificarClienteControl();
+
+                // Pasar el idEjemplar al método CargarEjemplar de modificarControl
+                modificarControl.CargarCliente(cedulaCliente);
+
+                // Cargar el control ModificarInventarioEjemplaresControl en el panel
+                LoadUserControl(modificarControl);
+            };
+
+            // Cargar InventarioEjemplarControl en el panel
+            LoadUserControl(inventarioCliente);
+            //LoadUserControl(new ClienteControl());
         }
     }
 }

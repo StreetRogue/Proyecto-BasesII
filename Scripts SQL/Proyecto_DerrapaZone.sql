@@ -1,3 +1,8 @@
+SET SERVEROUTPUT ON
+SET VERIFY OFF
+SET ECHO OFF
+
+
 
 --/=========================================/
 /*                  Procedimientos y Funciones                      */
@@ -64,7 +69,9 @@ CREATE OR REPLACE PROCEDURE Consultar_informacion_servicios_porId(
 BEGIN
     OPEN p_servicios FOR
         SELECT
-        v.idVenta,    
+        v.idVenta,
+        st.idTecnico,
+        st.idRealizacionServicio,
     st.fechaInicioServicio,
     st.fechaFinServicio,
     s.tipoServicio,
@@ -414,6 +421,21 @@ BEGIN
 END;
 
 
+-- Tipo de registro basado en la tabla tblCliente
+CREATE OR REPLACE TYPE t_cliente_obj AS OBJECT (
+    cedulaCliente INTEGER,
+    nombreCliente VARCHAR2(50),
+    apellidoCliente VARCHAR2(50),
+    telefonoCliente VARCHAR2(50),
+    emailCliente VARCHAR2(100),
+    direccionCliente VARCHAR2(50)
+);
+
+-- Tipo de tabla anidada basado en t_cliente_obj
+CREATE OR REPLACE TYPE t_clientes_tab AS TABLE OF t_cliente_obj;
+/
+
+
 -- Paquete para clientes 
 CREATE OR REPLACE PACKAGE pkg_clientes AS
     -- Funciones
@@ -430,10 +452,23 @@ CREATE OR REPLACE PACKAGE pkg_clientes AS
         p_direccionCliente  IN tblCliente.direccionCliente%TYPE,
         p_filasInsertadas   OUT NUMBER
     );
+
+    PROCEDURE obtener_clientes(p_clientes OUT SYS_REFCURSOR);
+
+    -- Procedimiento para obtener un cliente específico
+    PROCEDURE obtener_cliente_por_cedula(
+        p_cedulaCliente IN tblCliente.cedulaCliente%TYPE,
+        p_cliente OUT SYS_REFCURSOR
+    );
+
 END pkg_clientes;
+/
 
 
+
+-- Crear el cuerpo del paquete pkg_clientes
 CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
+
     -- Función para consultar información de un cliente
     FUNCTION Consultar_informacion_cliente(p_idCliente IN INTEGER) RETURN VARCHAR2 IS
         v_nombreCliente tblCliente.nombreCliente%TYPE;
@@ -453,7 +488,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         WHEN NO_DATA_FOUND THEN
             RETURN 'Cliente no encontrado.';
         WHEN OTHERS THEN
-            RETURN 'Error en consulta.';
+            RETURN 'Error en consulta: ' || SQLERRM;
     END Consultar_informacion_cliente;
 
     -- Función para contar el número total de clientes
@@ -480,8 +515,20 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         p_filasInsertadas   OUT NUMBER
     ) IS
         v_exists INTEGER;
-
     BEGIN
+        -- Validaciones
+        IF p_cedulaCliente IS NULL THEN
+            RAISE_APPLICATION_ERROR(-20010, 'Error: La cédula no puede ser nula.');
+        END IF;
+
+        IF p_nombreCliente IS NULL OR LENGTH(p_nombreCliente) = 0 THEN
+            RAISE_APPLICATION_ERROR(-20011, 'Error: El nombre no puede estar vacío.');
+        END IF;
+
+        IF p_emailCliente IS NOT NULL AND NOT REGEXP_LIKE(p_emailCliente, '^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$') THEN
+            RAISE_APPLICATION_ERROR(-20012, 'Error: El formato del email es inválido.');
+        END IF;
+
         -- Verificar si ya existe un cliente con la misma cédula
         SELECT COUNT(*) INTO v_exists
         FROM tblCliente
@@ -491,11 +538,11 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
             RAISE_APPLICATION_ERROR(-20001, 'Error: La cédula del cliente ya está registrada en el sistema.');
         END IF;
 
-        -- Intentar insertar el cliente en la tabla
+        -- Insertar el cliente en la tabla
         INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
         VALUES (p_cedulaCliente, p_nombreCliente, p_apellidoCliente, p_telefonoCliente, p_emailCliente, p_direccionCliente);
         
-        p_filasInsertadas:=1;
+        p_filasInsertadas := 1;
 
         DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente.');
 
@@ -505,7 +552,104 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
         WHEN OTHERS THEN
             RAISE_APPLICATION_ERROR(-20003, 'Error inesperado: ' || SQLERRM);
     END Registrar_Cliente_Nuevo;
+
+    -- Procedimiento para obtener clientes como colección y devolver un cursor
+    PROCEDURE obtener_clientes(p_clientes OUT SYS_REFCURSOR) IS
+        v_clientes t_clientes_tab := t_clientes_tab(); -- Inicializar la colección
+        v_count INTEGER; -- Variable para validar la existencia de registros
+    BEGIN
+        -- Verificar si existen registros en tblCliente
+        SELECT COUNT(*) INTO v_count FROM tblCliente;
+
+        IF v_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20020, 'Error: No hay clientes registrados.');
+        END IF;
+
+        -- Cargar los datos de tblCliente en la colección
+        SELECT t_cliente_obj(
+            cedulaCliente,
+            nombreCliente,
+            apellidoCliente,
+            telefonoCliente,
+            emailCliente,
+            direccionCliente
+        )
+        BULK COLLECT INTO v_clientes
+        FROM tblCliente;
+
+        -- Validar si la colección está vacía
+        IF v_clientes.COUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20021, 'Error: La colección de clientes está vacía.');
+        END IF;
+
+        -- Abrir un cursor para devolver los datos
+        OPEN p_clientes FOR
+            SELECT 
+                cedulaCliente AS "Cédula del Cliente",
+                nombreCliente AS "Nombre del Cliente",
+                apellidoCliente AS "Apellido del Cliente",
+                telefonoCliente AS "Teléfono del Cliente",
+                emailCliente AS "Correo Electrónico",
+                direccionCliente AS "Dirección del Cliente"
+            FROM TABLE(v_clientes);
+
+        DBMS_OUTPUT.PUT_LINE('Clientes cargados correctamente.');
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20022, 'Error: No se encontraron clientes.');
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error en obtener_clientes: ' || SQLERRM);
+            RAISE;
+    END obtener_clientes;
+
+    -- Procedimiento para obtener un cliente específico por cédula
+    PROCEDURE obtener_cliente_por_cedula(
+        p_cedulaCliente IN tblCliente.cedulaCliente%TYPE,
+        p_cliente OUT SYS_REFCURSOR
+    ) IS
+        v_existe_cliente INTEGER;
+    BEGIN
+        -- Validar si la cédula es nula
+        IF p_cedulaCliente IS NULL THEN
+            RAISE_APPLICATION_ERROR(-20030, 'Error: La cédula no puede ser nula.');
+        END IF;
+
+        -- Verificar si el cliente existe
+        SELECT COUNT(*) INTO v_existe_cliente
+        FROM tblCliente
+        WHERE cedulaCliente = p_cedulaCliente;
+
+        IF v_existe_cliente = 0 THEN
+            RAISE_APPLICATION_ERROR(-20031, 'Error: No existe ningún cliente con la cédula proporcionada.');
+        END IF;
+
+        -- Abrir un cursor para devolver la información del cliente
+        OPEN p_cliente FOR
+            SELECT 
+                cedulaCliente AS "Cédula del Cliente",
+                nombreCliente AS "Nombre del Cliente",
+                apellidoCliente AS "Apellido del Cliente",
+                telefonoCliente AS "Teléfono del Cliente",
+                emailCliente AS "Correo Electrónico",
+                direccionCliente AS "Dirección del Cliente"
+            FROM tblCliente
+            WHERE cedulaCliente = p_cedulaCliente;
+
+        DBMS_OUTPUT.PUT_LINE('Cliente consultado correctamente.');
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20032, 'Error: No se encontraron datos para la cédula proporcionada.');
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error inesperado: ' || SQLERRM);
+            RAISE;
+    END obtener_cliente_por_cedula;
+
 END pkg_clientes;
+/
+
+
 
 
 -- Paquete para ejemplares
@@ -1101,50 +1245,71 @@ INNER JOIN
 
 ----Vista de Servicios
 
-CREATE OR REPLACE TRIGGER trg_servicios_update
+CREATE OR REPLACE VIEW vista_servicios AS
+SELECT
+    v.idVenta,
+    st.idTecnico,
+    st.idRealizacionServicio,
+    st.fechaInicioServicio,
+    st.fechaFinServicio,
+    s.tipoServicio,
+    s.costoServicio,
+    v.cedulaCliente,
+    c.nombreCliente
+FROM tblServiciosPostVenta s
+INNER JOIN tblRealizaServicioTecnico st
+    ON s.idServicio = st.idServicio
+INNER JOIN tblVenta v
+    ON st.idVenta = v.idVenta
+INNER JOIN tblCliente c
+    ON v.cedulaCliente = c.cedulaCliente;
+
+CREATE OR REPLACE TRIGGER trg_vista_servicios
 INSTEAD OF UPDATE ON vista_servicios
 FOR EACH ROW
 DECLARE
-    v_servicio_exists INTEGER;
-    v_venta_exists INTEGER;
-    v_cliente_exists INTEGER;
+    v_fechaInicioServicio DATE;
+    v_fechaFinServicio DATE;
 BEGIN
-    -- Verificar que la venta exista
-    SELECT COUNT(*)
-    INTO v_venta_exists
-    FROM tblVenta
-    WHERE idVenta = :NEW.idVenta;
+    -- Validar que idRealizacionServicio exista y sea único
+    SELECT fechaInicioServicio, fechaFinServicio
+    INTO v_fechaInicioServicio, v_fechaFinServicio
+    FROM tblRealizaServicioTecnico
+    WHERE idRealizacionServicio = :OLD.idRealizacionServicio;
 
-    IF v_venta_exists = 0 THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Error: La venta especificada no existe.');
+    -- Validar que la fechaFinServicio actual esté nula
+    IF v_fechaFinServicio IS NOT NULL THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: La fecha de fin ya está definida y no se puede actualizar.');
     END IF;
 
-    -- Verificar que el cliente exista
-    SELECT COUNT(*)
-    INTO v_cliente_exists
-    FROM tblCliente
-    WHERE cedulaCliente = :NEW.cedulaCliente;
-
-    IF v_cliente_exists = 0 THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Error: El cliente especificado no existe.');
+    -- Validar que la nueva fechaFinServicio sea mayor que la fechaInicioServicio
+    IF :NEW.fechaFinServicio <= v_fechaInicioServicio THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: La fecha de fin debe ser mayor que la fecha de inicio.');
     END IF;
 
-    -- Actualizar datos en tblServiciosPostVenta
-    UPDATE tblServiciosPostVenta
-    SET tipoServicio = :NEW.tipoServicio,
-        costoServicio = :NEW.costoServicio;
-
-    -- Actualizar datos en tblRealizaServicioTecnico
+    -- Actualizar el campo fechaFinServicio en tblRealizaServicioTecnico
     UPDATE tblRealizaServicioTecnico
-    SET fechaInicioServicio = :NEW.fechaInicioServicio,
-        fechaFinServicio = :NEW.fechaFinServicio
-    WHERE idVenta = :NEW.idVenta;
+    SET fechaFinServicio = :NEW.fechaFinServicio
+    WHERE idRealizacionServicio = :OLD.idRealizacionServicio;
 
-END trg_servicios_update;
-
+    DBMS_OUTPUT.PUT_LINE('Fecha de fin del servicio actualizada correctamente para idRealizacionServicio = ' || :OLD.idRealizacionServicio);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Error: No se encontró el registro asociado en tblRealizaServicioTecnico.');
+    WHEN TOO_MANY_ROWS THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: Se encontraron múltiples registros en tblRealizaServicioTecnico con el mismo idRealizacionServicio.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error inesperado: ' || SQLERRM);
+END;
+/
 
 ---Prueba
 
+
+UPDATE vista_servicios
+SET fechaFinServicio = TO_DATE('2024-11-28 12:00:00', 'YYYY-MM-DD HH24:MI:SS')
+WHERE idRealizacionServicio = 3;
+commit;
 
 --/=========================================/
 /*               PARA BORRAR VISTAS       */

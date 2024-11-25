@@ -17,8 +17,6 @@ namespace ProyectoBasesII.UserControls
     {
         private string idEjemplar;
 
-        
-
         public ModificarInventarioEjemplaresControl()
         {
             InitializeComponent();

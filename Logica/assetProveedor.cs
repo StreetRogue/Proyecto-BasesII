@@ -104,7 +104,6 @@ namespace ProyectoBasesII.Logica
             try
             {
                 filasAfectadas = dt.ejecutarDML(consulta);
-                Debug.WriteLine(filasAfectadas);
 
                 if (filasAfectadas > 0)
                 {

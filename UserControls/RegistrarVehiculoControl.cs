@@ -61,7 +61,7 @@ namespace ProyectoBasesII.UserControls
 
             // Expresiones regulares para validar los campos
             Regex regexModelo = new Regex(@"^[A-Za-z0-9\s]{1,100}$"); // Letras, números y espacios, máximo 50 caracteres
-            Regex regexMarca = new Regex(@"^[A-Za-z\s]{1,100}$"); // Letras y espacios, máximo 50 caracteres
+            Regex regexMarca = new Regex(@"^[A-Za-z0-9\s]{1,100}$"); // Letras y espacios, máximo 50 caracteres
             Regex regexPrecio = new Regex(@"^\d+$"); // Número entero positivo
 
             // Validar formato del modelo

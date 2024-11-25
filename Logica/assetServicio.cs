@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProyectoBasesII.Logica
 {
@@ -122,32 +123,33 @@ namespace ProyectoBasesII.Logica
             return ds;
         }
 
-        public int modificarServicios(int idEjemplar, string modeloVehiculo, string nombreProveedor)
+        public void ActualizarFechaFin(int idRealizacionServicio)
         {
-            int filasAfectadas = 0;
-
-            // Construir la consulta SQL para actualizar
-            string consulta = "UPDATE vista_inventario_ejemplares " + "SET \"Modelo Vehículo\" = '" + modeloVehiculo + "', \"Nombre Proveedor\" = '" + nombreProveedor + "' " + "WHERE \"ID Ejemplar\" = " + idEjemplar;
-
-            // Ejecutar la consulta y realizar commit
             try
             {
-                filasAfectadas = dt.ejecutarDML(consulta);
-                Debug.WriteLine(filasAfectadas);
+                // Construir la consulta concatenando cadenas
+                string consulta = "UPDATE vista_servicios " +
+                                  "SET fechaFinServicio = CURRENT_TIMESTAMP " +
+                                  "WHERE idRealizacionServicio = " + idRealizacionServicio;
 
+                // Ejecutar la consulta
+                int filasAfectadas = dt.ejecutarDML(consulta);
+
+                // Validar si la consulta afectó filas
                 if (filasAfectadas > 0)
                 {
-                    // Confirmar los cambios
-                    dt.ejecutarDML("COMMIT");
+                    MessageBox.Show("Fecha Fin actualizada correctamente a la fecha actual del sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar la Fecha Fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                // Si ocurre un error, puedes manejarlo aquí (opcionalmente podrías hacer un rollback)
-                throw new Exception($"Error al modificar el ejemplar: {ex.Message}");
+                MessageBox.Show("Error al actualizar la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            return filasAfectadas;
         }
+
     }
 }

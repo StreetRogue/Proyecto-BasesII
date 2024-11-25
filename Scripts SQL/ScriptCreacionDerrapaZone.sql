@@ -11,6 +11,10 @@
 --
 ----SCRIPT DE CREACION
 
+SET SERVEROUTPUT ON
+SET VERIFY OFF
+SET ECHO OFF
+
 --/=====================================/
 /*                      Eliminación de Tablas                    */
 --/=====================================/
@@ -73,8 +77,12 @@ CREATE TABLE tblVehiculo (
     precioVehiculo NUMBER NOT NULL,
     idProveedor INTEGER NOT NULL,
     CONSTRAINT pk_tblVehiculo PRIMARY KEY (idVehiculo),
-    CONSTRAINT fk_tblVehiculo_Proveedor FOREIGN KEY (idProveedor) REFERENCES tblProveedor(idProveedor)
+    CONSTRAINT fk_tblVehiculo_Proveedor FOREIGN KEY (idProveedor) REFERENCES tblProveedor(idProveedor),
+    CONSTRAINT ckc_precioVehiculo CHECK (precioVehiculo > 0)
 );
+
+
+
 
 --/=========================================/
 /* Table: tblCliente                                                          */
@@ -402,7 +410,6 @@ BEGIN
     INSERT INTO tblUsuario (idUsuario, nombreUsuario, passwordUsuario, idRol)
     VALUES (:NEW.idUsuario, v_usuarioFinal, v_password, 
             (SELECT idRol FROM tblRol WHERE nombreRol = 'TECNICO'));
-
 END;
 /
 
@@ -565,6 +572,27 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Insertado en tblInvolucraVentaEjemplar: idEjemplar = ' || :NEW.idEjemplar || ', idVenta = ' || :NEW.idVenta);
 END;
 
+CREATE OR REPLACE TRIGGER trg_validar_insercion_cliente
+BEFORE INSERT OR UPDATE ON tblCliente
+FOR EACH ROW
+BEGIN
+    -- Validar que la cédula sea numérica y tenga al menos 5 dígitos
+    IF LENGTH(:NEW.cedulaCliente) < 5 OR NOT REGEXP_LIKE(:NEW.cedulaCliente, '^\d+$') THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: La cédula debe ser un número de al menos 5 dígitos.');
+    END IF;
+
+    -- Validar que el correo electrónico tenga un formato válido
+    IF :NEW.emailCliente IS NOT NULL AND NOT REGEXP_LIKE(:NEW.emailCliente, '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El formato del correo electrónico es inválido.');
+    END IF;
+
+    -- Validar que el teléfono tenga al menos 5 dígitos y permita el prefijo '+'
+    IF LENGTH(:NEW.telefonoCliente) < 5 OR NOT REGEXP_LIKE(:NEW.telefonoCliente, '^\+?\d+$') THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Error: El teléfono debe tener al menos 5 dígitos y puede incluir el prefijo "+".');
+    END IF;
+END trg_validar_insercion_cliente;
+/
+
 
 
 /*=========================================*/
@@ -591,6 +619,7 @@ DROP TRIGGER trg_calcular_comision_vendedor;
 
 DROP TRIGGER trg_insert_involucra_venta_ejemplar;
  
+ DROP TRIGGER trg_validar_insercion_cliente;
 
 --/=========================================/
 /*                                 INSERCIONES                                       */
@@ -600,7 +629,6 @@ DROP TRIGGER trg_insert_involucra_venta_ejemplar;
 /*               PARA BORRAR INSERCIONES SIN DROPEAR LAS TABLAS         */
 --/=========================================/
 -- Eliminar registros de las tablas dependientes primero
-DELETE FROM tblSe_RealizaServicioPostVenta;
 DELETE FROM tblInvolucraVentaEjemplar;
 DELETE FROM tblRealizaServicioTecnico;
 DELETE FROM tblServiciosPostVenta;
@@ -653,10 +681,10 @@ VALUES ('Modelo Y', 'Marca B', 2022, 25000,1);
 
 --tblCliente
 INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
-VALUES (1, 'Carlos', 'Perez', '111222333', 'carlos.perez@example.com', 'Calle C #789');
+VALUES (123456, 'Carlos', 'Perez', '111222333', 'carlos.perez@example.com', 'Calle C #789');
 
 INSERT INTO tblCliente (cedulaCliente, nombreCliente, apellidoCliente, telefonoCliente, emailCliente, direccionCliente)
-VALUES (2, 'Laura', 'Gomez', '444555666', 'laura.gomez@example.com', 'Calle D #101');
+VALUES (7890123, 'Laura', 'Gomez', '444555666', 'laura.gomez@example.com', 'Calle D #101');
 
 --tblVendedor
 INSERT INTO tblVendedor (nombreVendedor, apellidoVendedor, estadoVendedor, salarioVendedor, fechaContratacionVendedor)
@@ -696,13 +724,6 @@ VALUES (1, 1, 1 , TO_TIMESTAMP('2024-07-01 08:30:00', 'YYYY-MM-DD HH24:MI:SS'), 
 
 INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico,idVenta, fechaInicioServicio, fechaFinServicio)
 VALUES (2, 2, 2, TO_TIMESTAMP('2024-07-10 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-10 11:30:00', 'YYYY-MM-DD HH24:MI:SS'));
-
---tblInvolucraVentaEjemplar 
-INSERT INTO tblInvolucraVentaEjemplar (idEjemplar, idVenta)
-VALUES (1, 1);
-
-INSERT INTO tblInvolucraVentaEjemplar (idEjemplar, idVenta)
-VALUES (2, 2);
 
 commit;
 

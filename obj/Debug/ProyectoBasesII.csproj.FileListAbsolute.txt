@@ -212,3 +212,4 @@ C:\Users\camac\OneDrive\Escritorio\BASESII\Proyecto-BasesII\obj\Debug\ProyectoBa
 C:\Users\camac\OneDrive\Escritorio\BASESII\Proyecto-BasesII\obj\Debug\Proyecto.47CC26B5.Up2Date
 C:\Users\camac\OneDrive\Escritorio\BASESII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.exe
 C:\Users\camac\OneDrive\Escritorio\BASESII\Proyecto-BasesII\obj\Debug\ProyectoBasesII.pdb
+C:\Users\juane\OneDrive - unicauca.edu.co\Desktop\Proyecto-BasesII\obj\Debug\ProyectoBasesII.UserControls.ModificarClienteControl.resources
