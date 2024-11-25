@@ -138,6 +138,27 @@ namespace ProyectoBasesII.Logica
             return ejemplaresDisponibles;
         }
 
+        public List<int> ObtenerIdVentas()
+        {
+            List<int> idVentas = new List<int>();
+            string consulta = "SELECT idVenta FROM tblVenta";
+
+            // Usar el método ejecutarSelect para obtener el DataSet
+            DataSet ds = dt.ejecutarSelect(consulta);
+
+            // Verificar si el DataSet tiene datos
+            if (ds != null && ds.Tables["resultadoDatos"].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables["resultadoDatos"].Rows)
+                {
+                    // Casteo a entero antes de agregar a la lista
+                    idVentas.Add(Convert.ToInt32(row["idVenta"]));
+                }
+            }
+
+            return idVentas;
+        }
+
 
         public DataSet buscarVenta(int idVenta)
         {
@@ -151,7 +172,8 @@ namespace ProyectoBasesII.Logica
             };
 
             // Ejecutar el procedimiento almacenado y obtener los datos
-            return dt.ejecutarSPConCursores("generar_reporte_venta", parametros);
+            //revisar
+            return dt.ejecutarSPConCursores("pkg_ventas.generar_reporte_venta", parametros);
         }
 
 

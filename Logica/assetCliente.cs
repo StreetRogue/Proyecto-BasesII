@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ProyectoBasesII.Logica
 {
@@ -58,6 +59,28 @@ namespace ProyectoBasesII.Logica
 
             return cedulaCliente;
         }
+
+
+        public DataSet buscarClientesGeneral()
+        {
+            // Parámetros para ejecutar el procedimiento almacenado
+            OracleParameter[] parametros = new OracleParameter[]
+            {
+            new OracleParameter("p_clientes", OracleDbType.Object)
+    {
+        Direction = ParameterDirection.Output
+    }
+            };
+
+
+            // Llamar al procedimiento y obtener los datos en un DataSet
+            DataSet ds = dt.ejecutarSPConColeccion("obtener_clientes", parametros);
+
+            return ds;
+        }
+
+
+
 
     }
 }

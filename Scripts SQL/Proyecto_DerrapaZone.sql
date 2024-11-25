@@ -3,6 +3,150 @@
 /*                  Procedimientos y Funciones                      */
 --/=========================================/
 
+CREATE OR REPLACE PROCEDURE registrar_vehiculo (
+    p_modeloVehiculo     IN tblVehiculo.modeloVehiculo%TYPE,
+    p_marcaVehiculo      IN tblVehiculo.marcaVehiculo%TYPE,
+    p_añoVehiculo        IN tblVehiculo.añoVehiculo%TYPE,
+    p_precioVehiculo     IN tblVehiculo.precioVehiculo%TYPE,
+    p_idProveedor        IN tblVehiculo.idProveedor%TYPE,
+    p_filasInsertadas    OUT NUMBER
+) AS
+    v_existenciaProveedor INTEGER;
+    v_existenciaModelo     INTEGER;
+BEGIN
+
+    -- Validar que el proveedor exista
+    SELECT COUNT(*)
+    INTO v_existenciaProveedor
+    FROM tblProveedor
+    WHERE idProveedor = p_idProveedor;
+    
+    IF v_existenciaProveedor = 0 THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: El proveedor especificado no existe.');
+    END IF;
+
+    -- Validar que no exista un vehículo con el mismo modelo
+    SELECT COUNT(*)
+    INTO v_existenciaModelo
+    FROM tblVehiculo
+    WHERE modeloVehiculo = p_modeloVehiculo;
+    
+    IF v_existenciaModelo > 0 THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error: Ya existe un vehículo con el mismo modelo.');
+    END IF;
+
+    -- Validar que el precio del vehículo sea positivo
+    IF p_precioVehiculo <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El precio del vehículo debe ser un valor positivo.');
+    END IF;
+
+    -- Registrar el vehículo en la tabla tblVehiculo
+    INSERT INTO tblVehiculo (
+        modeloVehiculo, marcaVehiculo, añoVehiculo, precioVehiculo, idProveedor
+    ) VALUES (
+        p_modeloVehiculo, p_marcaVehiculo, p_añoVehiculo, p_precioVehiculo, p_idProveedor
+    );
+
+    -- Confirmar la inserción
+    p_filasInsertadas := 1;
+    DBMS_OUTPUT.PUT_LINE('Vehículo registrado exitosamente.');
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Error inesperado: ' || SQLERRM);
+END registrar_vehiculo;
+
+
+CREATE OR REPLACE PROCEDURE Consultar_informacion_servicios_porId(
+    p_idVenta IN INTEGER,
+    p_servicios OUT SYS_REFCURSOR
+) IS
+BEGIN
+    OPEN p_servicios FOR
+        SELECT
+        v.idVenta,    
+    st.fechaInicioServicio,
+    st.fechaFinServicio,
+    s.tipoServicio,
+    s.costoServicio,
+    v.cedulaCliente,
+    c.nombreCliente
+    FROM tblServiciosPostVenta s
+    INNER JOIN tblRealizaServicioTecnico st
+    ON s.idServicio = st.idServicio
+    INNER JOIN tblVenta v
+    ON st.idVenta = v.idVenta
+    INNER JOIN tblCliente c
+        ON v.cedulaCliente = c.cedulaCliente
+        WHERE v.idVenta = p_idVenta;
+END Consultar_informacion_servicios_porId;
+
+
+
+----Procedimiento para registrar un servicio
+CREATE OR REPLACE PROCEDURE registrar_servicio (
+    p_idServicio         IN tblRealizaServicioTecnico.idServicio%TYPE,
+    p_idTecnico          IN tblRealizaServicioTecnico.idTecnico%TYPE,
+    p_idVenta            IN tblRealizaServicioTecnico.idVenta%TYPE,
+    p_fechaInicio        IN TIMESTAMP,
+    p_fechaFin           IN TIMESTAMP,
+    p_filasInsertadas    OUT NUMBER
+) AS
+    v_estadoTecnico     VARCHAR2(50);
+    v_existenciaVenta   INTEGER;
+BEGIN
+    -- Validar que la fecha de inicio sea anterior a la fecha de fin
+    IF p_fechaInicio >= p_fechaFin THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: La fecha de inicio debe ser anterior a la fecha de fin.');
+    END IF;
+
+    -- Validar que el técnico exista y esté activo
+    BEGIN
+        SELECT estadoTecnico
+        INTO v_estadoTecnico
+        FROM tblTecnico
+        WHERE idTecnico = p_idTecnico;
+        
+        IF v_estadoTecnico != 'activo' THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Error: El técnico no está activo.');
+        END IF;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Error: El técnico especificado no existe.');
+    END;
+
+    -- Validar que la venta exista
+    SELECT COUNT(*)
+    INTO v_existenciaVenta
+    FROM tblVenta
+    WHERE idVenta = p_idVenta;
+
+    IF v_existenciaVenta = 0 THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Error: La venta especificada no existe.');
+    END IF;
+
+    -- Registrar el servicio en la tabla tblRealizaServicioTecnico
+    INSERT INTO tblRealizaServicioTecnico (
+        idServicio, idTecnico, idVenta, fechaInicioServicio, fechaFinServicio
+    ) VALUES (
+        p_idServicio, p_idTecnico, p_idVenta, p_fechaInicio, p_fechaFin
+    );
+
+    -- Confirmar la inserción
+    p_filasInsertadas := 1;
+    DBMS_OUTPUT.PUT_LINE('Servicio registrado y asociado a la venta exitosamente.');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Error: Ya existe un servicio registrado con la misma información.');
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Error inesperado: ' || SQLERRM);
+END registrar_servicio;
+
+
+
+----Procecimiento para registrar un empleado
+
 CREATE OR REPLACE PROCEDURE registrar_empleado (
     p_nombre            IN VARCHAR2,
     p_apellido          IN VARCHAR2,
@@ -109,8 +253,7 @@ BEGIN
     SELECT s.idServicio, st.fechaInicioServicio, st.fechaFinServicio, s.tipoServicio, s.costoServicio
     FROM tblServiciosPostVenta s
     JOIN tblRealizaServicioTecnico st ON s.idServicio = st.idServicio
-    JOIN tblSe_RealizaServicioPostVenta sp ON s.idServicio = sp.idServicio
-    JOIN tblVenta v ON sp.idVenta = v.idVenta
+    JOIN tblVenta v ON st.idVenta = v.idVenta
     WHERE v.cedulaCliente = p_idCliente;
     RETURN cursor_servicios;
 END consultar_servicios_realizados;
@@ -119,6 +262,13 @@ END consultar_servicios_realizados;
 --/=========================================/
 /*               PARA ELIMINAR FUNCIONES           */
 --/=========================================/
+
+
+DROP PROCEDURE registrar_vehiculo;
+
+DROP PROCEDURE Consultar_informacion_servicios_porId;
+
+DROP PROCEDURE registrarServicio;
 
 DROP PROCEDURE registrar_empleado;
 
@@ -673,9 +823,6 @@ END;
 
 
 
-
-
-
 --/=========================================/
 /*               PARA BORRAR PAQUETES           */
 --/=========================================/
@@ -930,7 +1077,7 @@ SET
 WHERE "ID Proveedor" = 1;
 commit;
 
--- Vista para 
+-- Vista para ventas
 CREATE OR REPLACE VIEW vista_ventas AS
 SELECT 
     v.idVenta AS "ID Venta",
@@ -950,6 +1097,55 @@ INNER JOIN
 INNER JOIN
     tblCliente c ON v.cedulaCliente = c.cedulaCliente;
 
+
+
+----Vista de Servicios
+
+CREATE OR REPLACE TRIGGER trg_servicios_update
+INSTEAD OF UPDATE ON vista_servicios
+FOR EACH ROW
+DECLARE
+    v_servicio_exists INTEGER;
+    v_venta_exists INTEGER;
+    v_cliente_exists INTEGER;
+BEGIN
+    -- Verificar que la venta exista
+    SELECT COUNT(*)
+    INTO v_venta_exists
+    FROM tblVenta
+    WHERE idVenta = :NEW.idVenta;
+
+    IF v_venta_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: La venta especificada no existe.');
+    END IF;
+
+    -- Verificar que el cliente exista
+    SELECT COUNT(*)
+    INTO v_cliente_exists
+    FROM tblCliente
+    WHERE cedulaCliente = :NEW.cedulaCliente;
+
+    IF v_cliente_exists = 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Error: El cliente especificado no existe.');
+    END IF;
+
+    -- Actualizar datos en tblServiciosPostVenta
+    UPDATE tblServiciosPostVenta
+    SET tipoServicio = :NEW.tipoServicio,
+        costoServicio = :NEW.costoServicio;
+
+    -- Actualizar datos en tblRealizaServicioTecnico
+    UPDATE tblRealizaServicioTecnico
+    SET fechaInicioServicio = :NEW.fechaInicioServicio,
+        fechaFinServicio = :NEW.fechaFinServicio
+    WHERE idVenta = :NEW.idVenta;
+
+END trg_servicios_update;
+
+
+---Prueba
+
+
 --/=========================================/
 /*               PARA BORRAR VISTAS       */
 --/=========================================/
@@ -959,6 +1155,9 @@ DROP VIEW vista_inventario_ejemplares;
 DROP VIEW vista_proveedores;
 
 DROP VIEW vista_ventas;
+
+DROP VIEW vista_servicios;
+
 
 --/=========================================/
 /*                             INDICES                            */
@@ -979,30 +1178,30 @@ ALTER INDEX idx_tblVehiculo_modeloVehiculo MONITORING USAGE
 --Monitoreo
 SELECT *
 FROM DBA_OBJECT_USAGE
-WHERE TABLE_NAME='TBLVEHICULO'
+WHERE TABLE_NAME='TBLVEHICULO';
 
 ---Esta consulta de tblVehiculo pone el indice en USED Yes
-    SELECT idVehiculo, modeloVehiculo
+  /*  SELECT idVehiculo, modeloVehiculo
     FROM TBLVEHICULO
     WHERE modeloVehiculo LIKE 'M%' ORDER BY
-    modeloVehiculo DESC
+    modeloVehiculo DESC*/
 
 
 --consultes los servicios realizados en los últimos X días. 
 ----Funcion determinista
-CREATE OR REPLACE FUNCTION fn_dias_servicio(p_fechaServicio DATE) 
+CREATE OR REPLACE FUNCTION fn_dias_servicio(p_fechaInicioServicio DATE) 
 RETURN NUMBER
 DETERMINISTIC
 IS
 BEGIN
-    RETURN (SYSDATE - p_fechaServicio);
+    RETURN (SYSDATE - p_fechaInicioServicio);
 END fn_dias_servicio;
 
 ---Indice basado en una funcion para la tblServiciosPostventa
-CREATE INDEX idx_tblServiciosPostVenta_dias_servicio
-ON tblServiciosPostVenta (fn_dias_servicio(fechaServicio));
+CREATE INDEX idx_tblRealizaServicioTecnico_dias_servicio
+ON tblRealizaServicioTecnico (fn_dias_servicio(fechaInicioServicio));
 
-ALTER INDEX idx_tblServiciosPostVenta_dias_servicio MONITORING USAGE;
+ALTER INDEX idx_tblRealizaServicioTecnico_dias_servicio MONITORING USAGE;
 
 ----Debe ejecutarse desde system o un usuario q tenga privilegios 
 --Monitoreo
@@ -1011,16 +1210,16 @@ FROM DBA_OBJECT_USAGE
 WHERE TABLE_NAME='TBLSERVICIOSPOSTVENTA'
 
 ---Esta consulta pone el indice en USED Yes
-SELECT *
+/*SELECT *
 FROM tblServiciosPostVenta
-WHERE fn_dias_servicio(fechaServicio) <= 30;
+WHERE fn_dias_servicio(fechaServicio) <= 30;*/
 
-/=========================================/
+--/=========================================/
 /*               DICCIONARIO DE DATOS         */
-/=========================================/
+--/=========================================/
 
 --1. Mostrar información de los objetos de la BD
-
+;
 SELECT object_name, object_type, created, status
 FROM user_objects
 ORDER BY object_type;

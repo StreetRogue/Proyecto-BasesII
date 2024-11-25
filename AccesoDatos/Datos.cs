@@ -12,7 +12,7 @@ namespace ProyectoBasesII.AccesoDatos
     {
         public Datos() { }
         /*paso 1 crear la cadena de conexion */
-        string cadenaConexion = "Data Source=localhost;User ID=USER_PROYECTOBASES;Password=oracle;";
+        string cadenaConexion = "Data Source=localhost;User ID=USER_BASES;Password=oracle;";
 
         public int ejecutarDML(string consulta)
         {
@@ -184,6 +184,56 @@ namespace ProyectoBasesII.AccesoDatos
 
             return resultado;
         }
+
+        public DataSet ejecutarSPConColeccion(string procedimientoAlmacenado, OracleParameter[] parametros)
+        {
+            DataSet ds = new DataSet();
+
+            using (OracleConnection miConexion = new OracleConnection(cadenaConexion))
+            {
+                OracleCommand miComando = new OracleCommand(procedimientoAlmacenado, miConexion)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                // Agregar parámetros al comando
+                if (parametros != null)
+                {
+                    foreach (var param in parametros)
+                    {
+                        miComando.Parameters.Add(param);
+                    }
+                }
+
+                // Crear el parámetro para el RefCursor
+                OracleParameter p_clientes = new OracleParameter("p_clientes", OracleDbType.RefCursor)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                miComando.Parameters.Add(p_clientes);
+
+                try
+                {
+                    // Abrir conexión
+                    miConexion.Open();
+
+                    // Usar OracleDataAdapter para manejar el resultado del RefCursor
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(miComando))
+                    {
+                        adapter.Fill(ds); // Llenar el DataSet con los resultados del cursor
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+            return ds;
+        }
+
+
+
 
     }
 }

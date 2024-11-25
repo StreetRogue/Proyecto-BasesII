@@ -132,6 +132,7 @@
     <Compile Include="Logica\assetEmpleado.cs" />
     <Compile Include="Logica\assetLogin.cs" />
     <Compile Include="Logica\assetProveedor.cs" />
+    <Compile Include="Logica\assetServicio.cs" />
     <Compile Include="Logica\assetVehiculo.cs" />
     <Compile Include="Logica\assetVenta.cs" />
     <Compile Include="Program.cs" />

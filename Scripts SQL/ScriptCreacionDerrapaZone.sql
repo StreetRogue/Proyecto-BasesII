@@ -175,10 +175,11 @@ CREATE TABLE tblRealizaServicioTecnico (
     idRealizacionServicio INTEGER NOT NULL,   
     idServicio INTEGER NOT NULL,
     idTecnico INTEGER NOT NULL,
+    idVenta INTEGER NOT NULL,
     fechaInicioServicio TIMESTAMP NOT NULL,
-    fechaFinServicio TIMESTAMP NOT NULL,
+    fechaFinServicio TIMESTAMP,
     CONSTRAINT pk_tblRealizaServicioTecnico PRIMARY KEY (idRealizacionServicio),
-    CONSTRAINT uq_servicioTecnico UNIQUE(idServicio, idTecnico, fechaInicioServicio),
+    CONSTRAINT uq_servicioTecnico UNIQUE(idServicio,idVenta, idTecnico, fechaInicioServicio),
     CONSTRAINT fk_tblRealiza_tecnico_id FOREIGN KEY (idTecnico) REFERENCES tblTecnico(idTecnico),
     CONSTRAINT fk_tblRealiza_servicio_id FOREIGN KEY (idServicio) REFERENCES tblServiciosPostVenta(idServicio)
 );
@@ -192,17 +193,6 @@ CREATE TABLE tblInvolucraVentaEjemplar (
     CONSTRAINT pk_tblInvolucraVentaEjemplar PRIMARY KEY (idEjemplar, idVenta),
     CONSTRAINT fk_tblInvolucraVentaEjemplar_ejemplar_id FOREIGN KEY (idEjemplar) REFERENCES tblEjemplar(idEjemplar),
     CONSTRAINT fk_tblInvolucraVentaEjemplar_venta_id FOREIGN KEY (idVenta) REFERENCES tblVenta(idVenta)
-);
-
---/=========================================/
-/* Table: tblSe_RealizaServicioPostVenta                         */
---/=========================================/
-CREATE TABLE tblSe_RealizaServicioPostVenta (
-    idServicio INTEGER NOT NULL,
-    idVenta INTEGER NOT NULL,
-    CONSTRAINT pk_tblSe_RealizaServicioVenta PRIMARY KEY (idServicio, idVenta),
-    CONSTRAINT fk_tblSe_Realiza_Servicio FOREIGN KEY (idServicio) REFERENCES tblServiciosPostVenta(idServicio),
-    CONSTRAINT fk_tblSe_Realiza_venta FOREIGN KEY (idVenta) REFERENCES tblVenta(idVenta)
 );
 
 --/=========================================/
@@ -563,6 +553,20 @@ END trg_bloquear_vendedores_inactivos;
 /
 
 
+CREATE OR REPLACE TRIGGER trg_insert_involucra_venta_ejemplar
+AFTER INSERT ON tblVenta
+FOR EACH ROW
+BEGIN
+    -- Insertar un registro en la tabla tblInvolucraVentaEjemplar
+    INSERT INTO tblInvolucraVentaEjemplar (idEjemplar, idVenta)
+    VALUES (:NEW.idEjemplar, :NEW.idVenta);
+    
+    -- Puedes agregar otros comportamientos en caso de necesitarlo
+    DBMS_OUTPUT.PUT_LINE('Insertado en tblInvolucraVentaEjemplar: idEjemplar = ' || :NEW.idEjemplar || ', idVenta = ' || :NEW.idVenta);
+END;
+
+
+
 /*=========================================*/
 /*               PARA ELIMINAR LOS DISPARADORES           */
 --/=========================================/
@@ -584,6 +588,8 @@ DROP TRIGGER trg_validate_and_set_idEjemplar;
 DROP TRIGGER trg_id_vehiculo_proveedor;
 
 DROP TRIGGER trg_calcular_comision_vendedor;
+
+DROP TRIGGER trg_insert_involucra_venta_ejemplar;
  
 
 --/=========================================/
@@ -685,24 +691,17 @@ VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000, 200
 
 
 --tblRealizaServicioTecnico
-INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico, fechaInicioServicio, fechaFinServicio)
-VALUES (1, 1, TO_TIMESTAMP('2024-07-01 08:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-01 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico,idVenta, fechaInicioServicio, fechaFinServicio)
+VALUES (1, 1, 1 , TO_TIMESTAMP('2024-07-01 08:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-01 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 
-INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico, fechaInicioServicio, fechaFinServicio)
-VALUES (2, 2, TO_TIMESTAMP('2024-07-10 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-10 11:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO tblRealizaServicioTecnico (idServicio, idTecnico,idVenta, fechaInicioServicio, fechaFinServicio)
+VALUES (2, 2, 2, TO_TIMESTAMP('2024-07-10 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2024-07-10 11:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 --tblInvolucraVentaEjemplar 
 INSERT INTO tblInvolucraVentaEjemplar (idEjemplar, idVenta)
 VALUES (1, 1);
 
 INSERT INTO tblInvolucraVentaEjemplar (idEjemplar, idVenta)
-VALUES (2, 2);
-
---tblSe_RealizaServicioPostVenta
-INSERT INTO tblSe_RealizaServicioPostVenta (idServicio, idVenta)
-VALUES (1, 1);
-
-INSERT INTO tblSe_RealizaServicioPostVenta (idServicio, idVenta)
 VALUES (2, 2);
 
 commit;
