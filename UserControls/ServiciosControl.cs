@@ -1,4 +1,5 @@
-﻿using ProyectoBasesII.Logica;
+﻿using Oracle.ManagedDataAccess.Client;
+using ProyectoBasesII.Logica;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,8 @@ namespace ProyectoBasesII.UserControls
                 // Crear una nueva tabla para mostrar datos en la grilla
                 DataTable datosServicios = new DataTable();
                 datosServicios.Columns.Add("ID Venta", typeof(string));
+                datosServicios.Columns.Add("ID Tecnico", typeof(string));
+                datosServicios.Columns.Add("ID Realizacion", typeof(string));
                 datosServicios.Columns.Add("Fecha Inicio Servicio", typeof(DateTime));
                 datosServicios.Columns.Add("Fecha Fin Servicio", typeof(DateTime));
                 datosServicios.Columns.Add("Tipo Servicio", typeof(string));
@@ -42,6 +45,8 @@ namespace ProyectoBasesII.UserControls
                 {
                     DataRow newRow = datosServicios.NewRow();
                     newRow["ID Venta"] = row["idVenta"];
+                    newRow["ID Tecnico"] = row["idTecnico"];
+                    newRow["ID Realizacion"] = row["idRealizacionServicio"];
                     newRow["Fecha Inicio Servicio"] = row["fechaInicioServicio"];
                     newRow["Fecha Fin Servicio"] = row["fechaFinServicio"];
                     newRow["Tipo Servicio"] = row["tipoServicio"];
@@ -62,7 +67,6 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-
         public void CargarTodosLosServicios()
         {
             // Obtener los datos de la vista a través del método buscarServiciosGeneral (deberías implementar este método en tu clase)
@@ -73,6 +77,8 @@ namespace ProyectoBasesII.UserControls
                 // Crear una tabla combinada para mostrar los datos de los servicios
                 DataTable servicios = new DataTable();
                 servicios.Columns.Add("ID Venta", typeof(string));
+                servicios.Columns.Add("ID Tecnico", typeof(string));
+                servicios.Columns.Add("ID Realizacion", typeof(string));
                 servicios.Columns.Add("Fecha Inicio Servicio", typeof(DateTime));
                 servicios.Columns.Add("Fecha Fin Servicio", typeof(DateTime));
                 servicios.Columns.Add("Tipo Servicio", typeof(string));
@@ -85,6 +91,8 @@ namespace ProyectoBasesII.UserControls
                 {
                     DataRow newRow = servicios.NewRow();
                     newRow["ID Venta"] = servicioRow["idVenta"];
+                    newRow["ID Tecnico"] = servicioRow["idTecnico"];
+                    newRow["ID Realizacion"] = servicioRow["idRealizacionServicio"];
                     newRow["Fecha Inicio Servicio"] = servicioRow["fechaInicioServicio"];
                     newRow["Fecha Fin Servicio"] = servicioRow["fechaFinServicio"];
                     newRow["Tipo Servicio"] = servicioRow["tipoServicio"];
@@ -104,7 +112,6 @@ namespace ProyectoBasesII.UserControls
                 dtgServicios.DataSource = null;
             }
         }
-
 
         private void InventarioServiciosControl_Load(object sender, EventArgs e)
         {
@@ -131,7 +138,45 @@ namespace ProyectoBasesII.UserControls
 
         private void btnModificarProveedor_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Validar si hay una celda seleccionada
+                if (dtgServicios.SelectedCells.Count > 0)
+                {
+                    // Obtener la fila seleccionada
+                    int rowIndex = dtgServicios.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dtgServicios.Rows[rowIndex];
 
+                    // Obtener el valor de la columna Id Realiza
+                    int idRealizacionServicio = Convert.ToInt32(selectedRow.Cells["ID Realizacion"].Value);
+
+                    // Llamar al método para actualizar la fecha
+                    objServicios.ActualizarFechaFin(idRealizacionServicio);
+
+                    
+                    CargarTodosLosServicios(); 
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una celda para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Error: La fecha de fin ya está definida y no se puede actualizar."))
+                {
+                    MessageBox.Show("La fecha de fin ya está definida y no se puede actualizar.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+                else if (ex.Message.Contains("Error: Ya existe otro proveedor con el mismo nombre."))
+                {
+                    MessageBox.Show("Ya existe otro proveedor con el mismo nombre.", "Error de Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

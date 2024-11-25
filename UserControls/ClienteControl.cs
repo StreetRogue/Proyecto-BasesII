@@ -13,6 +13,8 @@ namespace ProyectoBasesII.UserControls
 {
     public partial class ClienteControl : UserControl
     {
+        public event Action<string> SolicitarModificarClienteControl;
+
         public ClienteControl()
         {
             InitializeComponent();
@@ -20,95 +22,106 @@ namespace ProyectoBasesII.UserControls
 
         assetCliente objCliente = new assetCliente();
 
-        /*public void MostrarDatosEnGrillaClientes()
+        private void MostrarClientes()
         {
-            // Obtener los datos de la colección de clientes usando el procedimiento almacenado
-            DataSet ds = objCliente.buscarClientesGeneral();
+            DataTable clientes = objCliente.ObtenerClientes();
 
-            // Verificar si el DataSet tiene datos
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            if (clientes.Rows.Count > 0)
             {
-                // Crear una nueva tabla para mostrar datos en la grilla
-                DataTable datosClientes = new DataTable();
-                datosClientes.Columns.Add("Cédula Cliente", typeof(string));
-                datosClientes.Columns.Add("Nombre Cliente", typeof(string));
-                datosClientes.Columns.Add("Apellido Cliente", typeof(string));
-                datosClientes.Columns.Add("Teléfono Cliente", typeof(string));
-                datosClientes.Columns.Add("Email Cliente", typeof(string));
-                datosClientes.Columns.Add("Dirección Cliente", typeof(string));
-
-                // Llenar la tabla con los datos del DataSet
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    DataRow newRow = datosClientes.NewRow();
-                    newRow["Cédula Cliente"] = row["cedulaCliente"];
-                    newRow["Nombre Cliente"] = row["nombreCliente"];
-                    newRow["Apellido Cliente"] = row["apellidoCliente"];
-                    newRow["Teléfono Cliente"] = row["telefonoCliente"];
-                    newRow["Email Cliente"] = row["emailCliente"];
-                    newRow["Dirección Cliente"] = row["direccionCliente"];
-                    datosClientes.Rows.Add(newRow);
-                }
-
-                // Vincular la tabla a la grilla
-                dtgClientes.DataSource = datosClientes;
+                dtgClientes.DataSource = clientes; // Enlazar al control DataGridView
             }
             else
             {
-                // Manejo de caso: No se encontraron datos
-                MessageBox.Show("No se encontraron clientes para mostrar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dtgClientes.DataSource = null;
-            }
-        }*/
-
-        public void CargarTodosLosClientes()
-        {
-            // Obtener los datos de la colección de clientes
-            DataSet ds = objCliente.buscarClientesGeneral();
-
-            // Verificar si el DataSet tiene datos
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                // Crear una nueva tabla para mostrar datos en la grilla
-                DataTable datosClientes = new DataTable();
-                datosClientes.Columns.Add("Cédula Cliente", typeof(string));
-                datosClientes.Columns.Add("Nombre Cliente", typeof(string));
-                datosClientes.Columns.Add("Apellido Cliente", typeof(string));
-                datosClientes.Columns.Add("Teléfono Cliente", typeof(string));
-                datosClientes.Columns.Add("Email Cliente", typeof(string));
-                datosClientes.Columns.Add("Dirección Cliente", typeof(string));
-
-                // Llenar la tabla con los datos del DataSet
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    DataRow newRow = datosClientes.NewRow();
-                    newRow["Cédula Cliente"] = row["cedulaCliente"];
-                    newRow["Nombre Cliente"] = row["nombreCliente"];
-                    newRow["Apellido Cliente"] = row["apellidoCliente"];
-                    newRow["Teléfono Cliente"] = row["telefonoCliente"];
-                    newRow["Email Cliente"] = row["emailCliente"];
-                    newRow["Dirección Cliente"] = row["direccionCliente"];
-                    datosClientes.Rows.Add(newRow);
-                }
-
-                // Asignar la tabla a la grilla
-                dtgClientes.DataSource = datosClientes;
-            }
-            else
-            {
-                // Manejo de caso: No se encontraron datos
-                MessageBox.Show("No se encontraron clientes para mostrar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dtgClientes.DataSource = null;
+                MessageBox.Show("No se encontraron clientes en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
 
         private void ClienteControl_Load(object sender, EventArgs e)
         {
-            CargarTodosLosClientes();
+            MostrarClientes();
         }
 
+        private void btnModificarProveedor_Click(object sender, EventArgs e)
+        {
+            if (dtgClientes.SelectedCells.Count > 0)
+            {
+                // Obtener la celda seleccionada
+                DataGridViewCell celdaSeleccionada = dtgClientes.SelectedCells[0];
+                int filaSeleccionada = celdaSeleccionada.RowIndex;
+
+                // Obtener el valor del ID Proveedor
+                var idProveedor = dtgClientes.Rows[filaSeleccionada].Cells["Cédula del Cliente"].Value;
+
+                if (idProveedor != null)
+                {
+                    SolicitarModificarClienteControl?.Invoke(idProveedor.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo obtener la cédula del cliente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un ejemplar en la grilla antes de modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void MostrarDatosEnGrillaCliente(int cedulaCliente)
+        {
+            // Obtener los datos del procedimiento almacenado
+            DataSet ds = objCliente.buscarCliente(cedulaCliente);
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                // Crear una tabla para mostrar información del proveedor
+                DataTable cliente = new DataTable();
+                cliente.Columns.Add("Cédula del Cliente", typeof(string));
+                cliente.Columns.Add("Nombre del Cliente", typeof(string));
+                cliente.Columns.Add("Apellido del Cliente", typeof(string));
+                cliente.Columns.Add("Teléfono del Cliente", typeof(string));
+                cliente.Columns.Add("Correo Electrónico", typeof(string));
+                cliente.Columns.Add("Dirección del Cliente", typeof(string));
+
+                // Iterar sobre las filas de la tabla para llenar los datos
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    DataRow newRow = cliente.NewRow();
+                    newRow["Cédula del Cliente"] = row["Cédula del Cliente"].ToString();
+                    newRow["Nombre del Cliente"] = row["Nombre del Cliente"].ToString();
+                    newRow["Apellido del Cliente"] = row["Apellido del Cliente"].ToString();
+                    newRow["Teléfono del Cliente"] = row["Teléfono del Cliente"].ToString();
+                    newRow["Correo Electrónico"] = row["Correo Electrónico"].ToString();
+                    newRow["Dirección del Cliente"] = row["Dirección del Cliente"].ToString();
+                    cliente.Rows.Add(newRow);
+                }
+
+                // Vincular los datos a la grilla
+                dtgClientes.DataSource = cliente;
+            }
+            else
+            {
+                // Manejo de caso: No se encontraron datos
+                MessageBox.Show("No se encontró información para el cliente especificado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dtgClientes.DataSource = null;
+            }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBusqueda.Texts))
+            {
+                MostrarClientes();
+            }
+            else if (int.TryParse(txtBusqueda.Texts, out int cedulaCliente))
+            {
+                // Si se ingresa un ID válido, buscar por ese ID
+                MostrarDatosEnGrillaCliente(cedulaCliente);
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un ID válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
-}
+ }
+

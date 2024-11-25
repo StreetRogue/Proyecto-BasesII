@@ -103,7 +103,6 @@ namespace ProyectoBasesII.UserControls
                     MessageBox.Show("Error: " + ex.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-              
         }
     }
 }

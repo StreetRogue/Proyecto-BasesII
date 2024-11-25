@@ -155,6 +155,12 @@
     <Compile Include="UserControls\InventarioEjemplarControl.Designer.cs">
       <DependentUpon>InventarioEjemplarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ModificarClienteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ModificarClienteControl.Designer.cs">
+      <DependentUpon>ModificarClienteControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ModificarInventarioEjemplaresControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -253,6 +259,9 @@
     <EmbeddedResource Include="UserControls\InventarioEjemplarControl.resx">
       <DependentUpon>InventarioEjemplarControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ModificarClienteControl.resx">
+      <DependentUpon>ModificarClienteControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ModificarInventarioEjemplaresControl.resx">
       <DependentUpon>ModificarInventarioEjemplaresControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -323,6 +332,7 @@
     <None Include="Resources\servicioTecnico.png" />
     <None Include="Resources\modificarEjemplarImg.png" />
     <None Include="Resources\ModificarProvImg.png" />
+    <None Include="Resources\modClienteImg.png" />
     <Content Include="Scripts SQL\Proyecto_DerrapaZone.sql" />
     <Content Include="Scripts SQL\Script de Inserts.sql" />
     <Content Include="Scripts SQL\ScriptCreacionDerrapaZone.sql" />
