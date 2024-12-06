@@ -18,6 +18,7 @@ namespace ProyectoBasesII.UserControls
         {
             InitializeComponent();
             this.Load += new System.EventHandler(this.RegistrarServicioControl_Load);
+            cbxTecnico.OnSelectedIndexChanged += new EventHandler(cbxTecnico_OnSelectedIndexChanged);
         }
 
         assetServicio objServicio = new assetServicio();
@@ -28,7 +29,7 @@ namespace ProyectoBasesII.UserControls
 
         private void RegistrarServicioControl_Load(object sender, EventArgs e)
         {
-            CargarTecnicos();
+            CargarIDTecnicos();
             CargarServicios();
             CargarVentas();
         }
@@ -55,15 +56,16 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
-        private void CargarTecnicos()
+
+        private void CargarIDTecnicos()
         {
             try
             {
-                List<string> nombresTecnicos = objEmpleado.ObtenerNombresTecnicos(); // Llamar al método
+                List<int> idTecnicos = objEmpleado.ObtenerIdTecnicos(); // Llamar al método
 
-                if (nombresTecnicos.Count > 0)
+                if (idTecnicos.Count > 0)
                 {
-                    cbxTecnico.DataSource = nombresTecnicos; // Llenar el ComboBox
+                    cbxTecnico.DataSource = idTecnicos; // Llenar el ComboBox
                 }
                 else
                 {
@@ -75,6 +77,7 @@ namespace ProyectoBasesII.UserControls
                 MessageBox.Show("Error al cargar tecnicos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
 
@@ -99,6 +102,22 @@ namespace ProyectoBasesII.UserControls
             }
         }
 
+
+        private void cbxTecnico_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(cbxTecnico.Texts))
+            {
+
+                // Obtener el nombre del cliente seleccionado
+                int idTecnico = int.Parse(cbxTecnico.SelectedItem.ToString());
+                string nombreTecnico = objEmpleado.consultarTecnico(idTecnico);
+
+
+                // Cargar los vehículos asociados al proveedor
+                lblNombreTecnico.Text = nombreTecnico;
+            }
+        }
+
         private void btnRegistrarServicio_Click(object sender, EventArgs e)
         {
             //Variables 
@@ -116,7 +135,7 @@ namespace ProyectoBasesII.UserControls
 
             //PASO 1
 
-            if (string.IsNullOrEmpty(cbxServicio.Texts) || string.IsNullOrEmpty(cbxTecnico.Texts))
+            if (string.IsNullOrEmpty(cbxServicio.Texts) || string.IsNullOrEmpty(cbxTecnico.Texts) || string.IsNullOrEmpty(cbxVenta.Texts))
 
             {
                 MessageBox.Show("Debe llenar todos los campos.", "Ingrese todos los campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -125,7 +144,7 @@ namespace ProyectoBasesII.UserControls
             else
             {
                 nombreServicio = cbxServicio.SelectedItem.ToString();
-                nombreTecnico = cbxTecnico.SelectedItem.ToString();
+                idTecnico = int.Parse(cbxTecnico.SelectedItem.ToString());
                 fechaInicio = dtpFechaServicio.Value;
 
                 //Casteo de la fecha a un string
@@ -138,8 +157,7 @@ namespace ProyectoBasesII.UserControls
             try
             {
                 idServicio = objServicio.consultarServicio(nombreServicio);
-                idTecnico = objServicio.consultarTecnico(nombreTecnico);
-
+                
 
                 if (idServicio == 0)
                 {
@@ -174,5 +192,7 @@ namespace ProyectoBasesII.UserControls
             }
 
         }
+
+
     }
 }

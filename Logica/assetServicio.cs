@@ -151,5 +151,17 @@ namespace ProyectoBasesII.Logica
             }
         }
 
+        public DataSet buscarUltimosServicios()
+        {
+            DataSet ds = new DataSet();
+            string consulta;
+
+            consulta = "SELECT * FROM vista_servicios WHERE fn_dias_servicio(fechaInicioServicio) <= 30";
+
+            ds = dt.ejecutarSelect(consulta);
+
+            return ds;
+        }
+
     }
 }

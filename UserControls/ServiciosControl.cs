@@ -178,5 +178,13 @@ namespace ProyectoBasesII.UserControls
                 }
             }
         }
+
+        private void btnIndice_Click(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            ds = objServicios.buscarUltimosServicios();
+            dtgServicios.DataSource = ds;
+            dtgServicios.DataMember = "ResultadoDatos";
+        }
     }
 }

@@ -40,6 +40,9 @@
             this.dtpFechaServicio = new RJCodeAdvance.RJControls.RJDatePicker();
             this.lblVenta = new System.Windows.Forms.Label();
             this.cbxVenta = new CustomBox.RJControls.RJComboBox();
+            this.pnTecnico = new System.Windows.Forms.Panel();
+            this.lblTecnico = new System.Windows.Forms.Label();
+            this.lblNombreTecnico = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImgCarros)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +57,7 @@
             this.cbxTecnico.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxTecnico.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxTecnico.ListTextColor = System.Drawing.Color.DimGray;
-            this.cbxTecnico.Location = new System.Drawing.Point(463, 325);
+            this.cbxTecnico.Location = new System.Drawing.Point(465, 325);
             this.cbxTecnico.Margin = new System.Windows.Forms.Padding(4);
             this.cbxTecnico.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxTecnico.Name = "cbxTecnico";
@@ -79,7 +82,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFechaIniServicio.AutoSize = true;
             this.lblFechaIniServicio.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaIniServicio.Location = new System.Drawing.Point(458, 382);
+            this.lblFechaIniServicio.Location = new System.Drawing.Point(460, 454);
             this.lblFechaIniServicio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFechaIniServicio.Name = "lblFechaIniServicio";
             this.lblFechaIniServicio.Size = new System.Drawing.Size(308, 28);
@@ -97,7 +100,7 @@
             this.btnRegistrarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrarServicio.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnRegistrarServicio.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrarServicio.Location = new System.Drawing.Point(499, 498);
+            this.btnRegistrarServicio.Location = new System.Drawing.Point(500, 568);
             this.btnRegistrarServicio.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegistrarServicio.Name = "btnRegistrarServicio";
             this.btnRegistrarServicio.Size = new System.Drawing.Size(200, 49);
@@ -131,7 +134,7 @@
             this.cbxServicio.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxServicio.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxServicio.ListTextColor = System.Drawing.Color.DimGray;
-            this.cbxServicio.Location = new System.Drawing.Point(463, 227);
+            this.cbxServicio.Location = new System.Drawing.Point(465, 227);
             this.cbxServicio.Margin = new System.Windows.Forms.Padding(4);
             this.cbxServicio.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxServicio.Name = "cbxServicio";
@@ -147,7 +150,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSelecTecnico.AutoSize = true;
             this.lblSelecTecnico.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelecTecnico.Location = new System.Drawing.Point(463, 284);
+            this.lblSelecTecnico.Location = new System.Drawing.Point(465, 284);
             this.lblSelecTecnico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelecTecnico.Name = "lblSelecTecnico";
             this.lblSelecTecnico.Size = new System.Drawing.Size(210, 28);
@@ -160,7 +163,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblServicio.AutoSize = true;
             this.lblServicio.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblServicio.Location = new System.Drawing.Point(458, 184);
+            this.lblServicio.Location = new System.Drawing.Point(460, 184);
             this.lblServicio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblServicio.Name = "lblServicio";
             this.lblServicio.Size = new System.Drawing.Size(215, 28);
@@ -185,7 +188,7 @@
             this.dtpFechaServicio.CustomFormat = "";
             this.dtpFechaServicio.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             this.dtpFechaServicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaServicio.Location = new System.Drawing.Point(468, 422);
+            this.dtpFechaServicio.Location = new System.Drawing.Point(470, 494);
             this.dtpFechaServicio.MinimumSize = new System.Drawing.Size(4, 35);
             this.dtpFechaServicio.Name = "dtpFechaServicio";
             this.dtpFechaServicio.Size = new System.Drawing.Size(287, 35);
@@ -199,7 +202,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVenta.AutoSize = true;
             this.lblVenta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVenta.Location = new System.Drawing.Point(458, 103);
+            this.lblVenta.Location = new System.Drawing.Point(460, 103);
             this.lblVenta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVenta.Name = "lblVenta";
             this.lblVenta.Size = new System.Drawing.Size(194, 28);
@@ -217,7 +220,7 @@
             this.cbxVenta.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(69)))), ((int)(((byte)(79)))));
             this.cbxVenta.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cbxVenta.ListTextColor = System.Drawing.Color.DimGray;
-            this.cbxVenta.Location = new System.Drawing.Point(463, 135);
+            this.cbxVenta.Location = new System.Drawing.Point(465, 135);
             this.cbxVenta.Margin = new System.Windows.Forms.Padding(4);
             this.cbxVenta.MinimumSize = new System.Drawing.Size(267, 37);
             this.cbxVenta.Name = "cbxVenta";
@@ -227,10 +230,45 @@
             this.cbxVenta.TabIndex = 33;
             this.cbxVenta.Texts = "";
             // 
+            // pnTecnico
+            // 
+            this.pnTecnico.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pnTecnico.Location = new System.Drawing.Point(552, 427);
+            this.pnTecnico.Margin = new System.Windows.Forms.Padding(4);
+            this.pnTecnico.Name = "pnTecnico";
+            this.pnTecnico.Size = new System.Drawing.Size(204, 1);
+            this.pnTecnico.TabIndex = 35;
+            // 
+            // lblTecnico
+            // 
+            this.lblTecnico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTecnico.AutoSize = true;
+            this.lblTecnico.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTecnico.Location = new System.Drawing.Point(456, 399);
+            this.lblTecnico.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTecnico.Name = "lblTecnico";
+            this.lblTecnico.Size = new System.Drawing.Size(88, 28);
+            this.lblTecnico.TabIndex = 34;
+            this.lblTecnico.Text = "Técnico:";
+            // 
+            // lblNombreTecnico
+            // 
+            this.lblNombreTecnico.AutoSize = true;
+            this.lblNombreTecnico.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreTecnico.Location = new System.Drawing.Point(560, 402);
+            this.lblNombreTecnico.Name = "lblNombreTecnico";
+            this.lblNombreTecnico.Size = new System.Drawing.Size(26, 25);
+            this.lblNombreTecnico.TabIndex = 36;
+            this.lblNombreTecnico.Text = "--";
+            // 
             // RegistrarServicioControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblNombreTecnico);
+            this.Controls.Add(this.pnTecnico);
+            this.Controls.Add(this.lblTecnico);
             this.Controls.Add(this.cbxVenta);
             this.Controls.Add(this.lblVenta);
             this.Controls.Add(this.dtpFechaServicio);
@@ -244,7 +282,7 @@
             this.Controls.Add(this.lblSelecTecnico);
             this.Controls.Add(this.lblServicio);
             this.Name = "RegistrarServicioControl";
-            this.Size = new System.Drawing.Size(817, 568);
+            this.Size = new System.Drawing.Size(817, 670);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImgCarros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -265,5 +303,8 @@
         private RJCodeAdvance.RJControls.RJDatePicker dtpFechaServicio;
         private System.Windows.Forms.Label lblVenta;
         private CustomBox.RJControls.RJComboBox cbxVenta;
+        private System.Windows.Forms.Panel pnTecnico;
+        private System.Windows.Forms.Label lblTecnico;
+        private System.Windows.Forms.Label lblNombreTecnico;
     }
 }

@@ -525,10 +525,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
             RAISE_APPLICATION_ERROR(-20011, 'Error: El nombre no puede estar vacío.');
         END IF;
 
-        IF p_emailCliente IS NOT NULL AND NOT REGEXP_LIKE(p_emailCliente, '^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$') THEN
-            RAISE_APPLICATION_ERROR(-20012, 'Error: El formato del email es inválido.');
-        END IF;
-
         -- Verificar si ya existe un cliente con la misma cédula
         SELECT COUNT(*) INTO v_exists
         FROM tblCliente
@@ -1375,9 +1371,9 @@ FROM DBA_OBJECT_USAGE
 WHERE TABLE_NAME='TBLSERVICIOSPOSTVENTA'
 
 ---Esta consulta pone el indice en USED Yes
-/*SELECT *
-FROM tblServiciosPostVenta
-WHERE fn_dias_servicio(fechaServicio) <= 30;*/
+SELECT *
+FROM vista_servicios
+WHERE fn_dias_servicio(fechaInicioServicio) <= 30;
 
 --/=========================================/
 /*               DICCIONARIO DE DATOS         */

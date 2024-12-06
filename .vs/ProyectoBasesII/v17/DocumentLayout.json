@@ -1,7 +1,52 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarserviciocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarserviciocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarserviciocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarserviciocontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\clientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\clientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\proovedorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\modificarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\modificarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\clientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\clientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\modificarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\modificarclientecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|c:\\users\\juane\\onedrive - unicauca.edu.co\\desktop\\proyecto-basesii\\usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{38680958-E255-4068-A3AB-EC1259086B97}|ProyectoBasesII.csproj|solutionrelative:usercontrols\\registrarejemplarcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +54,149 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegistrarClienteControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\RegistrarClienteControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:30:36.253Z",
+              "IsPinned": true,
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClienteControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ClienteControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ClienteControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:31:16.486Z",
+              "IsPinned": true,
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ModificarClienteControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ModificarClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarClienteControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ModificarClienteControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:45:02.462Z",
+              "IsPinned": true,
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ModificarClienteControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ModificarClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ModificarClienteControl.cs",
+              "RelativeToolTip": "UserControls\\ModificarClienteControl.cs",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAgwHAAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:36:00.139Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RegistrarServicioControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarServicioControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarServicioControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarServicioControl.cs",
+              "RelativeToolTip": "UserControls\\RegistrarServicioControl.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAQwCkAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:20:28.664Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProovedoresControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ProovedoresControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\ProovedoresControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:03:11.789Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegistrarServicioControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarServicioControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarServicioControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarServicioControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\RegistrarServicioControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:03:04.885Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClienteControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\ClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\ClienteControl.cs",
+              "RelativeToolTip": "UserControls\\ClienteControl.cs",
+              "ViewState": "AQIAACgAAAAAAAAAAADwvy0AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:31:42.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegistrarClienteControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarClienteControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarClienteControl.cs",
+              "RelativeToolTip": "UserControls\\RegistrarClienteControl.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAiwEwAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:30:40.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RegistrarEjemplarControl.cs",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarEjemplarControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs",
+              "RelativeToolTip": "UserControls\\RegistrarEjemplarControl.cs",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAowHgAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:40:10.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RegistrarEjemplarControl.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs",
+              "RelativeDocumentMoniker": "UserControls\\RegistrarEjemplarControl.cs",
+              "ToolTip": "C:\\Users\\juane\\OneDrive - unicauca.edu.co\\Desktop\\Proyecto-BasesII\\UserControls\\RegistrarEjemplarControl.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UserControls\\RegistrarEjemplarControl.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T13:40:09.11Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"

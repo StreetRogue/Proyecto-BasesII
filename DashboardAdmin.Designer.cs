@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnClientes = new FontAwesome.Sharp.IconButton();
             this.btnRegVehiculo = new CustomBox.RJControls.RJButton();
             this.btnRegEmpleado = new FontAwesome.Sharp.IconButton();
             this.btnLogOut = new FontAwesome.Sharp.IconButton();
@@ -54,7 +55,6 @@
             this.lblSaludo = new System.Windows.Forms.Label();
             this.lblTituloDktp = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnClientes = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelMenuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -85,6 +85,26 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(250, 795);
             this.panelMenu.TabIndex = 0;
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.FlatAppearance.BorderSize = 0;
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.ForeColor = System.Drawing.Color.White;
+            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
+            this.btnClientes.IconColor = System.Drawing.Color.White;
+            this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnClientes.IconSize = 32;
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.Location = new System.Drawing.Point(0, 615);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(250, 44);
+            this.btnClientes.TabIndex = 12;
+            this.btnClientes.Tag = "Clientes";
+            this.btnClientes.Text = "Clientes";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnRegVehiculo
             // 
@@ -468,26 +488,6 @@
             // timer1
             // 
             this.timer1.Interval = 1000;
-            // 
-            // btnClientes
-            // 
-            this.btnClientes.FlatAppearance.BorderSize = 0;
-            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClientes.ForeColor = System.Drawing.Color.White;
-            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.Person;
-            this.btnClientes.IconColor = System.Drawing.Color.White;
-            this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnClientes.IconSize = 32;
-            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(0, 615);
-            this.btnClientes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(250, 44);
-            this.btnClientes.TabIndex = 12;
-            this.btnClientes.Tag = "Clientes";
-            this.btnClientes.Text = "Clientes";
-            this.btnClientes.UseVisualStyleBackColor = true;
-            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // DashboardAdmin
             // 

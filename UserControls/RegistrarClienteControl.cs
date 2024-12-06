@@ -73,7 +73,7 @@ namespace ProyectoBasesII.UserControls
                 varEmailCliente = txtEmailCli.Texts;
                 varDireccionCliente = txtDireccionCli.Texts;
 
-                // Llamar al procedimiento almacenado
+                // Llamar al procedimiento almacenadoregistrarCliente
                 resultado = objCliente.registrarCliente(varCedulaCliente, varNombreCliente, varApellidoCliente, varTelefonoCliente, varEmailCliente, varDireccionCliente);
 
                 if (resultado > 0)

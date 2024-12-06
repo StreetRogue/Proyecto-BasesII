@@ -581,10 +581,6 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Error: La cédula debe ser un número de al menos 5 dígitos.');
     END IF;
 
-    -- Validar que el correo electrónico tenga un formato válido
-    IF :NEW.emailCliente IS NOT NULL AND NOT REGEXP_LIKE(:NEW.emailCliente, '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Error: El formato del correo electrónico es inválido.');
-    END IF;
 
     -- Validar que el teléfono tenga al menos 5 dígitos y permita el prefijo '+'
     IF LENGTH(:NEW.telefonoCliente) < 5 OR NOT REGEXP_LIKE(:NEW.telefonoCliente, '^\+?\d+$') THEN
@@ -712,10 +708,10 @@ VALUES (1, 1, 'disponible');
 
 --tblVenta
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000, 1800, 1, 1, 1);
+VALUES (TO_TIMESTAMP('2024-05-10 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18000, 1800, 1, 123456, 1);
 
 INSERT INTO tblVenta (fechaVenta, totalVenta, comisionVenta, idVendedor, cedulaCliente, idEjemplar)
-VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000, 2000, 2, 2, 2);
+VALUES (TO_TIMESTAMP('2024-06-01 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 22000, 2000, 2, 7890123, 2);
 
 
 --tblRealizaServicioTecnico

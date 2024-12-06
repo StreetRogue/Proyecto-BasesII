@@ -58,10 +58,11 @@ namespace ProyectoBasesII.Logica
             return nombresVendedores;
         }
 
-        public List<string> ObtenerNombresTecnicos()
+
+        public List<int> ObtenerIdTecnicos()
         {
-            List<string> nombresTecnicos = new List<string>();
-            string consulta = "SELECT nombreTecnico FROM tblTecnico";
+            List<int> idTecnicos = new List<int>();
+            string consulta = "SELECT idTecnico FROM tblTecnico";
 
             // Usar el método ejecutarSelect para obtener el DataSet
             DataSet ds = dt.ejecutarSelect(consulta);
@@ -71,11 +72,30 @@ namespace ProyectoBasesII.Logica
             {
                 foreach (DataRow row in ds.Tables["resultadoDatos"].Rows)
                 {
-                    nombresTecnicos.Add(row["nombreTecnico"].ToString());
+                    idTecnicos.Add(Convert.ToInt32(row["idTecnico"]));
                 }
             }
 
-            return nombresTecnicos;
+            return idTecnicos;
+        }
+
+        public string consultarTecnico(int idTecnico)
+        {
+            DataSet ds = new DataSet();
+            string auxnombreTecnico = "";
+            string consulta = "SELECT nombreTecnico FROM tblTecnico WHERE idTecnico = '" + idTecnico + "'";
+            ds = dt.ejecutarSelect(consulta);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                auxnombreTecnico = Convert.ToString(ds.Tables[0].Rows[0]["nombreTecnico"]);
+
+                return auxnombreTecnico;
+            }
+            else
+            {
+                return "";
+            }
         }
 
     }

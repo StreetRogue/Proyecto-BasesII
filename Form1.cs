@@ -54,6 +54,9 @@ namespace ProyectoBasesII
             if (rolUsuario == "ADMIN")
             {
                 DashboardAdmin adminForm = new DashboardAdmin();
+                adminForm.StartPosition = FormStartPosition.CenterScreen; // Centrar el formulario en la pantalla
+                adminForm.WindowState = FormWindowState.Normal;           // Asegurarte de que no esté minimizado o maximizado
+                adminForm.Size = new Size(1082, 795);                   // Opcional: Configurar tamaño específico
                 adminForm.Show();
                 this.Hide();
             }
